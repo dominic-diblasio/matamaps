@@ -8,8 +8,6 @@
     <br />
     Due to an ever-evolving student life on campus, the growth of clubs and on-campus events has fueled a need for a centralized application to facilitate these activities, and to keep them easily accessible to all students.
     <br />
-    <a href="https://github.com/dominic-diblasio/WordTracks-GIT"><strong>Explore the docs »</strong></a>
-    <br />
     <br />
     ·
     <a href="https://github.com/dominic-diblasio/matamaps/issues">Our To-Do List!</a>
