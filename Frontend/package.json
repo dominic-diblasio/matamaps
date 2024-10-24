@@ -1,5 +1,6 @@
 {
-  "name": "mytask",
+  "homepage": "https://dominic-diblasio.github.io/matamaps",
+  "name": "matamaps",
   "version": "0.1.0",
   "private": true,
   "homepage": "/template/my-task/react/",
@@ -28,6 +29,8 @@
     "styled-components": "^5.3.3"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
