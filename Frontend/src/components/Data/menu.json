@@ -1,0 +1,409 @@
+{
+    "menu": [
+        {
+            "name": "Dashboard",
+            "routerLink": [""],
+            "identifier": "dashboard",
+            "iconClass": "icofont-home fs-5",
+            "breadcrumbMessage": "Welcome to Analytics Dashboard.",
+            "isCategory": false,
+            "isApp": false,
+            "children": [
+                {
+                    "name": "Hr Dashboard",
+                    "routerLink": ["hr-dashboard"],
+                    "identifier": "Hr Dashboard",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                },
+                {
+                    "name": "Project Dashboard",
+                    "routerLink": ["project-dashboard"],
+                    "identifier": "Project Dashboard",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "Projects",
+            "routerLink": [""],
+            "identifier": "Projects",
+            "iconClass": "icofont-briefcase",
+            "breadcrumbMessage": "",
+            "isCategory": false,
+            "isApp": false,
+            "children": [
+                {
+                    "name": "Projects",
+                    "routerLink": ["projects"],
+                    "identifier": "Projects",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                },
+                {
+                    "name": "Tasks",
+                    "routerLink": ["tasks"],
+                    "identifier": "Tasks",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                },
+                {
+                    "name": "Timesheet",
+                    "routerLink": ["timesheet"],
+                    "identifier": "Timesheet",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                },
+                {
+                    "name": "Leaders",
+                    "routerLink": ["leaders"],
+                    "identifier": "Leaders",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                }
+
+            ]
+        },
+
+        {
+            "name": "Tickets",
+            "routerLink": [""],
+            "identifier": "Tickets",
+            "iconClass": "icofont-ticket",
+            "breadcrumbMessage": "",
+            "isCategory": false,
+            "isApp": true,
+            "children": [
+                {
+                    "name": "Tickets View",
+                    "routerLink": ["tickets-view"],
+                    "identifier": "Tickets View",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                },
+                {
+                    "name": "Tickets Detail",
+                    "routerLink": ["tickets-detail"],
+                    "identifier": "Tickets Detail",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "Our Clients",
+            "routerLink": [""],
+            "identifier": "Our Clients",
+            "iconClass": "icofont-user-male",
+            "breadcrumbMessage": "",
+            "isCategory": false,
+            "isApp": true,
+            "children": [
+                {
+                    "name": "Clients",
+                    "routerLink": ["clients"],
+                    "identifier": "Clients",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                },
+                {
+                    "name": "Client Profile",
+                    "routerLink": ["client-profile"],
+                    "identifier": "Client Profile",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "Employees",
+            "routerLink": [""],
+            "identifier": "Employees",
+            "iconClass": "icofont-users-alt-5",
+            "breadcrumbMessage": "",
+            "isCategory": false,
+            "isApp": true,
+            "children": [
+                {
+                    "name": "Members",
+                    "routerLink": ["members"],
+                    "identifier": "Members",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                },
+                {
+                    "name": "Members Profile",
+                    "routerLink": ["members-profile"],
+                    "identifier": "Members Profile",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                },
+                {
+                    "name": "Holidays",
+                    "routerLink": ["holidays"],
+                    "identifier": "Holidays",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                },
+                {
+                    "name": "Attendance Employees",
+                    "routerLink": ["attendance-employees"],
+                    "identifier": "Attendance Employees",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                },
+                {
+                    "name": "Attendance",
+                    "routerLink": ["attendance"],
+                    "identifier": "Attendance",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                },
+                {
+                    "name": "Leave Request",
+                    "routerLink": ["leave-request"],
+                    "identifier": "Leave Request",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                },
+                {
+                    "name": "Department",
+                    "routerLink": ["department"],
+                    "identifier": "Department",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "Accounts",
+            "routerLink": [""],
+            "identifier": "Accounts",
+            "iconClass": "icofont-ui-calculator",
+            "breadcrumbMessage": "",
+            "isCategory": false,
+            "isApp": true,
+            "children": [
+                {
+                    "name": "Invoices",
+                    "routerLink": ["invoices"],
+                    "identifier": "Invoices",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                },
+                {
+                    "name": "Payments",
+                    "routerLink": ["payments"],
+                    "identifier": "Payments",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                },
+                {
+                    "name": "Expenses",
+                    "routerLink": ["expenses"],
+                    "identifier": "Expenses",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "Payroll",
+            "routerLink": [""],
+            "identifier": "Payroll",
+            "iconClass": "icofont-users-alt-5",
+            "breadcrumbMessage": "",
+            "isCategory": false,
+            "isApp": true,
+            "children": [
+                {
+                    "name": "Employee Salary",
+                    "routerLink": ["employee-salary"],
+                    "identifier": "Employee Salary",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "App",
+            "routerLink": [""],
+            "identifier": "App",
+            "iconClass": "icofont-contrast",
+            "breadcrumbMessage": "",
+            "isCategory": false,
+            "isApp": true,
+            "children": [
+                {
+                    "name": "Calander",
+                    "routerLink": ["calander"],
+                    "identifier": "Calander",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                },
+                {
+                    "name": "Chat App",
+                    "routerLink": ["chat-app"],
+                    "identifier": "Chat App",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "Other Pages",
+            "routerLink": [],
+            "identifier": "Other Pages",
+            "iconClass": "icofont-code-alt",
+            "breadcrumbMessage": "",
+            "isCategory": false,
+            "isApp": false,
+            "children": [
+                {
+                    "name": "Apex Charts",
+                    "routerLink": ["apex-charts"],
+                    "identifier": "Apex Charts",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                },
+                {
+                    "name": "Forms Example",
+                    "routerLink": ["forms-example"],
+                    "identifier": "Forms Example",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                },
+                {
+                    "name": "Table Example",
+                    "routerLink": ["table-example"],
+                    "identifier": "Table Example",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                },
+                {
+                    "name": "Reviews Page",
+                    "routerLink": ["reviews-page"],
+                    "identifier": "Reviews Page",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                },
+                {
+                    "name": "Icons",
+                    "routerLink": ["icons"],
+                    "identifier": "Icons",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                },
+                {
+                    "name": "Widgets",
+                    "routerLink": ["widgets"],
+                    "identifier": "Widgets",
+                    "iconClass": "",
+                    "breadcrumbMessage": "",
+                    "isCategory": false,
+                    "isApp": false,
+                    "children": []
+                }
+                
+            ]
+        },
+        {
+            "name": "UI Components",
+            "routerLink": [""],
+            "identifier": "uiComponents",
+            "iconClass": "icofont-paint",
+            "breadcrumbMessage": "",
+            "isCategory": false,
+            "isApp": false,
+            "isToggled":true,
+            "children": [
+              
+            ]
+        }
+    ]
+}
