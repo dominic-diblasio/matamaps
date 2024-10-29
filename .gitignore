@@ -16,6 +16,18 @@
 # production
 /Frontend/build
 
+####### MIDDLEWARE #######
+# dependencies
+/Middleware/Nodejs/node_modules
+/Middleware/Nodejs/.pnp
+.pnp.js
+
+# testing
+/Middleware/Nodejs/coverage
+
+# production
+/Middleware/Nodejs/build
+
 # misc
 .DS_Store
 .env.local
