@@ -109,6 +109,66 @@ CREATE TABLE ClubApprovalRequests (
     CONSTRAINT fk_clubapprovalrequests_user FOREIGN KEY (requested_by) REFERENCES Users(user_id) ON DELETE CASCADE
 );
 
+CREATE TABLE ClubInvitations (
+    invitation_id INT AUTO_INCREMENT PRIMARY KEY,
+    club_id INT,
+    invitation_code VARCHAR(20) UNIQUE NOT NULL,
+    status ENUM('active', 'expired', 'used') DEFAULT 'active',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    expires_at TIMESTAMP DEFAULT NULL,
+    CONSTRAINT fk_clubinvitations_club FOREIGN KEY (club_id) REFERENCES Clubs(club_id) ON DELETE CASCADE
+);
+
+CREATE TABLE EventRSVP (
+    rsvp_id INT AUTO_INCREMENT PRIMARY KEY,
+    event_id INT,
+    user_id INT,
+    status ENUM('accepted', 'declined', 'tentative') DEFAULT 'accepted',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_eventrsvp_event FOREIGN KEY (event_id) REFERENCES Events(event_id) ON DELETE CASCADE,
+    CONSTRAINT fk_eventrsvp_user FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE ClubDiscussions (
+    discussion_id INT AUTO_INCREMENT PRIMARY KEY,
+    club_id INT,
+    user_id INT,
+    message TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_clubdiscussions_club FOREIGN KEY (club_id) REFERENCES Clubs(club_id) ON DELETE CASCADE,
+    CONSTRAINT fk_clubdiscussions_user FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE SET NULL
+);
+
+CREATE TABLE EventLocations (
+    location_id INT AUTO_INCREMENT PRIMARY KEY,
+    event_id INT,
+    latitude DECIMAL(9, 6),
+    longitude DECIMAL(9, 6),
+    address VARCHAR(255) DEFAULT NULL,
+    CONSTRAINT fk_eventlocations_event FOREIGN KEY (event_id) REFERENCES Events(event_id) ON DELETE CASCADE
+);
+
+CREATE TABLE Notifications (
+    notification_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    message TEXT NOT NULL,
+    notification_type ENUM('event_update', 'club_post', 'reminder') NOT NULL,
+    status ENUM('unread', 'read') DEFAULT 'unread',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_notifications_user FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE ClubEvents (
+    club_event_id INT AUTO_INCREMENT PRIMARY KEY,
+    club_id INT,
+    event_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_clubevents_club FOREIGN KEY (club_id) REFERENCES Clubs(club_id) ON DELETE CASCADE,
+    CONSTRAINT fk_clubevents_event FOREIGN KEY (event_id) REFERENCES Events(event_id) ON DELETE CASCADE
+);
+
 -- Step 3: Create Triggers
 
 -- Trigger to automatically set a user's role to 'club_leader' when creating a club
