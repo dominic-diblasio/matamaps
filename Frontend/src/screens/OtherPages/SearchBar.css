@@ -1,0 +1,45 @@
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+}
+
+.search-btn {
+    padding: 8px 16px;
+}
+
+.filter-button-placeholder{
+    margin-bottom: 0.8rem;
+}
+
+/* const messages = [
+  { id: "message1", sender: "Google+", subject: "You were tagged in 3 photos", snippet: "Google+ You were tagged in three photos...", uploaded_at: "2024-10-20" },
+  { id: "message2", sender: "YouTube", subject: "LauraBlack just uploaded a video.", snippet: "Jess, have you seen the video LauraBlack...", uploaded_at: "2024-10-21" },
+  { id: "message3", sender: "Google+", subject: "You were tagged in 3 photos", snippet: "Google+ You were tagged in three photos...", uploaded_at: "2024-10-20" },
+  { id: "message4", sender: "YouTube", subject: "LauraBlack just uploaded a video.", snippet: "Jess, have you seen the video LauraBlack...", uploaded_at: "2024-10-21" },
+  { id: "message5", sender: "Google+", subject: "You were tagged in 3 photos", snippet: "Google+ You were tagged in three photos...", uploaded_at: "2024-10-20" },
+  { id: "message6", sender: "YouTube", subject: "LauraBlack just uploaded a video.", snippet: "Jess, have you seen the video LauraBlack...", uploaded_at: "2024-10-21" },
+  { id: "message7", sender: "Google+", subject: "You were tagged in 3 photos", snippet: "Google+ You were tagged in three photos...", uploaded_at: "2024-10-20" },
+  { id: "message8", sender: "YouTube", subject: "LauraBlack just uploaded a video.", snippet: "Jess, have you seen the video LauraBlack...", uploaded_at: "2024-10-21" },
+  { id: "message9", sender: "Google+", subject: "You were tagged in 3 photos", snippet: "Google+ You were tagged in three photos...", uploaded_at: "2024-10-20" },
+  { id: "message10", sender: "YouTube", subject: "LauraBlack just uploaded a video.", snippet: "Jess, have you seen the video LauraBlack...", uploaded_at: "2024-10-21" },
+  { id: "message11", sender: "Google+", subject: "You were tagged in 3 photos", snippet: "Google+ You were tagged in three photos...", uploaded_at: "2024-10-20" },
+  { id: "message12", sender: "YouTube", subject: "LauraBlack just uploaded a video.", snippet: "Jess, have you seen the video LauraBlack...", uploaded_at: "2024-10-21" },
+  { id: "message13", sender: "Google+", subject: "You were tagged in 3 photos", snippet: "Google+ You were tagged in three photos...", uploaded_at: "2024-10-20" },
+  { id: "message14", sender: "YouTube", subject: "LauraBlack just uploaded a video.", snippet: "Jess, have you seen the video LauraBlack...", uploaded_at: "2024-10-21" },
+  { id: "message15", sender: "Google+", subject: "You were tagged in 3 photos", snippet: "Google+ You were tagged in three photos...", uploaded_at: "2024-10-20" },
+  { id: "message16", sender: "YouTube", subject: "LauraBlack just uploaded a video.", snippet: "Jess, have you seen the video LauraBlack...", uploaded_at: "2024-10-21" },
+  { id: "message17", sender: "Google+", subject: "You were tagged in 3 photos", snippet: "Google+ You were tagged in three photos...", uploaded_at: "2024-10-20" },
+  { id: "message18", sender: "YouTube", subject: "LauraBlack just uploaded a video.", snippet: "Jess, have you seen the video LauraBlack...", uploaded_at: "2024-10-21" },
+
+  // Add additional messages as needed...
+]; */

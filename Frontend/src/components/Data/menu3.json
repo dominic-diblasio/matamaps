@@ -1,0 +1,74 @@
+{
+    "menu3": [
+        {
+            "name": "Already Registered? Login",
+            "routerLink": ["login"],
+            "identifier": "Login",
+            "iconClass": "icofont-login",
+            "breadcrumbMessage": "Login account.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },
+        {
+            "name": "Registration",
+            "routerLink": ["registration"],
+            "identifier": "Registration",
+            "iconClass": "icofont-users-alt-5",
+            "breadcrumbMessage": "Register a new employee.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },
+        {
+            "name": "Events",
+            "routerLink": ["events"],
+            "identifier": "Events",
+            "iconClass": "icofont-calendar",
+            "breadcrumbMessage": "View events.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },
+        {
+            "name": "Clubs",
+            "routerLink": ["clubs"],
+            "identifier": "Clubs",
+            "iconClass": "icofont-group",
+            "breadcrumbMessage": "View clubs.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },
+        {
+            "name": "Club Members",
+            "routerLink": ["club-members"],
+            "identifier": "ClubMembers",
+            "iconClass": "icofont-users-alt-2",
+            "breadcrumbMessage": "View club members.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },
+        {
+            "name": "Messages",
+            "routerLink": ["messages"],
+            "identifier": "Messages",
+            "iconClass": "icofont-envelope",
+            "breadcrumbMessage": "View messages.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },
+        {
+            "name": "Personal Details",
+            "routerLink": ["personal-details"],
+            "identifier": "PersonalDetails",
+            "iconClass": "icofont-id-card",
+            "breadcrumbMessage": "View personal details.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        }
+    ]
+}
