@@ -8,9 +8,8 @@
 # dependencies
 /Frontend/node_modules
 /Frontend/.pnp
-/Frontend/.env
+Frontend/.env
 .pnp.js
-.env
 
 # testing
 /Frontend/coverage
@@ -44,8 +43,3 @@ yarn-error.log*
 /Middleware/Nodejs
 /Middleware
 Middleware/Nodejs/.env
-.env
-Frontend/.env
-/Frontend
-Frontend/.env
-/Frontend
