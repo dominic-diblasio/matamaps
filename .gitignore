@@ -39,3 +39,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 ### END OF FRONTEND ###
+/Middleware/Nodejs
+/Middleware
+Middleware/Nodejs/.env

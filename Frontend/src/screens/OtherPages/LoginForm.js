@@ -41,7 +41,7 @@ function LoginForm() {
     if (!emailError) {
       try {
         const response = await axios.post(
-          `http://0.0.0.0:3500/employee/login/check`,
+          `http://localhost:3500/login`,
           formData,
           { withCredentials: true } // Ensures cookies like JWT and session_id are sent with request
         );
