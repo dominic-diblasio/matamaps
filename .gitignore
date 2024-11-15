@@ -45,3 +45,7 @@ yarn-error.log*
 /Middleware
 Middleware/Nodejs/.env
 .env
+Frontend/.env
+/Frontend
+Frontend/.env
+/Frontend
