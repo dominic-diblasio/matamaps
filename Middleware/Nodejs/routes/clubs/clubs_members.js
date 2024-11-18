@@ -1,27 +1,46 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 
 // Authentication middleware
 const authenticateToken = async (req, res, next) => {
   try {
-    const authResponse = await axios.get('http://localhost:3500/auth/authenticateToken', {
-      headers: {
-        Cookie: req.headers.cookie // Forward the cookies
-      }
-    });
+    // Extract token from cookies or Authorization header
+    const token = req.cookies.jwt_token || req.headers['authorization']?.split(' ')[1];
 
-    if (!authResponse.data.success) {
-      return res.status(401).json({ success: false, message: 'Authentication failed' });
+    if (!token) {
+      return res.status(401).json({ success: false, message: 'No token provided' });
     }
 
-    req.session_id = authResponse.data.session_id;
+    // Verify the JWT token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const { session_id } = decoded;
+
+    if (!session_id) {
+      return res.status(401).json({ success: false, message: 'Invalid token payload' });
+    }
+
+    // Check if session ID exists in Redis
+    const sessionExists = await redisClient.get(session_id);
+    if (!sessionExists) {
+      return res.status(401).json({ success: false, message: 'Session expired or invalid' });
+    }
+
+    // Attach session ID to the request object
+    req.session_id = session_id;
+
     next();
   } catch (err) {
     console.error('Authentication error:', err);
-    if (err.response && err.response.status === 403) {
-      return res.status(403).json({ success: false, message: 'Token expired', redirect: '/login' });
+
+    if (err.name === 'TokenExpiredError') {
+      return res.status(401).json({
+        success: false,
+        message: 'Session expired, please login again',
+      });
     }
+
     return res.status(500).json({
       success: false,
       message: 'Error during authentication',

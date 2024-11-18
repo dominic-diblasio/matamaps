@@ -41,7 +41,7 @@ function LoginForm() {
     if (!emailError) {
       try {
         const response = await axios.post(
-          `http://0.0.0.0:3500/employee/login/check`,
+          `http://0.0.0.0:3500/user/login/check`,
           formData,
           { withCredentials: true } // Ensures cookies like JWT and session_id are sent with request
         );
@@ -52,12 +52,12 @@ function LoginForm() {
           // But if you need to use employee_id in frontend, store it using js-cookie
           // Cookies.set('employee_id', response.data.data.employee_id, { secure: false });
           Cookies.set('jwt_token', response.data.data.jwt_token, { secure: false });
-          Cookies.set('session_id', response.data.data.session_id, { secure: false });
+          // Cookies.set('session_id', response.data.data.session_id, { secure: false });
 
           setLoginMessage("Login successful!");
 
           // Redirect to the target page after successful login
-          navigate("/app/onboarding-i9");
+          navigate("/dashboard");
         } else {
           setLoginMessage(response.data.message || "Login failed. Invalid credentials.");
         }

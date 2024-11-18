@@ -22,7 +22,7 @@ function EmptyPageIndex(props) {
                     <Route exact path="/registration" element={<RegisterationForm />} />
                     <Route exact path="/login" element={<LoginPage />} />
                     <Route exact path="/forgot-password" element={<ForgotPassword />} />
-                    <Route exact path="/my-dashboard" element={<Dashboard />} />
+                    <Route exact path="/dashboard" element={<Dashboard />} />
                     <Route path="/events" element={<Events />} />
                     <Route path="/clubs" element={<Clubs />} />
                     <Route path="/club-members" element={<ClubMembers />} />

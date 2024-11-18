@@ -1,27 +1,40 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 
 // Authentication middleware
 const authenticateToken = async (req, res, next) => {
   try {
-    const authResponse = await axios.get('http://localhost:3500/auth/authenticateToken', {
-      headers: {
-        Cookie: req.headers.cookie // Forward the cookies
-      }
-    });
+    // Extract token from cookies or Authorization header
+    const token = req.cookies.jwt_token || req.headers['authorization']?.split(' ')[1];
 
-    if (!authResponse.data.success) {
-      return res.status(401).json({ success: false, message: 'Authentication failed' });
+    if (!token) {
+      return res.status(401).json({ success: false, message: 'No token provided' });
     }
 
-    req.session_id = authResponse.data.session_id;
+    // Verify the JWT token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const { session_id } = decoded;
+
+    if (!session_id) {
+      return res.status(401).json({ success: false, message: 'Invalid token payload' });
+    }
+
+    // Attach session ID to the request object
+    req.session_id = session_id;
+
     next();
   } catch (err) {
     console.error('Authentication error:', err);
-    if (err.response && err.response.status === 403) {
-      return res.status(403).json({ success: false, message: 'Token expired', redirect: '/login' });
+
+    if (err.name === 'TokenExpiredError') {
+      return res.status(401).json({
+        success: false,
+        message: 'Session expired, please login again',
+      });
     }
+
     return res.status(500).json({
       success: false,
       message: 'Error during authentication',
@@ -29,38 +42,40 @@ const authenticateToken = async (req, res, next) => {
   }
 };
 
-// Endpoint to view club details
-router.get('/:club_id', authenticateToken, async (req, res) => {
+// Fetch all active clubs
+router.get('/', authenticateToken, async (req, res) => {
   const db = router.locals.db;
-  const { club_id } = req.params;
 
   try {
-    // Fetch club details by club_id
-    const club = await db('Clubs')
-      .select('club_id', 'club_name', 'description', 'created_by', 'created_at', 'updated_at')
-      .where({ club_id })
-      .first();
+    // Fetch active clubs
+    const activeClubs = await db('Clubs')
+      .select('club_id', 'club_name', 'description', 'logo', 'image')
+      .where('status', 'active');
 
-    if (!club) {
-      return res.status(404).json({ success: false, message: 'Club not found' });
+    if (!activeClubs.length) {
+      return res.status(404).json({
+        success: false,
+        message: 'No active clubs found',
+      });
     }
 
-    console.log(`Fetched details for club_id: ${club_id}`);
+    console.log('Fetched active clubs:', activeClubs);
 
     res.status(200).json({
       success: true,
-      data: club
+      data: activeClubs,
     });
   } catch (err) {
-    console.error('Error fetching club details:', err);
-    return res.status(500).json({
+    console.error('Error fetching active clubs:', err);
+    res.status(500).json({
       success: false,
-      message: 'Error fetching club details',
+      message: 'Error fetching active clubs',
     });
   }
 });
 
+// Export updated router
 module.exports = {
-  path: '/clubs/view',
+  path: '/clubs/active',
   router,
 };
