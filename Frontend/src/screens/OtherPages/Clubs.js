@@ -56,7 +56,7 @@ function Clubs() {
                 <div className="card-body">
                   <h5 className="card-title">{club.club_name}</h5>
                   <p className="card-text">{club.description}</p>
-                  <a href={`/clubs/${club.club_id}`} className="btn btn-primary">
+                  <a href={`/club-members/${club.club_id}`} className="btn btn-primary">
                     Learn More
                   </a>
                 </div>
