@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `Announcements`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Announcements` (
-  `announcement_id` int NOT NULL AUTO_INCREMENT,
+  `announcement_id` int NOT NULL,
   `club_id` int DEFAULT NULL,
   `event_id` int DEFAULT NULL,
   `message` text NOT NULL,
@@ -45,7 +45,36 @@ CREATE TABLE `Announcements` (
 --
 
 /*!40000 ALTER TABLE `Announcements` DISABLE KEYS */;
+INSERT INTO `Announcements` VALUES (591428,693354,441399,'Drama rehearsals will take place in Room 202. Don’t miss it!',3,'2024-11-18 17:41:35','2024-11-18 17:41:35'),(966724,693353,464201,'Prepare your cameras for our outdoor photography adventure!',1,'2024-11-18 17:41:35','2024-11-18 17:41:35'),(996806,693353,247599,'Join us for an amazing photography workshop this weekend!',1,'2024-11-18 17:41:35','2024-11-18 17:41:35');
 /*!40000 ALTER TABLE `Announcements` ENABLE KEYS */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `generate_announcement_id` BEFORE INSERT ON `announcements` FOR EACH ROW BEGIN
+    DECLARE random_id INT;
+
+    -- Generate a random unique announcement_id
+    SET random_id = FLOOR(RAND() * 1000000);
+
+    -- Ensure announcement_id is unique
+    WHILE EXISTS (SELECT 1 FROM Announcements WHERE announcement_id = random_id) DO
+        SET random_id = FLOOR(RAND() * 1000000);
+    END WHILE;
+
+    -- Assign the unique announcement_id
+    SET NEW.announcement_id = random_id;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `ClubApprovalRequests`
@@ -113,12 +142,12 @@ DROP TABLE IF EXISTS `ClubEvents`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ClubEvents` (
-  `club_event_id` int NOT NULL AUTO_INCREMENT,
-  `club_id` int DEFAULT NULL,
+  `club_event_id` int NOT NULL,
+  `club_id` int NOT NULL,
   `event_id` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`club_event_id`),
-  KEY `fk_clubevents_club` (`club_id`),
+  `status` enum('active','pending','inactive') DEFAULT 'pending',
+  PRIMARY KEY (`club_id`,`club_event_id`),
   KEY `fk_clubevents_event` (`event_id`),
   CONSTRAINT `fk_clubevents_club` FOREIGN KEY (`club_id`) REFERENCES `Clubs` (`club_id`) ON DELETE CASCADE,
   CONSTRAINT `fk_clubevents_event` FOREIGN KEY (`event_id`) REFERENCES `Events` (`event_id`) ON DELETE CASCADE
@@ -130,7 +159,34 @@ CREATE TABLE `ClubEvents` (
 --
 
 /*!40000 ALTER TABLE `ClubEvents` DISABLE KEYS */;
+INSERT INTO `ClubEvents` VALUES (1,693353,247599,'2024-11-18 17:28:58','active'),(2,693353,464201,'2024-11-18 17:28:58','pending'),(1,693354,441399,'2024-11-18 17:28:58','active');
 /*!40000 ALTER TABLE `ClubEvents` ENABLE KEYS */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `generate_club_event_id` BEFORE INSERT ON `clubevents` FOR EACH ROW BEGIN
+    DECLARE max_club_event_id INT;
+
+    -- Determine the next club_event_id for the given club_id
+    SELECT IFNULL(MAX(club_event_id), 0) + 1
+    INTO max_club_event_id
+    FROM ClubEvents
+    WHERE club_id = NEW.club_id;
+
+    -- Assign the next club_event_id
+    SET NEW.club_event_id = max_club_event_id;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `ClubInvitations`
@@ -175,12 +231,13 @@ CREATE TABLE `ClubMembers` (
   `status` enum('pending','active','removed') DEFAULT 'pending',
   `joined_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `profile_picture` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`membership_id`),
   KEY `fk_clubmembers_club` (`club_id`),
   KEY `fk_clubmembers_user` (`user_id`),
   CONSTRAINT `fk_clubmembers_club` FOREIGN KEY (`club_id`) REFERENCES `Clubs` (`club_id`) ON DELETE CASCADE,
   CONSTRAINT `fk_clubmembers_user` FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=842964 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,7 +245,67 @@ CREATE TABLE `ClubMembers` (
 --
 
 /*!40000 ALTER TABLE `ClubMembers` DISABLE KEYS */;
+INSERT INTO `ClubMembers` VALUES (3731,693353,5,'leader','active','2024-11-18 18:58:32','2024-11-19 00:05:57','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLXuM2b4djVbMt63hftHrWFFMeQmccyytKlQ&s'),(165826,693354,3,'leader','active','2024-11-18 17:08:01','2024-11-19 00:27:53','https://pics.craiyon.com/2024-02-07/SbkbJICQRMiD1v0oxAY4jQ.webp'),(300242,693356,4,'leader','active','2024-11-18 17:08:20','2024-11-19 00:28:58','https://wallpapersok.com/images/hd/close-up-demon-slayer-nezuko-hvucfshzejpyjtta.jpg'),(842963,693353,1,'co-leader','active','2024-11-18 17:07:34','2024-11-19 00:08:04','https://avatarfiles.alphacoders.com/364/364731.png');
 /*!40000 ALTER TABLE `ClubMembers` ENABLE KEYS */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `generate_membership_id` BEFORE INSERT ON `clubmembers` FOR EACH ROW BEGIN
+    DECLARE random_id INT;
+
+    -- Generate a unique random number
+    SET random_id = FLOOR(RAND() * 1000000);
+
+    -- Ensure the random_id is unique in the table
+    WHILE EXISTS (SELECT 1 FROM ClubMembers WHERE membership_id = random_id) DO
+        SET random_id = FLOOR(RAND() * 1000000);
+    END WHILE;
+
+    -- Assign the unique random_id to the new row
+    SET NEW.membership_id = random_id;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Table structure for table `ClubRegistrations`
+--
+
+DROP TABLE IF EXISTS `ClubRegistrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ClubRegistrations` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `club_id` int NOT NULL,
+  `club_name` varchar(100) NOT NULL,
+  `user_id` int NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `student_number` int NOT NULL,
+  `status` enum('pending','active','inactive') NOT NULL DEFAULT 'pending',
+  PRIMARY KEY (`id`),
+  KEY `club_id` (`club_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `clubregistrations_ibfk_1` FOREIGN KEY (`club_id`) REFERENCES `Clubs` (`club_id`),
+  CONSTRAINT `clubregistrations_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ClubRegistrations`
+--
+
+/*!40000 ALTER TABLE `ClubRegistrations` DISABLE KEYS */;
+INSERT INTO `ClubRegistrations` VALUES (1,693353,'Photography Club',1,'john_doe',1,'pending'),(2,693354,'Drama Club',2,'newuser',1,'pending'),(3,693354,'Drama Club',1,'john_doe',2,'pending');
+/*!40000 ALTER TABLE `ClubRegistrations` ENABLE KEYS */;
 
 --
 -- Table structure for table `Clubs`
@@ -201,14 +318,18 @@ CREATE TABLE `Clubs` (
   `club_id` int NOT NULL AUTO_INCREMENT,
   `club_name` varchar(100) NOT NULL,
   `description` text,
+  `club_rules` text,
   `created_by` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `status` enum('active','inactive','pending') DEFAULT 'active',
+  `logo` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`club_id`),
   UNIQUE KEY `club_name` (`club_name`),
   KEY `idx_club_leader` (`created_by`),
   CONSTRAINT `fk_clubs_user` FOREIGN KEY (`created_by`) REFERENCES `Users` (`user_id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=693357 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -216,6 +337,7 @@ CREATE TABLE `Clubs` (
 --
 
 /*!40000 ALTER TABLE `Clubs` DISABLE KEYS */;
+INSERT INTO `Clubs` VALUES (693353,'Photography Club','A club for photography enthusiasts.','Members must bring their own cameras and equipment to workshops.\nPhotography during events must be non-intrusive and respect privacy.\nEditing photos for competitions must adhere to ethical guidelines.',1,'2024-11-18 16:44:50','2024-11-19 04:28:05','active','https://cdn.thewirecutter.com/wp-content/media/2023/10/instantcameras-2048px-02050-3x2-1.jpg?auto=webp&quality=75&crop=3:2&width=1024',NULL),(693354,'Drama Club','A club for drama and theater lovers.','All members must attend at least 75% of rehearsals to participate in performances.\nCostumes and props provided by the club must be returned in good condition.\nRespect and inclusivity are mandatory in all interactions.',3,'2024-11-18 16:44:50','2024-11-19 04:28:46','active','https://cdnsm5-ss11.sharpschool.com/UserFiles/Servers/Server_78983/Image/Clubs/masks%20%5BConverted%5D.png',NULL),(693356,'Robotics Club','A club for robotics and tech lovers.','Team members must log weekly updates on their assigned projects.\nUse of club equipment is allowed only within the designated workshop hours.\nSafety protocols must be followed while working with machinery.',4,'2024-11-18 16:51:17','2024-11-19 04:44:00','active','https://cdn.vox-cdn.com/thumbor/vm40nMg0orRqXgoSfrhtPdgo5pQ=/0x0:953x536/1200x628/filters:focal(476x268:477x269)/cdn.vox-cdn.com/uploads/chorus_asset/file/15852707/anki-cozmo-robot-screenshot-1.0.0.1466804959.png',NULL);
 /*!40000 ALTER TABLE `Clubs` ENABLE KEYS */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -303,7 +425,7 @@ CREATE TABLE `EventRSVP` (
   `rsvp_id` int NOT NULL AUTO_INCREMENT,
   `event_id` int DEFAULT NULL,
   `user_id` int DEFAULT NULL,
-  `status` enum('accepted','declined','tentative') DEFAULT 'accepted',
+  `status` enum('accepted','declined','tentative','pending') NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`rsvp_id`),
@@ -311,7 +433,7 @@ CREATE TABLE `EventRSVP` (
   KEY `fk_eventrsvp_user` (`user_id`),
   CONSTRAINT `fk_eventrsvp_event` FOREIGN KEY (`event_id`) REFERENCES `Events` (`event_id`) ON DELETE CASCADE,
   CONSTRAINT `fk_eventrsvp_user` FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -319,7 +441,35 @@ CREATE TABLE `EventRSVP` (
 --
 
 /*!40000 ALTER TABLE `EventRSVP` DISABLE KEYS */;
+INSERT INTO `EventRSVP` VALUES (1,441399,1,'pending','2024-11-19 04:19:23','2024-11-19 04:19:23'),(2,464201,1,'pending','2024-11-19 04:22:58','2024-11-19 04:22:58'),(3,247599,1,'pending','2024-11-19 04:42:05','2024-11-19 04:42:05');
 /*!40000 ALTER TABLE `EventRSVP` ENABLE KEYS */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `before_rsvp_insert` BEFORE INSERT ON `eventrsvp` FOR EACH ROW BEGIN
+    DECLARE max_rsvp_id INT;
+
+    -- Get the current maximum rsvp_id
+    SELECT MAX(rsvp_id) INTO max_rsvp_id FROM EventRSVP;
+
+    -- If no rsvp_id exists, start from 1; otherwise, increment max_rsvp_id by 1
+    IF max_rsvp_id IS NULL THEN
+        SET NEW.rsvp_id = 1;
+    ELSE
+        SET NEW.rsvp_id = max_rsvp_id + 1;
+    END IF;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `Events`
@@ -337,12 +487,15 @@ CREATE TABLE `Events` (
   `created_by` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `status` enum('active','pending','inactive') DEFAULT 'pending',
+  `event_image` varchar(255) DEFAULT NULL,
+  `event_description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`event_id`),
   KEY `idx_event_club` (`club_id`),
   KEY `idx_event_creator` (`created_by`),
   CONSTRAINT `fk_events_club` FOREIGN KEY (`club_id`) REFERENCES `Clubs` (`club_id`) ON DELETE CASCADE,
   CONSTRAINT `fk_events_user` FOREIGN KEY (`created_by`) REFERENCES `Users` (`user_id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=464202 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -350,7 +503,36 @@ CREATE TABLE `Events` (
 --
 
 /*!40000 ALTER TABLE `Events` DISABLE KEYS */;
+INSERT INTO `Events` VALUES (247599,693353,'Photography Meetup','2024-12-01','Room 101',1,'2024-11-18 17:22:27','2024-11-19 04:43:31','active','https://media.istockphoto.com/id/1149134493/vector/girl-is-making-funny-selfie-group-picture.jpg?s=612x612&w=0&k=20&c=K4DP2b8EreiO3TYnxCnJyJqgWr5dpgYF_HkTjTFljm8=','\"Meet your club members\": Discuss the essence of Photography and different genres.'),(441399,693354,'Drama Rehearsal','2024-12-02','Room 202',2,'2024-11-18 17:22:27','2024-11-19 00:19:53','active','https://www.dentonisd.org/cms/lib/TX21000245/Centricity/Domain/12248/drama-masks.jpeg','\"Theatrical Tales\": A captivating evening showcasing dramatic performances and storytelling by talented actors.'),(464201,693353,'Photography Workshop','2024-12-05','Room 103',1,'2024-11-18 17:22:27','2024-11-19 00:19:41','active','https://www.adobe.com/creativecloud/photography/discover/media_15bc773080343f8444e57be432169904b06bc76ae.png?width=750&format=png&optimize=medium','\"Nature\'s Lens\": Capture breathtaking landscapes and explore advanced photography techniques in this outdoor adventure.');
 /*!40000 ALTER TABLE `Events` ENABLE KEYS */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `generate_event_id` BEFORE INSERT ON `events` FOR EACH ROW BEGIN
+    DECLARE random_id INT;
+
+    -- Generate a random unique event_id
+    SET random_id = FLOOR(RAND() * 1000000);
+
+    -- Ensure event_id is unique
+    WHILE EXISTS (SELECT 1 FROM Events WHERE event_id = random_id) DO
+        SET random_id = FLOOR(RAND() * 1000000);
+    END WHILE;
+
+    -- Assign the unique event_id to the new row
+    SET NEW.event_id = random_id;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -434,6 +616,8 @@ DROP TABLE IF EXISTS `Users`;
 CREATE TABLE `Users` (
   `user_id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
   `role` enum('user','club_leader','event_manager','admin') DEFAULT 'user',
@@ -447,7 +631,7 @@ CREATE TABLE `Users` (
   KEY `fk_users_preferences` (`preferences_id`),
   KEY `idx_user_role` (`role`),
   CONSTRAINT `fk_users_preferences` FOREIGN KEY (`preferences_id`) REFERENCES `Preferences` (`preferences_id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -455,12 +639,56 @@ CREATE TABLE `Users` (
 --
 
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
-INSERT INTO `Users` VALUES (1,'john_doe','Password123','john_doe@my.csun.edu','user',NULL,'2024-10-29 02:26:12','2024-10-29 03:02:12','45dce00f-3dbd-49a4-9312-41caca86e3e6'),(2,'newuser','password123','newuser@my.csun.edu','user',NULL,'2024-10-31 02:14:13','2024-10-31 03:44:04','9565518b-54ee-435b-83f4-7ae12aed7190');
+INSERT INTO `Users` VALUES (1,'john_doe','John','Doe','Password123','john_doe@my.csun.edu','event_manager',NULL,'2024-10-29 02:26:12','2024-11-19 04:42:38','65c38f9a-ff0b-4d70-8db2-acc9267c134e'),(2,'newuser','New','User','password123','newuser@my.csun.edu','user',NULL,'2024-10-31 02:14:13','2024-11-19 02:11:05','998e63f2-3ba0-47e9-8447-ec751b8ee0b6'),(3,'Federico','Federico ','B','Password456','federico@my.csun.edu','club_leader',NULL,'2024-11-18 16:57:57','2024-11-19 00:47:24',NULL),(4,'kamala','Kamala','Harris','Password789','harris@my.csun.edu','club_leader',NULL,'2024-11-18 16:59:08','2024-11-19 00:47:24',NULL),(5,'slaya','Laya','P','Password111','srilaya.ponangi.484@my.csun.edu','club_leader',NULL,'2024-11-18 18:57:20','2024-11-19 01:24:34',NULL),(6,'Naomih','Naomih','N','Password222','naomih@my.csun.edu','user',NULL,'2024-11-19 01:24:58','2024-11-19 01:25:23',NULL),(7,'yuli','Yuliana','C','Password333','yuliana@my.csun.edu','user',NULL,'2024-11-19 01:26:07','2024-11-19 01:26:07',NULL),(8,'Roh','Rohita','G','Password444','rohitag@my.csun.edu','user',NULL,'2024-11-19 01:26:59','2024-11-19 01:26:59',NULL);
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 
 --
 -- Dumping routines for database 'MataMaps'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `InsertDummyClubs` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertDummyClubs`()
+BEGIN
+    DECLARE random_id1 INT;
+    DECLARE random_id2 INT;
+    DECLARE random_id3 INT;
+
+    -- Generate unique random IDs for each club
+    SET random_id1 = FLOOR(RAND() * 1000000);
+    SET random_id2 = FLOOR(RAND() * 1000000);
+    SET random_id3 = FLOOR(RAND() * 1000000);
+
+    -- Insert the first club if it doesn't already exist
+    IF NOT EXISTS (SELECT 1 FROM Clubs WHERE club_name = 'Photography Club') THEN
+        INSERT INTO Clubs (club_id, club_name, description, created_by, created_at, updated_at)
+        VALUES (random_id1, 'Photography Club', 'A club for photography enthusiasts.', 1, NOW(), NOW());
+    END IF;
+
+    -- Insert the second club if it doesn't already exist
+    IF NOT EXISTS (SELECT 1 FROM Clubs WHERE club_name = 'Drama Club') THEN
+        INSERT INTO Clubs (club_id, club_name, description, created_by, created_at, updated_at)
+        VALUES (random_id2, 'Drama Club', 'A club for drama and theater lovers.', 2, NOW(), NOW());
+    END IF;
+
+    -- Insert the third club if it doesn't already exist
+    IF NOT EXISTS (SELECT 1 FROM Clubs WHERE club_name = 'Robotics Club') THEN
+        INSERT INTO Clubs (club_id, club_name, description, created_by, created_at, updated_at)
+        VALUES (random_id3, 'Robotics Club', 'A club for robotics enthusiasts.', 3, NOW(), NOW());
+    END IF;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -471,4 +699,4 @@ INSERT INTO `Users` VALUES (1,'john_doe','Password123','john_doe@my.csun.edu','u
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-14 15:53:35
+-- Dump completed on 2024-11-18 21:01:04
