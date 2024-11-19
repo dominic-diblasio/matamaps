@@ -42,40 +42,27 @@ const authenticateToken = async (req, res, next) => {
   }
 };
 
-// Fetch all active clubs
 router.get('/', authenticateToken, async (req, res) => {
-  const db = router.locals.db;
-
-  try {
-    // Fetch active clubs
-    const activeClubs = await db('Clubs')
-      .select('club_id', 'club_name', 'description', 'logo', 'image')
-      .where('status', 'active');
-
-    if (!activeClubs.length) {
-      return res.status(404).json({
-        success: false,
-        message: 'No active clubs found',
-      });
+    const db = router.locals.db;
+  
+    try {
+      const events = await db('Events')
+        .select('event_id', 'club_id', 'event_name', 'event_date','event_image', 'event_description', 'location', 'created_by')
+        .where({status: 'active' }); // Add the status filter
+  
+      if (events.length === 0) {
+        return res.status(404).json({ success: false, message: 'No events found' });
+      }
+  
+      console.log(`Fetched ${events.length} events`);
+      res.status(200).json({ success: true, data: events });
+    } catch (err) {
+      console.error('Error fetching events:', err);
+      return res.status(500).json({ success: false, message: 'Error fetching events' });
     }
-
-    console.log('Fetched active clubs:', activeClubs);
-
-    res.status(200).json({
-      success: true,
-      data: activeClubs,
-    });
-  } catch (err) {
-    console.error('Error fetching active clubs:', err);
-    res.status(500).json({
-      success: false,
-      message: 'Error fetching active clubs',
-    });
-  }
-});
-
-// Export updated router
-module.exports = {
-  path: '/clubs/active',
-  router,
-};
+  });
+  
+  module.exports = {
+    path: '/events',
+    router,
+  };

@@ -41,16 +41,6 @@
             "children": []
         },
         {
-            "name": "Club Members",
-            "routerLink": ["club-members"],
-            "identifier": "ClubMembers",
-            "iconClass": "icofont-users-alt-2",
-            "breadcrumbMessage": "View club members.",
-            "isCategory": false,
-            "isApp": false,
-            "children": []
-        },
-        {
             "name": "Messages",
             "routerLink": ["messages"],
             "identifier": "Messages",

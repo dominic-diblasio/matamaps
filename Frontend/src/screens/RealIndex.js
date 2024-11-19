@@ -10,6 +10,9 @@ import Events from "./OtherPages/Events";
 import Clubs from "./OtherPages/Clubs";
 import ClubMembers from "./OtherPages/ClubMembers";
 import PersonalDetailsPage from "./OtherPages/PersonalDetailsPage";
+import ClubEvents from "./OtherPages/ClubEvents";
+import ClubDetails from "./OtherPages/ClubDetails";
+import ClubRules from "./OtherPages/ClubRules";
 
 function EmptyPageIndex(props) {
     // const { activekey } = props;
@@ -22,10 +25,13 @@ function EmptyPageIndex(props) {
                     <Route exact path="/registration" element={<RegisterationForm />} />
                     <Route exact path="/login" element={<LoginPage />} />
                     <Route exact path="/forgot-password" element={<ForgotPassword />} />
-                    <Route exact path="/my-dashboard" element={<Dashboard />} />
+                    <Route exact path="/dashboard" element={<Dashboard />} />
                     <Route path="/events" element={<Events />} />
                     <Route path="/clubs" element={<Clubs />} />
-                    <Route path="/club-members" element={<ClubMembers />} />
+                    <Route path="/club-members/:club_id" element={<ClubMembers />} />
+                    <Route path="/club-events/:club_id" element={<ClubEvents />} />
+                    <Route path="/clubs/details/:club_id" element={<ClubDetails />} />
+                    <Route path="/club-rules/:club_id" element={<ClubRules />} />
                     <Route exact path="/messages" element={<Messages />} />
                     <Route exact path="/personal-details" element={<PersonalDetailsPage />} />
                 </ReactRoutes>

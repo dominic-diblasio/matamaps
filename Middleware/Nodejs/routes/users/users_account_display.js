@@ -1,5 +1,4 @@
 const express = require('express');
-const axios = require('axios');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 
@@ -42,40 +41,36 @@ const authenticateToken = async (req, res, next) => {
   }
 };
 
-// Fetch all active clubs
+// Endpoint to display user details
 router.get('/', authenticateToken, async (req, res) => {
   const db = router.locals.db;
+  const { session_id } = req;
 
   try {
-    // Fetch active clubs
-    const activeClubs = await db('Clubs')
-      .select('club_id', 'club_name', 'description', 'logo', 'image')
-      .where('status', 'active');
+    // Retrieve user details using session ID
+    const user = await db('Users')
+      .select('user_id', 'username', 'email', 'first_name', 'last_name')
+      .where({ session_id })
+      .first();
 
-    if (!activeClubs.length) {
-      return res.status(404).json({
-        success: false,
-        message: 'No active clubs found',
-      });
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found for the session' });
     }
-
-    console.log('Fetched active clubs:', activeClubs);
 
     res.status(200).json({
       success: true,
-      data: activeClubs,
+      data: user,
     });
   } catch (err) {
-    console.error('Error fetching active clubs:', err);
-    res.status(500).json({
+    console.error('Error fetching user details:', err);
+    return res.status(500).json({
       success: false,
-      message: 'Error fetching active clubs',
+      message: 'Error fetching user details',
     });
   }
 });
 
-// Export updated router
 module.exports = {
-  path: '/clubs/active',
-  router,
-};
+    path: '/users/account/details',
+    router,
+  };

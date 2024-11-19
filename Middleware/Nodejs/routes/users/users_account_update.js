@@ -1,27 +1,39 @@
 const express = require('express');
-const axios = require('axios');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 
 // Authentication middleware
 const authenticateToken = async (req, res, next) => {
   try {
-    const authResponse = await axios.get('http:/localhost:3500/auth/authenticateToken', {
-      headers: {
-        Cookie: req.headers.cookie // Forward the cookies
-      }
-    });
+    // Extract token from cookies or Authorization header
+    const token = req.cookies.jwt_token || req.headers['authorization']?.split(' ')[1];
 
-    if (!authResponse.data.success) {
-      return res.status(401).json({ success: false, message: 'Authentication failed' });
+    if (!token) {
+      return res.status(401).json({ success: false, message: 'No token provided' });
     }
 
-    req.session_id = authResponse.data.session_id;
+    // Verify the JWT token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const { session_id } = decoded;
+
+    if (!session_id) {
+      return res.status(401).json({ success: false, message: 'Invalid token payload' });
+    }
+
+    // Attach session ID to the request object
+    req.session_id = session_id;
+
     next();
   } catch (err) {
     console.error('Authentication error:', err);
-    if (err.response && err.response.status === 403) {
-      return res.status(403).json({ success: false, message: 'Token expired', redirect: '/login' });
+
+    if (err.name === 'TokenExpiredError') {
+      return res.status(401).json({
+        success: false,
+        message: 'Session expired, please login again',
+      });
     }
+
     return res.status(500).json({
       success: false,
       message: 'Error during authentication',
@@ -29,14 +41,17 @@ const authenticateToken = async (req, res, next) => {
   }
 };
 
-// Endpoint to update account information
-router.put('/:session_id', authenticateToken, async (req, res) => {
-  const db = router.locals.db;
-  const { session_id } = req.params;
-  const { username, email, password } = req.body;
 
-  if (!username || !email || !password) {
-    return res.status(400).json({ success: false, message: 'Username, email, and password are required' });
+router.put('/', authenticateToken, async (req, res) => {
+  const db = router.locals.db;
+  const { session_id } = req;
+  const { username, first_name, last_name, email } = req.body;
+
+  console.log('Received update request with data:', { username, first_name, last_name, email });
+
+  if (!username || !first_name || !last_name || !email) {
+    console.error('Validation failed: Missing fields', { username, first_name, last_name, email });
+    return res.status(400).json({ success: false, message: 'First name, last name, and email are required' });
   }
 
   try {
@@ -47,22 +62,26 @@ router.put('/:session_id', authenticateToken, async (req, res) => {
       .first();
 
     if (!user) {
+      console.error('Session ID not found in the database:', session_id);
       return res.status(404).json({ success: false, message: 'Session ID not found' });
     }
 
     const { user_id } = user;
+
+    console.log('Updating user details for user_id:', user_id);
 
     // Update user account information in the Users table
     await db('Users')
       .where({ user_id })
       .update({
         username,
+        first_name,
+        last_name,
         email,
-        password // Note: Storing passwords in plain text is not recommended for production
+        updated_at: new Date(),
       });
 
-    console.log(`Account information updated for user_id: ${user_id}`);
-
+    console.log(`Account information updated successfully for user_id: ${user_id}`);
     res.status(200).json({
       success: true,
       message: 'Account information updated successfully',
@@ -75,6 +94,7 @@ router.put('/:session_id', authenticateToken, async (req, res) => {
     });
   }
 });
+
 
 module.exports = {
   path: '/users/account/update',
