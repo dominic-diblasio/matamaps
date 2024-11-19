@@ -15,34 +15,13 @@ function ClubEvents() {
 
   useEffect(() => {
     const fetchClubEvents = async () => {
-      const jwt_token = Cookies.get('jwt_token'); // Get JWT token from cookies
-
       try {
-        const eventResponse = await axios.get(`http://0.0.0.0:3500/clubs/events/${club_id}`, {
-          headers: {
-            Authorization: `Bearer ${jwt_token}`,
-          },
-          withCredentials: true,
-        });
-
+        // Fetch club events (no authorization needed)
+        const eventResponse = await axios.get(`http://0.0.0.0:3500/clubs/events/${club_id}`);
         if (eventResponse.data.success) {
           setEvents(eventResponse.data.data); // Set fetched events
         } else {
           setError(eventResponse.data.message || 'Failed to fetch events');
-        }
-
-        // Fetch username if logged in
-        if (jwt_token) {
-          const userResponse = await axios.get(`http://0.0.0.0:3500/users/account/details`, {
-            headers: {
-              Authorization: `Bearer ${jwt_token}`,
-            },
-            withCredentials: true,
-          });
-
-          if (userResponse.data.success) {
-            setUsername(userResponse.data.data.username);
-          }
         }
       } catch (err) {
         console.error('Error fetching club events:', err);
@@ -52,12 +31,34 @@ function ClubEvents() {
       }
     };
 
+    const fetchUsername = async () => {
+      const jwt_token = Cookies.get('jwt_token');
+      if (!jwt_token) return; // Skip fetching username if no token is present
+
+      try {
+        const userResponse = await axios.get(`http://0.0.0.0:3500/users/account/details`, {
+          headers: {
+            Authorization: `Bearer ${jwt_token}`,
+          },
+          withCredentials: true,
+        });
+
+        if (userResponse.data.success) {
+          setUsername(userResponse.data.data.username); // Set username if logged in
+        }
+      } catch (err) {
+        console.error('Error fetching user details:', err);
+        // Do not block events from loading if user details fetch fails
+      }
+    };
+
     fetchClubEvents();
+    fetchUsername(); // Fetch username only if logged in
   }, [club_id]);
 
   const handleRegisterClick = (event) => {
     if (!username) {
-      alert("You need to log in to register for events.");
+      alert('You need to log in to register for events.');
       return;
     }
     setSelectedEvent(event);
@@ -69,7 +70,7 @@ function ClubEvents() {
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div>Error: {error}</div>;
   }
 
   return (
@@ -97,12 +98,14 @@ function ClubEvents() {
                   <p className="card-text">
                     <strong>Location:</strong> {event.location}
                   </p>
-                  <button
-                    className="btn btn-success"
-                    onClick={() => handleRegisterClick(event)}
-                  >
-                    Register
-                  </button>
+                  {username && ( // Show "Register" button only if logged in
+                    <button
+                      className="btn btn-success"
+                      onClick={() => handleRegisterClick(event)}
+                    >
+                      Register
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -123,6 +126,8 @@ function ClubEvents() {
 }
 
 export default ClubEvents;
+
+
 
 // import React, { useEffect, useState } from 'react';
 // import axios from 'axios';

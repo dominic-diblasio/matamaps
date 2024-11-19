@@ -13,8 +13,6 @@ function Events() {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const jwt_token = Cookies.get("jwt_token"); // Get JWT token from cookies
-
       try {
         // Fetch events (public data)
         const eventsResponse = await axios.get("http://localhost:3500/events");
@@ -24,19 +22,25 @@ function Events() {
           setError(eventsResponse.data.message || "Failed to fetch events");
         }
 
-        // Fetch username only if logged in
+        // Fetch username only if a token exists
+        const jwt_token = Cookies.get("jwt_token");
         if (jwt_token) {
-          const userResponse = await axios.get(
-            "http://localhost:3500/users/account/details",
-            {
-              headers: {
-                Authorization: `Bearer ${jwt_token}`,
-              },
-              withCredentials: true,
+          try {
+            const userResponse = await axios.get(
+              "http://localhost:3500/users/account/details",
+              {
+                headers: {
+                  Authorization: `Bearer ${jwt_token}`,
+                },
+                withCredentials: true,
+              }
+            );
+            if (userResponse.data.success) {
+              setUsername(userResponse.data.data.username);
             }
-          );
-          if (userResponse.data.success) {
-            setUsername(userResponse.data.data.username);
+          } catch (userError) {
+            console.error("User not logged in or session expired:", userError);
+            // No need to set error for username fetch failure
           }
         }
       } catch (err) {
@@ -92,12 +96,14 @@ function Events() {
                   <p className="card-text">
                     <strong>Location:</strong> {event.location}
                   </p>
-                  <button
-                    className="btn btn-success"
-                    onClick={() => handleRegisterClick(event)}
-                  >
-                    Register
-                  </button>
+                  {username && ( // Conditionally render the "Register" button if logged in
+                    <button
+                      className="btn btn-success"
+                      onClick={() => handleRegisterClick(event)}
+                    >
+                      Register
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -119,35 +125,51 @@ function Events() {
 
 export default Events;
 
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import Cookies from 'js-cookie';
+
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
+// import Cookies from "js-cookie";
+// import EventRegisterPopup from "./EventRegisterPopup";
 
 // function Events() {
 //   const [events, setEvents] = useState([]);
 //   const [loading, setLoading] = useState(true);
 //   const [error, setError] = useState(null);
+//   const [username, setUsername] = useState(null); // Null if not logged in
+//   const [showPopup, setShowPopup] = useState(false);
+//   const [selectedEvent, setSelectedEvent] = useState(null);
 
 //   useEffect(() => {
 //     const fetchEvents = async () => {
-//       const jwt_token = Cookies.get('jwt_token'); // Get JWT token from cookies
+//       const jwt_token = Cookies.get("jwt_token"); // Get JWT token from cookies
 
 //       try {
-//         const response = await axios.get('http://localhost:3500/events', {
-//           headers: {
-//             Authorization: `Bearer ${jwt_token}`,
-//           },
-//           withCredentials: true,
-//         });
-
-//         if (response.data.success) {
-//           setEvents(response.data.data); // Set events from the API response
+//         // Fetch events (public data)
+//         const eventsResponse = await axios.get("http://localhost:3500/events");
+//         if (eventsResponse.data.success) {
+//           setEvents(eventsResponse.data.data);
 //         } else {
-//           setError(response.data.message || 'Failed to fetch events');
+//           setError(eventsResponse.data.message || "Failed to fetch events");
+//         }
+
+//         // Fetch username only if logged in
+//         if (jwt_token) {
+//           const userResponse = await axios.get(
+//             "http://localhost:3500/users/account/details",
+//             {
+//               headers: {
+//                 Authorization: `Bearer ${jwt_token}`,
+//               },
+//               withCredentials: true,
+//             }
+//           );
+//           if (userResponse.data.success) {
+//             setUsername(userResponse.data.data.username);
+//           }
 //         }
 //       } catch (err) {
-//         console.error('Error fetching events:', err);
-//         setError(err.response?.data?.message || 'An error occurred while fetching events');
+//         console.error("Error fetching events:", err);
+//         setError(err.response?.data?.message || "An error occurred while fetching events");
 //       } finally {
 //         setLoading(false);
 //       }
@@ -155,6 +177,15 @@ export default Events;
 
 //     fetchEvents();
 //   }, []);
+
+//   const handleRegisterClick = (event) => {
+//     if (!username) {
+//       alert("You need to log in to register for events.");
+//       return;
+//     }
+//     setSelectedEvent(event);
+//     setShowPopup(true);
+//   };
 
 //   if (loading) {
 //     return <div>Loading events...</div>;
@@ -177,7 +208,7 @@ export default Events;
 //                     src={event.event_image}
 //                     alt={`${event.event_name} image`}
 //                     className="card-img-top"
-//                     style={{ height: '200px', objectFit: 'cover' }}
+//                     style={{ height: "200px", objectFit: "cover" }}
 //                   />
 //                 )}
 //                 <div className="card-body">
@@ -189,7 +220,12 @@ export default Events;
 //                   <p className="card-text">
 //                     <strong>Location:</strong> {event.location}
 //                   </p>
-//                   <button className="btn btn-success">Register</button>
+//                   <button
+//                     className="btn btn-success"
+//                     onClick={() => handleRegisterClick(event)}
+//                   >
+//                     Register
+//                   </button>
 //                 </div>
 //               </div>
 //             </div>
@@ -198,6 +234,13 @@ export default Events;
 //           <p>No upcoming events available.</p>
 //         )}
 //       </div>
+//       {showPopup && selectedEvent && (
+//         <EventRegisterPopup
+//           event={selectedEvent}
+//           username={username}
+//           onClose={() => setShowPopup(false)}
+//         />
+//       )}
 //     </div>
 //   );
 // }

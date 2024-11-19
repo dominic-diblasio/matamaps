@@ -16,9 +16,7 @@ function ClubDetails() {
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
-    const fetchDetails = async () => {
-      const jwt_token = Cookies.get("jwt_token"); // Retrieve token from cookies
-
+    const fetchClubDetails = async () => {
       try {
         // Fetch club name (public data)
         const clubResponse = await axios.get(`http://0.0.0.0:3500/club/name/${club_id}`);
@@ -29,18 +27,25 @@ function ClubDetails() {
         }
 
         // Fetch username only if logged in
+        const jwt_token = Cookies.get("jwt_token");
         if (jwt_token) {
-          const userResponse = await axios.get(`http://0.0.0.0:3500/users/account/details`, {
-            headers: {
-              Authorization: `Bearer ${jwt_token}`,
-            },
-            withCredentials: true,
-          });
+          try {
+            const userResponse = await axios.get(
+              `http://0.0.0.0:3500/users/account/details`,
+              {
+                headers: {
+                  Authorization: `Bearer ${jwt_token}`,
+                },
+                withCredentials: true,
+              }
+            );
 
-          if (userResponse.data.success) {
-            setUsername(userResponse.data.data.username);
-          } else {
-            console.error("Failed to fetch user information.");
+            if (userResponse.data.success) {
+              setUsername(userResponse.data.data.username);
+            }
+          } catch (userError) {
+            console.error("Error fetching user details:", userError);
+            // Do not block page loading if fetching user details fails
           }
         }
       } catch (err) {
@@ -51,7 +56,7 @@ function ClubDetails() {
       }
     };
 
-    fetchDetails();
+    fetchClubDetails();
   }, [club_id]);
 
   if (loading) {
@@ -96,6 +101,7 @@ function ClubDetails() {
 }
 
 export default ClubDetails;
+
 
 // import React, { useEffect, useState } from "react";
 // import axios from "axios";
