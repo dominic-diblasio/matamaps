@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
+
 
 function Clubs() {
   const [clubs, setClubs] = useState([]);
@@ -56,9 +58,12 @@ function Clubs() {
                 <div className="card-body">
                   <h5 className="card-title">{club.club_name}</h5>
                   <p className="card-text">{club.description}</p>
-                  <a href={`/club-members/${club.club_id}`} className="btn btn-primary">
-                    Learn More
-                  </a>
+                  <Link
+  to={`/clubs/details/${club.club_id}?club_name=${encodeURIComponent(club.club_name)}`}
+  className="btn btn-primary"
+>                    Learn More
+                    </Link>
+
                 </div>
               </div>
             </div>

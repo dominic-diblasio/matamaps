@@ -31,7 +31,7 @@ router.post("/", async (req, res) => {
 
       // Update the database with the session_id
       await db("Users").where("user_id", result.user_id).update({ session_id });
-
+console.log("session_id updated:",session_id);
       // Send the JWT in an HttpOnly cookie
       res.cookie("jwt_token", token, {
         httpOnly: true,

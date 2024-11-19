@@ -21,11 +21,6 @@ const authenticateToken = async (req, res, next) => {
       return res.status(401).json({ success: false, message: 'Invalid token payload' });
     }
 
-    // Check if session ID exists in Redis
-    const sessionExists = await redisClient.get(session_id);
-    if (!sessionExists) {
-      return res.status(401).json({ success: false, message: 'Session expired or invalid' });
-    }
 
     // Attach session ID to the request object
     req.session_id = session_id;

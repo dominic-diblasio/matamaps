@@ -108,7 +108,6 @@ function LoginForm() {
           )}
           <button type="submit" className="btn btn-primary mt-4">Login</button>
           <div className="mt-3">
-            <a href="forgot-user-id" className="me-3">Forgot User ID</a>
             <a href="forgot-password">Forgot Password</a>
           </div>
         </form>

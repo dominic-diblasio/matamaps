@@ -41,62 +41,36 @@ const authenticateToken = async (req, res, next) => {
   }
 };
 
-
-router.put('/', authenticateToken, async (req, res) => {
+// Endpoint to display user details
+router.get('/', authenticateToken, async (req, res) => {
   const db = router.locals.db;
   const { session_id } = req;
-  const { username, first_name, last_name, email } = req.body;
-
-  console.log('Received update request with data:', { username, first_name, last_name, email });
-
-  if (!username || !first_name || !last_name || !email) {
-    console.error('Validation failed: Missing fields', { username, first_name, last_name, email });
-    return res.status(400).json({ success: false, message: 'First name, last name, and email are required' });
-  }
 
   try {
-    // Retrieve user ID using session ID
+    // Retrieve user details using session ID
     const user = await db('Users')
-      .select('user_id')
+      .select('user_id', 'username', 'email', 'first_name', 'last_name')
       .where({ session_id })
       .first();
 
     if (!user) {
-      console.error('Session ID not found in the database:', session_id);
-      return res.status(404).json({ success: false, message: 'Session ID not found' });
+      return res.status(404).json({ success: false, message: 'User not found for the session' });
     }
 
-    const { user_id } = user;
-
-    console.log('Updating user details for user_id:', user_id);
-
-    // Update user account information in the Users table
-    await db('Users')
-      .where({ user_id })
-      .update({
-        username,
-        first_name,
-        last_name,
-        email,
-        updated_at: new Date(),
-      });
-
-    console.log(`Account information updated successfully for user_id: ${user_id}`);
     res.status(200).json({
       success: true,
-      message: 'Account information updated successfully',
+      data: user,
     });
   } catch (err) {
-    console.error('Error updating account information:', err);
+    console.error('Error fetching user details:', err);
     return res.status(500).json({
       success: false,
-      message: 'Error updating account information',
+      message: 'Error fetching user details',
     });
   }
 });
 
-
 module.exports = {
-  path: '/users/account/update',
-  router,
-};
+    path: '/users/account/details',
+    router,
+  };
