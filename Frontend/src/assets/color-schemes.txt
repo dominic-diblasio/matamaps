@@ -1,0 +1,3 @@
+Scarlet: #c13632
+Crimson Red: #a62e2b
+Grey Contrasting: #474747
