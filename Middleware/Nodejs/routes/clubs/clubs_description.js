@@ -1,49 +1,49 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 
-// Authentication middleware
-const authenticateToken = async (req, res, next) => {
-  try {
-    // Extract token from cookies or Authorization header
-    const token = req.cookies.jwt_token || req.headers['authorization']?.split(' ')[1];
+// // Authentication middleware
+// const authenticateToken = async (req, res, next) => {
+//   try {
+//     // Extract token from cookies or Authorization header
+//     const token = req.cookies.jwt_token || req.headers['authorization']?.split(' ')[1];
 
-    if (!token) {
-      return res.status(401).json({ success: false, message: 'No token provided' });
-    }
+//     if (!token) {
+//       return res.status(401).json({ success: false, message: 'No token provided' });
+//     }
 
-    // Verify the JWT token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const { session_id } = decoded;
+//     // Verify the JWT token
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+//     const { session_id } = decoded;
 
-    if (!session_id) {
-      return res.status(401).json({ success: false, message: 'Invalid token payload' });
-    }
+//     if (!session_id) {
+//       return res.status(401).json({ success: false, message: 'Invalid token payload' });
+//     }
 
-    // Attach session ID to the request object
-    req.session_id = session_id;
+//     // Attach session ID to the request object
+//     req.session_id = session_id;
 
-    next();
-  } catch (err) {
-    console.error('Authentication error:', err);
+//     next();
+//   } catch (err) {
+//     console.error('Authentication error:', err);
 
-    if (err.name === 'TokenExpiredError') {
-      return res.status(401).json({
-        success: false,
-        message: 'Session expired, please login again',
-      });
-    }
+//     if (err.name === 'TokenExpiredError') {
+//       return res.status(401).json({
+//         success: false,
+//         message: 'Session expired, please login again',
+//       });
+//     }
 
-    return res.status(500).json({
-      success: false,
-      message: 'Error during authentication',
-    });
-  }
-};
+//     return res.status(500).json({
+//       success: false,
+//       message: 'Error during authentication',
+//     });
+//   }
+// };
 
 // Fetch all active clubs
-router.get('/', authenticateToken, async (req, res) => {
+router.get('/',  async (req, res) => {
   const db = router.locals.db;
 
   try {
