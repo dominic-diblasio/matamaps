@@ -1,5 +1,5 @@
 import React from "react";
-import InterviewImg from "../../assets/images/interview.svg";
+import InterviewImg from "../../assets/images/placeholder.svg";
 
 function HignlighterCard() {
 

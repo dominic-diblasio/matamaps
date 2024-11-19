@@ -1,10 +1,10 @@
 import React from "react";
-import Avatar2 from "../../assets/images/lg/avatar2.jpg";
-import Avatar3 from "../../assets/images/lg/avatar3.jpg";
-import Avatar5 from "../../assets/images/lg/avatar5.jpg";
-import Avatar8 from "../../assets/images/lg/avatar8.jpg";
-import Avatar9 from "../../assets/images/lg/avatar9.jpg";
-import Avatar12 from "../../assets/images/lg/avatar12.jpg";
+import Avatar2 from "../../assets/images/placeholder.svg";
+import Avatar3 from "../../assets/images/placeholder.svg";
+import Avatar5 from "../../assets/images/placeholder.svg";
+import Avatar8 from "../../assets/images/placeholder.svg";
+import Avatar9 from "../../assets/images/placeholder.svg";
+import Avatar12 from "../../assets/images/placeholder.svg";
 
 
 function TopPerformers() {

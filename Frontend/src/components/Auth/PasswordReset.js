@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import GoogleImg from "../../assets/images/forgot-password.svg";
+import GoogleImg from "../../assets/images/placeholder.svg";
 
 function PasswordReset (){
     

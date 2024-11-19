@@ -1,5 +1,5 @@
 import React from "react";
-import loginImg from "../../assets/images/login-img.svg";
+import loginImg from "../../assets/images/placeholder.svg";
 
 function LeftSide (){
     
