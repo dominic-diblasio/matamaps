@@ -21,6 +21,8 @@ import ManageClubStudentsPage from "./OtherPages/ManageClubStudentsPage";
 import EditEventPage from "./OtherPages/EditEventPage";
 import ManageRSVPsPage from "./OtherPages/ManageRSVPsPage";
 import MyRSVPsPage from "./OtherPages/MyRSVPsPage";
+import StackingToaster from "./OtherPages/StackingToaster";
+import ClubAnnouncementsPage from "./OtherPages/ClubAnnouncementsPage";
 
 function EmptyPageIndex(props) {
     // const { activekey } = props;
@@ -50,6 +52,8 @@ function EmptyPageIndex(props) {
                     <Route path="/club-leader/students/:club_id" element={<ManageClubStudentsPage />} />
                     <Route exact path="/messages" element={<Messages />} />
                     <Route exact path="/personal-details" element={<PersonalDetailsPage />} />
+                    <Route exact path="/st" element={<StackingToaster />} />
+                    <Route exact path="/club-announcements/:club_id" element={<ClubAnnouncementsPage />} />
                 </ReactRoutes>
             </div>
         </div>

@@ -19,6 +19,15 @@
             "isCategory": false,
             "isApp": false,
             "children": []
+        },{
+            "name": "Announcements Page",
+            "routerLink": ["st"],
+            "identifier": "Announcements",
+            "iconClass": "icofont-calendar",
+            "breadcrumbMessage": "View Announcements.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
         },
         {
             "name": "Events",

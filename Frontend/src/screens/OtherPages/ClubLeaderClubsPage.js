@@ -87,6 +87,12 @@ function ClubLeaderClubsPage() {
                   >
                     Manage Students
                   </Link>
+                  <Link
+                    to={`/club-announcements/${club.club_id}`}
+                    className="btn btn-warning ms-2 mt-2"
+                  >
+                    Manage Announcements
+                  </Link>
                 </div>
               </div>
             </div>
@@ -122,7 +128,7 @@ export default ClubLeaderClubsPage;
 //       }
 
 //       try {
-//         const response = await axios.get("http://localhost:3500/club-leader/clubs", {
+//         const response = await axios.get("http://0.0.0.0:3500/club-leader/clubs", {
 //           headers: {
 //             Authorization: `Bearer ${jwt_token}`,
 //           },
@@ -183,6 +189,12 @@ export default ClubLeaderClubsPage;
 //                     className="btn btn-secondary ms-2"
 //                   >
 //                     Manage Events
+//                   </Link>
+//                   <Link
+//                     to={`/club-leader/students/${club.club_id}`}
+//                     className="btn btn-success ms-2 mt-2"
+//                   >
+//                     Manage Students
 //                   </Link>
 //                 </div>
 //               </div>
