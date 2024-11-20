@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require('axios');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 
@@ -40,37 +41,47 @@ const authenticateToken = async (req, res, next) => {
     });
   }
 };
-
-// Endpoint to display user details
-router.get('/', authenticateToken, async (req, res) => {
-  const db = router.locals.db;
+router.get("/", authenticateToken, async (req, res) => {
   const { session_id } = req;
+  const db = router.locals.db;
 
   try {
-    // Retrieve user details using session ID
-    const user = await db('Users')
-      .select('user_id', 'username', 'email', 'first_name', 'last_name', 'role')
+    const user = await db("Users")
+      .select("user_id", "role")
       .where({ session_id })
       .first();
 
     if (!user) {
-      return res.status(404).json({ success: false, message: 'User not found for the session' });
+      return res.status(404).json({ success: false, message: "User not found" });
     }
 
-    res.status(200).json({
-      success: true,
-      data: user,
-    });
+    // If user is not a club leader, return all active clubs
+    if (user.role !== "club_leader") {
+      const activeClubs = await db("Clubs").select("*").where({ status: "active" });
+      return res.status(200).json({ success: true, data: activeClubs });
+    }
+
+    // Fetch clubs managed by the leader
+    const leaderClubs = await db("ClubMembers")
+      .select("club_id")
+      .where({ user_id: user.user_id, role_in_club: "leader", status: "active" });
+
+    const leaderClubIds = leaderClubs.map((club) => club.club_id);
+
+    // Fetch active clubs excluding those managed by the leader
+    const filteredClubs = await db("Clubs")
+      .select("*")
+      .where({ status: "active" })
+      .whereNotIn("club_id", leaderClubIds);
+
+    return res.status(200).json({ success: true, data: filteredClubs });
   } catch (err) {
-    console.error('Error fetching user details:', err);
-    return res.status(500).json({
-      success: false,
-      message: 'Error fetching user details',
-    });
+    console.error("Error fetching filtered clubs:", err);
+    res.status(500).json({ success: false, message: "Error fetching filtered clubs" });
   }
 });
 
 module.exports = {
-    path: '/users/account/details',
-    router,
-  };
+  path: "/clubs/filtered-active",
+  router,
+};

@@ -8,7 +8,6 @@ function DashboardLayout() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', padding: '20px' }}>
             <Events />
             <Clubs />
-            <ClubMembers />
         </div>
     );
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import menu3 from "../Data/menu3.json";
 
 function Sidebar(props) {
@@ -21,6 +22,13 @@ function Sidebar(props) {
             window.document.children[0].setAttribute("data-theme", "light");
             setDarkLightMode("light");
         }
+    }
+
+    function handleLogout() {
+        // Remove cookies
+        Cookies.remove("jwt_token");
+        // Redirect to login page
+        navigate("/login");
     }
 
     const { activekey } = props;
@@ -53,6 +61,12 @@ function Sidebar(props) {
                         </div>
                     </li>
                 </ul>
+                {/* Logout Button */}
+                <div className="text-center mt-4">
+                    <button type="button" className="btn btn-danger" onClick={handleLogout}>
+                        Logout
+                    </button>
+                </div>
                 <button type="button" className="btn btn-link sidebar-mini-btn text-light" onClick={() => setIsSidebarMini(!isSidebarMini)}>
                     <span className="ms-2"><i className="icofont-bubble-right"></i></span>
                 </button>
@@ -62,6 +76,71 @@ function Sidebar(props) {
 }
 
 export default Sidebar;
+
+// import React, { useState, useEffect } from "react";
+// import { Link, useNavigate } from "react-router-dom";
+// import menu3 from "../Data/menu3.json";
+
+// function Sidebar(props) {
+//     const [isSidebarMini, setIsSidebarMini] = useState(false);
+//     const [menuData, setMenuData] = useState([...menu3.menu3]);
+//     const [darkLightMode, setDarkLightMode] = useState("light");
+
+//     const navigate = useNavigate();
+
+//     useEffect(() => {
+//         window.document.children[0].setAttribute("data-theme", "light");
+//     }, []);
+
+//     function onChangeDarkMode() {
+//         if (window.document.children[0].getAttribute("data-theme") === "light") {
+//             window.document.children[0].setAttribute("data-theme", "dark");
+//             setDarkLightMode("dark");
+//         } else {
+//             window.document.children[0].setAttribute("data-theme", "light");
+//             setDarkLightMode("light");
+//         }
+//     }
+
+//     const { activekey } = props;
+
+//     return (
+//         <div id="mainSideMenu" className={`sidebar px-4 py-4 py-md-5 me-0 ${isSidebarMini ? "sidebar-mini" : ""}`}>
+//             <div className="d-flex flex-column h-100">
+//                 <a href="/" className="mb-0 brand-icon">
+//                     <span className="logo-icon">
+//                         {/* SVG icon here */}
+//                     </span>
+//                     <span className="logo-text">MataMaps</span>
+//                 </a>
+//                 <ul className="menu-list flex-grow-1 mt-3">
+//                     {menuData.map((d, i) => (
+//                         <li key={`menu-item-${i}`} className="collapsed">
+//                             <Link to={`/${d.routerLink[0]}`} className={`m-link ${d.routerLink[0] === activekey ? "active" : ""}`}>
+//                                 <i className={d.iconClass}></i>
+//                                 <span>{d.name}</span>
+//                             </Link>
+//                         </li>
+//                     ))}
+//                 </ul>
+//                 {/* Dark mode toggle */}
+//                 <ul className="list-unstyled mb-0">
+//                     <li className="d-flex align-items-center justify-content-center">
+//                         <div className="form-check form-switch theme-switch">
+//                             <input className="form-check-input" type="checkbox" checked={darkLightMode === "dark"} id="theme-switch" onChange={onChangeDarkMode} />
+//                             <label className="form-check-label" htmlFor="theme-switch">Enable Dark Mode!</label>
+//                         </div>
+//                     </li>
+//                 </ul>
+//                 <button type="button" className="btn btn-link sidebar-mini-btn text-light" onClick={() => setIsSidebarMini(!isSidebarMini)}>
+//                     <span className="ms-2"><i className="icofont-bubble-right"></i></span>
+//                 </button>
+//             </div>
+//         </div>
+//     );
+// }
+
+// export default Sidebar;
 
 
 // import React, { useState, useEffect } from "react";

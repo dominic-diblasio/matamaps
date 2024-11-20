@@ -19,6 +19,15 @@
             "isCategory": false,
             "isApp": false,
             "children": []
+        },{
+            "name": "Announcements Page",
+            "routerLink": ["st"],
+            "identifier": "Announcements",
+            "iconClass": "icofont-calendar",
+            "breadcrumbMessage": "View Announcements.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
         },
         {
             "name": "Events",
@@ -36,6 +45,26 @@
             "identifier": "Clubs",
             "iconClass": "icofont-group",
             "breadcrumbMessage": "View clubs.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },
+        {
+            "name": "Event RSVPS",
+            "routerLink": ["my-rsvp"],
+            "identifier": "MyRSVPPS",
+            "iconClass": "icofont-id-card",
+            "breadcrumbMessage": "View your rsvps.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },
+        {
+            "name": "Your Clubs",
+            "routerLink": ["clubs-leader"],
+            "identifier": "ClubsLeader",
+            "iconClass": "icofont-id-card",
+            "breadcrumbMessage": "View your clubs.",
             "isCategory": false,
             "isApp": false,
             "children": []

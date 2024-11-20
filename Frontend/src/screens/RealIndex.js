@@ -13,6 +13,17 @@ import PersonalDetailsPage from "./OtherPages/PersonalDetailsPage";
 import ClubEvents from "./OtherPages/ClubEvents";
 import ClubDetails from "./OtherPages/ClubDetails";
 import ClubRules from "./OtherPages/ClubRules";
+import ClubLeaderClubsPage from "./OtherPages/ClubLeaderClubsPage";
+import ManageClubMembersPage from "./OtherPages/ManageClubMembersPage";
+import ManageClubEventsPage from "./OtherPages/ManageClubEventsPage";
+import AddEventPage from "./OtherPages/AddEventPage";
+import ManageClubStudentsPage from "./OtherPages/ManageClubStudentsPage";
+import EditEventPage from "./OtherPages/EditEventPage";
+import ManageRSVPsPage from "./OtherPages/ManageRSVPsPage";
+import MyRSVPsPage from "./OtherPages/MyRSVPsPage";
+import StackingToaster from "./OtherPages/StackingToaster";
+import ClubAnnouncementsPage from "./OtherPages/ClubAnnouncementsPage";
+import ClubAnnouncements from "./OtherPages/ClubAnnouncements";
 
 function EmptyPageIndex(props) {
     // const { activekey } = props;
@@ -28,12 +39,23 @@ function EmptyPageIndex(props) {
                     <Route exact path="/dashboard" element={<Dashboard />} />
                     <Route path="/events" element={<Events />} />
                     <Route path="/clubs" element={<Clubs />} />
+                    <Route path="/clubs-leader" element={<ClubLeaderClubsPage/>}/>
+                    <Route path="/announcements" element={<ClubAnnouncements/>}/>
                     <Route path="/club-members/:club_id" element={<ClubMembers />} />
                     <Route path="/club-events/:club_id" element={<ClubEvents />} />
                     <Route path="/clubs/details/:club_id" element={<ClubDetails />} />
                     <Route path="/club-rules/:club_id" element={<ClubRules />} />
+                    <Route path="/club-leader/events/:club_id" element={<ManageClubEventsPage/>} />
+                    <Route path="/club-leader/events/rsvps/:event_id" element={<ManageRSVPsPage/>} /> 
+                    <Route path="/my-rsvp" element={<MyRSVPsPage/>} />   
+                    <Route path="/club-leader/events/add/:club_id" element={<AddEventPage/>} />
+                    <Route path="/club-leader/events/edit/:event_id" element={<EditEventPage/>} />
+                    <Route path="/members-leader/:club_id" element={<ManageClubMembersPage/>}/>
+                    <Route path="/club-leader/students/:club_id" element={<ManageClubStudentsPage />} />
                     <Route exact path="/messages" element={<Messages />} />
                     <Route exact path="/personal-details" element={<PersonalDetailsPage />} />
+                    <Route exact path="/st" element={<StackingToaster />} />
+                    <Route exact path="/club-announcements/:club_id" element={<ClubAnnouncementsPage />} />
                 </ReactRoutes>
             </div>
         </div>

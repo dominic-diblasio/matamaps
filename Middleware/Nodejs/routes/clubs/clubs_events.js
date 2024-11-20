@@ -42,30 +42,41 @@ const router = express.Router();
 //     }
 //   };
 
-  router.get('/:club_id',  async (req, res) => {
-    const db = router.locals.db;
-    const { club_id } = req.params;
-  
-    try {
-      // Fetch only events with "active" status for the specified club_id
-      const events = await db('Events')
-        .select('event_id', 'event_name', 'event_date', 'event_image','event_description', 'location', 'created_by')
-        .where({ club_id, status: 'active' }); // Add the status filter
-  
-      if (events.length === 0) {
-        return res.status(404).json({ success: false, message: 'No active events found for this club' });
-      }
-  
-      console.log(`Fetched ${events.length} active events for club_id: ${club_id}`);
-      res.status(200).json({ success: true, data: events });
-    } catch (err) {
-      console.error('Error fetching club events:', err);
-      return res.status(500).json({ success: false, message: 'Error fetching club events' });
+router.get('/:club_id', async (req, res) => {
+  const db = router.locals.db;
+  const { club_id } = req.params;
+
+  try {
+    // Fetch events with "active" or "completed" status for the specified club_id
+    const events = await db('Events')
+      .select(
+        'event_id',
+        'event_name',
+        'event_date',
+        'event_image',
+        'event_description',
+        'location',
+        'created_by',
+        'Events.status as event_status'
+      )
+      .where('club_id', club_id)
+      .whereIn('status', ['active', 'completed']); // Use whereIn for filtering statuses
+
+    if (events.length === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: 'No active or completed events found for this club' });
     }
-  });
-  
-  
-  module.exports = {
-    path: '/clubs/events',
-    router,
-  };
+
+    console.log(`Fetched ${events.length} events for club_id: ${club_id}`);
+    res.status(200).json({ success: true, data: events });
+  } catch (err) {
+    console.error('Error fetching club events:', err);
+    return res.status(500).json({ success: false, message: 'Error fetching club events' });
+  }
+});
+
+module.exports = {
+  path: '/clubs/events',
+  router,
+};
