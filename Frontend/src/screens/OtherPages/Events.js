@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -15,9 +16,9 @@ function Events() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        // Fetch user details only if a token exists
         const jwt_token = Cookies.get("jwt_token");
 
+        // Fetch user details if logged in
         if (jwt_token) {
           const userResponse = await axios.get("http://localhost:3500/users/account/details", {
             headers: { Authorization: `Bearer ${jwt_token}` },
@@ -31,7 +32,7 @@ function Events() {
           }
         }
 
-        // Fetch events based on role
+        // Fetch events
         const endpoint =
           role === "club_leader"
             ? "http://localhost:3500/events/filtered-events"
@@ -100,7 +101,10 @@ function Events() {
                   <p className="card-text">
                     <strong>Location:</strong> {event.location}
                   </p>
-                  {username && (
+                  <p className="card-text">
+                    <strong>Status:</strong> {event.event_status || "N/A"}
+                  </p>
+                  {event.event_status !== "completed" && username && (
                     <button
                       className="btn btn-success"
                       onClick={() => handleRegisterClick(event)}
@@ -128,9 +132,6 @@ function Events() {
 }
 
 export default Events;
-
-
-
 // import React, { useEffect, useState } from "react";
 // import axios from "axios";
 // import Cookies from "js-cookie";
@@ -140,41 +141,45 @@ export default Events;
 //   const [events, setEvents] = useState([]);
 //   const [loading, setLoading] = useState(true);
 //   const [error, setError] = useState(null);
-//   const [username, setUsername] = useState(null); // Null if not logged in
+//   const [username, setUsername] = useState(null);
+//   const [role, setRole] = useState(null);
 //   const [showPopup, setShowPopup] = useState(false);
 //   const [selectedEvent, setSelectedEvent] = useState(null);
 
 //   useEffect(() => {
 //     const fetchEvents = async () => {
 //       try {
-//         // Fetch events (public data)
-//         const eventsResponse = await axios.get("http://localhost:3500/events");
+//         // Fetch user details only if a token exists
+//         const jwt_token = Cookies.get("jwt_token");
+
+//         if (jwt_token) {
+//           const userResponse = await axios.get("http://localhost:3500/users/account/details", {
+//             headers: { Authorization: `Bearer ${jwt_token}` },
+//             withCredentials: true,
+//           });
+
+//           if (userResponse.data.success) {
+//             const userData = userResponse.data.data;
+//             setUsername(userData.username);
+//             setRole(userData.role);
+//           }
+//         }
+
+//         // Fetch events based on role
+//         const endpoint =
+//           role === "club_leader"
+//             ? "http://localhost:3500/events/filtered-events"
+//             : "http://localhost:3500/events";
+
+//         const eventsResponse = await axios.get(endpoint, {
+//           headers: jwt_token ? { Authorization: `Bearer ${jwt_token}` } : {},
+//           withCredentials: !!jwt_token,
+//         });
+
 //         if (eventsResponse.data.success) {
 //           setEvents(eventsResponse.data.data);
 //         } else {
 //           setError(eventsResponse.data.message || "Failed to fetch events");
-//         }
-
-//         // Fetch username only if a token exists
-//         const jwt_token = Cookies.get("jwt_token");
-//         if (jwt_token) {
-//           try {
-//             const userResponse = await axios.get(
-//               "http://localhost:3500/users/account/details",
-//               {
-//                 headers: {
-//                   Authorization: `Bearer ${jwt_token}`,
-//                 },
-//                 withCredentials: true,
-//               }
-//             );
-//             if (userResponse.data.success) {
-//               setUsername(userResponse.data.data.username);
-//             }
-//           } catch (userError) {
-//             console.error("User not logged in or session expired:", userError);
-//             // No need to set error for username fetch failure
-//           }
 //         }
 //       } catch (err) {
 //         console.error("Error fetching events:", err);
@@ -185,7 +190,7 @@ export default Events;
 //     };
 
 //     fetchEvents();
-//   }, []);
+//   }, [role]);
 
 //   const handleRegisterClick = (event) => {
 //     if (!username) {
@@ -229,7 +234,7 @@ export default Events;
 //                   <p className="card-text">
 //                     <strong>Location:</strong> {event.location}
 //                   </p>
-//                   {username && ( // Conditionally render the "Register" button if logged in
+//                   {username && (
 //                     <button
 //                       className="btn btn-success"
 //                       onClick={() => handleRegisterClick(event)}

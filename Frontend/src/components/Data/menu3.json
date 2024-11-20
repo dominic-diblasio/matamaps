@@ -41,6 +41,16 @@
             "children": []
         },
         {
+            "name": "Event RSVPS",
+            "routerLink": ["my-rsvp"],
+            "identifier": "MyRSVPPS",
+            "iconClass": "icofont-id-card",
+            "breadcrumbMessage": "View your rsvps.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },
+        {
             "name": "Your Clubs",
             "routerLink": ["clubs-leader"],
             "identifier": "ClubsLeader",

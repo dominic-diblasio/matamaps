@@ -71,7 +71,7 @@ router.get("/", authenticateToken, async (req, res) => {
     // Fetch events excluding those from the leader's clubs
     const events = await db("Events")
       .select("*")
-      .whereNotIn("club_id", leaderClubIds);
+      .whereNotIn({"club_id": leaderClubIds, status: 'active' || 'completed'});
 
     return res.status(200).json({ success: true, data: events });
   } catch (err) {
