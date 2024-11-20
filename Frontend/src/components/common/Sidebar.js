@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import menu3 from "../Data/menu3.json";
+import LogoMain from "../../assets/images/matamaps-images/logo-design.svg";
 
 function Sidebar(props) {
     const [isSidebarMini, setIsSidebarMini] = useState(false);
@@ -28,17 +29,16 @@ function Sidebar(props) {
     return (
         <div id="mainSideMenu" className={`sidebar px-4 py-4 py-md-5 me-0 ${isSidebarMini ? "sidebar-mini" : ""}`}>
             <div className="d-flex flex-column h-100">
-                <a href="/" className="mb-0 brand-icon">
-                    <span className="logo-icon">
-                        {/* SVG icon here */}
-                    </span>
-                    <span className="logo-text">MataMaps</span>
+                <a href="/matamaps" className="mb-0 brand-icon">
+                    <img src={LogoMain} alt="MataMaps" className="logo-icon" />
+                    {/*<span className="logo-text">MataMaps</span>*/}
                 </a>
                 <ul className="menu-list flex-grow-1 mt-3">
                     {menuData.map((d, i) => (
                         <li key={`menu-item-${i}`} className="collapsed">
                             <Link to={`/${d.routerLink[0]}`} className={`m-link ${d.routerLink[0] === activekey ? "active" : ""}`}>
                                 <i className={d.iconClass}></i>
+                                {/*<img src={require(d.iconRef)} className="menu-item-icon"/>*/}
                                 <span>{d.name}</span>
                             </Link>
                         </li>
@@ -49,7 +49,7 @@ function Sidebar(props) {
                     <li className="d-flex align-items-center justify-content-center">
                         <div className="form-check form-switch theme-switch">
                             <input className="form-check-input" type="checkbox" checked={darkLightMode === "dark"} id="theme-switch" onChange={onChangeDarkMode} />
-                            <label className="form-check-label" htmlFor="theme-switch">Enable Dark Mode!</label>
+                            <label className="form-check-label" htmlFor="theme-switch">Enable Dark Mode</label>
                         </div>
                     </li>
                 </ul>

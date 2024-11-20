@@ -1,26 +1,27 @@
 :root {
 	--dark-color: 		#474747;
 
-	--color-fff:		#401C1C;
-	--color-100:		#212121;
-	--color-200:		#262727;
-	--color-300:		#616161;
-	--color-400:		#757575;
-	--color-500:		#8f8f8f;
-	--color-600:		#BDBDBD;
-	--color-700:		#E0E0E0;
-	--color-800:		#EEEEEE;
-	--color-900:		#F0F0F0;
-	--color-000:		#FFFFFF;
+	--color-fff:		#FFFFFF;
+	--color-100:		#F0F0F0;
+	--color-200:		#EEEEEE;
+	--color-300:		#E0E0E0;
+	--color-400:		#BDBDBD;
+	--color-500:		#555555;
+	--color-600:		#757575;
+	--color-700:		#616161;
+	--color-800:		#424242;
+	--color-900:		#212121;
+	--color-000:		#000000;
 
-	--border-color:		#f0f0f0;
+
+	--border-color:		#353535;
 	--card-color: 		#c13632;
-	--body-color: 		#f9fbfd;
+	--body-color: 		#300c0c;
 	--white-color: 		#ffffff;
-	--sidebar-color:	#fcfcfc;
+	--sidebar-color:	#eeeeee;
     --text-color:       #ffffff;
 
-	--hc-font-color:	#ffd2d6;
+	--hc-font-color:	#9c9c9c;
 	--hc-bg-color:		#7a2222;
 
 }
@@ -51,10 +52,10 @@
 	--hc-bg-color:		#f0f0f0;
 
     [class="theme-matamaps"] {
-        --secondary-color: 	#c13632;
-        --body-color: 		#a62e2b;
+        --secondary-color: 	#ffffff;
+        --body-color: 		#ffffff;
         --border-color:     #474747;
-        --card-color:       #300c0c;
+        --card-color:       #dddddd;
         --primary-gradient: linear-gradient(45deg, #5e2b2a, #a62e2b);
     }
 }
