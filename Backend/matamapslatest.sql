@@ -45,7 +45,7 @@ CREATE TABLE `Announcements` (
 --
 
 /*!40000 ALTER TABLE `Announcements` DISABLE KEYS */;
-INSERT INTO `Announcements` VALUES (591428,693354,441399,'Drama rehearsals will take place in Room 202. Don’t miss it!',3,'2024-11-18 17:41:35','2024-11-18 17:41:35'),(966724,693353,464201,'Prepare your cameras for our outdoor photography adventure!',1,'2024-11-18 17:41:35','2024-11-18 17:41:35'),(996806,693353,247599,'Join us for an amazing photography workshop this weekend!',1,'2024-11-18 17:41:35','2024-11-18 17:41:35');
+INSERT INTO `Announcements` VALUES (132099,693354,NULL,'Meet theatre legends this Thursday at the CSUN Theatre!',NULL,'2024-11-20 16:56:08','2024-11-20 16:56:08'),(591428,693354,21558,'Drama rehearsals will take place in Room 202. Don’t miss it!',3,'2024-11-18 17:41:35','2024-11-20 16:30:35'),(625997,693356,107896,'Robotics Club invites you to witness \"Build a Bot!\" competition.',3,'2024-11-20 16:07:36','2024-11-20 16:07:36'),(966724,693353,464201,'Prepare your cameras for our outdoor photography adventure!',1,'2024-11-18 17:41:35','2024-11-18 17:41:35'),(996806,693353,247599,'Join us for an amazing photography workshop this weekend!',1,'2024-11-18 17:41:35','2024-11-18 17:41:35');
 /*!40000 ALTER TABLE `Announcements` ENABLE KEYS */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -159,7 +159,7 @@ CREATE TABLE `ClubEvents` (
 --
 
 /*!40000 ALTER TABLE `ClubEvents` DISABLE KEYS */;
-INSERT INTO `ClubEvents` VALUES (1,693353,247599,'2024-11-18 17:28:58','active'),(2,693353,464201,'2024-11-18 17:28:58','pending'),(1,693354,441399,'2024-11-18 17:28:58','active');
+INSERT INTO `ClubEvents` VALUES (1,693353,247599,'2024-11-18 17:28:58','active'),(2,693353,464201,'2024-11-18 17:28:58','pending');
 /*!40000 ALTER TABLE `ClubEvents` ENABLE KEYS */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -237,7 +237,7 @@ CREATE TABLE `ClubMembers` (
   KEY `fk_clubmembers_user` (`user_id`),
   CONSTRAINT `fk_clubmembers_club` FOREIGN KEY (`club_id`) REFERENCES `Clubs` (`club_id`) ON DELETE CASCADE,
   CONSTRAINT `fk_clubmembers_user` FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=842964 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=865405 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -245,7 +245,7 @@ CREATE TABLE `ClubMembers` (
 --
 
 /*!40000 ALTER TABLE `ClubMembers` DISABLE KEYS */;
-INSERT INTO `ClubMembers` VALUES (3731,693353,5,'leader','active','2024-11-18 18:58:32','2024-11-19 00:05:57','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLXuM2b4djVbMt63hftHrWFFMeQmccyytKlQ&s'),(165826,693354,3,'leader','active','2024-11-18 17:08:01','2024-11-19 00:27:53','https://pics.craiyon.com/2024-02-07/SbkbJICQRMiD1v0oxAY4jQ.webp'),(300242,693356,4,'leader','active','2024-11-18 17:08:20','2024-11-19 00:28:58','https://wallpapersok.com/images/hd/close-up-demon-slayer-nezuko-hvucfshzejpyjtta.jpg'),(842963,693353,1,'co-leader','active','2024-11-18 17:07:34','2024-11-19 00:08:04','https://avatarfiles.alphacoders.com/364/364731.png');
+INSERT INTO `ClubMembers` VALUES (3731,693353,5,'leader','active','2024-11-18 18:58:32','2024-11-19 00:05:57','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLXuM2b4djVbMt63hftHrWFFMeQmccyytKlQ&s'),(165826,693354,3,'leader','active','2024-11-18 17:08:01','2024-11-19 00:27:53','https://pics.craiyon.com/2024-02-07/SbkbJICQRMiD1v0oxAY4jQ.webp'),(300242,693356,4,'leader','active','2024-11-18 17:08:20','2024-11-19 00:28:58','https://wallpapersok.com/images/hd/close-up-demon-slayer-nezuko-hvucfshzejpyjtta.jpg'),(842963,693353,1,'co-leader','active','2024-11-18 17:07:34','2024-11-19 00:08:04','https://avatarfiles.alphacoders.com/364/364731.png'),(865404,693356,3,'leader','active','2024-11-20 00:02:44','2024-11-20 00:02:53','https://pics.craiyon.com/2024-02-07/SbkbJICQRMiD1v0oxAY4jQ.webp');
 /*!40000 ALTER TABLE `ClubMembers` ENABLE KEYS */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -291,12 +291,14 @@ CREATE TABLE `ClubRegistrations` (
   `username` varchar(100) NOT NULL,
   `student_number` int NOT NULL,
   `status` enum('pending','active','inactive') NOT NULL DEFAULT 'pending',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `club_id` (`club_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `clubregistrations_ibfk_1` FOREIGN KEY (`club_id`) REFERENCES `Clubs` (`club_id`),
   CONSTRAINT `clubregistrations_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -304,7 +306,7 @@ CREATE TABLE `ClubRegistrations` (
 --
 
 /*!40000 ALTER TABLE `ClubRegistrations` DISABLE KEYS */;
-INSERT INTO `ClubRegistrations` VALUES (1,693353,'Photography Club',1,'john_doe',1,'pending'),(2,693354,'Drama Club',2,'newuser',1,'pending'),(3,693354,'Drama Club',1,'john_doe',2,'pending');
+INSERT INTO `ClubRegistrations` VALUES (1,693353,'Photography Club',1,'john_doe',1,'pending','2024-11-20 15:26:46','2024-11-20 15:26:46'),(2,693354,'Drama Club',2,'newuser',1,'active','2024-11-20 15:26:46','2024-11-20 15:26:46'),(3,693354,'Drama Club',1,'john_doe',2,'active','2024-11-20 15:26:46','2024-11-20 15:26:46'),(4,693356,'Robotics Club',2,'newuser',1,'inactive','2024-11-20 15:26:46','2024-11-20 15:27:06');
 /*!40000 ALTER TABLE `ClubRegistrations` ENABLE KEYS */;
 
 --
@@ -433,7 +435,7 @@ CREATE TABLE `EventRSVP` (
   KEY `fk_eventrsvp_user` (`user_id`),
   CONSTRAINT `fk_eventrsvp_event` FOREIGN KEY (`event_id`) REFERENCES `Events` (`event_id`) ON DELETE CASCADE,
   CONSTRAINT `fk_eventrsvp_user` FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -441,7 +443,7 @@ CREATE TABLE `EventRSVP` (
 --
 
 /*!40000 ALTER TABLE `EventRSVP` DISABLE KEYS */;
-INSERT INTO `EventRSVP` VALUES (1,441399,1,'pending','2024-11-19 04:19:23','2024-11-19 04:19:23'),(2,464201,1,'pending','2024-11-19 04:22:58','2024-11-19 04:22:58'),(3,247599,1,'pending','2024-11-19 04:42:05','2024-11-19 04:42:05');
+INSERT INTO `EventRSVP` VALUES (2,464201,1,'pending','2024-11-19 04:22:58','2024-11-19 04:22:58'),(3,247599,1,'pending','2024-11-19 04:42:05','2024-11-19 04:42:05'),(4,706979,2,'accepted','2024-11-20 09:57:36','2024-11-20 10:23:24'),(5,706979,1,'pending','2024-11-20 10:32:30','2024-11-20 10:32:30'),(6,247599,2,'pending','2024-11-20 15:04:04','2024-11-20 15:09:35'),(7,464201,3,'pending','2024-11-20 15:09:50','2024-11-20 15:09:50');
 /*!40000 ALTER TABLE `EventRSVP` ENABLE KEYS */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -487,7 +489,7 @@ CREATE TABLE `Events` (
   `created_by` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `status` enum('active','pending','inactive') DEFAULT 'pending',
+  `status` enum('active','pending','inactive','completed') NOT NULL,
   `event_image` varchar(255) DEFAULT NULL,
   `event_description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`event_id`),
@@ -495,7 +497,7 @@ CREATE TABLE `Events` (
   KEY `idx_event_creator` (`created_by`),
   CONSTRAINT `fk_events_club` FOREIGN KEY (`club_id`) REFERENCES `Clubs` (`club_id`) ON DELETE CASCADE,
   CONSTRAINT `fk_events_user` FOREIGN KEY (`created_by`) REFERENCES `Users` (`user_id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=464202 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=819809 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -503,7 +505,7 @@ CREATE TABLE `Events` (
 --
 
 /*!40000 ALTER TABLE `Events` DISABLE KEYS */;
-INSERT INTO `Events` VALUES (247599,693353,'Photography Meetup','2024-12-01','Room 101',1,'2024-11-18 17:22:27','2024-11-19 04:43:31','active','https://media.istockphoto.com/id/1149134493/vector/girl-is-making-funny-selfie-group-picture.jpg?s=612x612&w=0&k=20&c=K4DP2b8EreiO3TYnxCnJyJqgWr5dpgYF_HkTjTFljm8=','\"Meet your club members\": Discuss the essence of Photography and different genres.'),(441399,693354,'Drama Rehearsal','2024-12-02','Room 202',2,'2024-11-18 17:22:27','2024-11-19 00:19:53','active','https://www.dentonisd.org/cms/lib/TX21000245/Centricity/Domain/12248/drama-masks.jpeg','\"Theatrical Tales\": A captivating evening showcasing dramatic performances and storytelling by talented actors.'),(464201,693353,'Photography Workshop','2024-12-05','Room 103',1,'2024-11-18 17:22:27','2024-11-19 00:19:41','active','https://www.adobe.com/creativecloud/photography/discover/media_15bc773080343f8444e57be432169904b06bc76ae.png?width=750&format=png&optimize=medium','\"Nature\'s Lens\": Capture breathtaking landscapes and explore advanced photography techniques in this outdoor adventure.');
+INSERT INTO `Events` VALUES (21558,693354,'Little Women','2024-11-14','Room 5',3,'2024-11-20 11:17:20','2024-11-20 11:46:16','completed','https://www.lafeltrinelli.it/images/4066338120601_0_536_0_75.jpg','19th century Massachusetts. While the March sisters - Jo, Meg, Amy, and Beth - enter the threshold of womanhood, they go through many ups and downs in life and endeavor to make important decisions that can affect their future.'),(107896,693356,'Build a Bot!','2024-11-22','Room 404',3,'2024-11-20 02:09:43','2024-11-20 02:09:43','pending','https://static01.nyt.com/images/2024/08/23/multimedia/2024-01-08-connections-bot-index/2024-01-08-connections-bot-index-videoSixteenByNine3000.png','Build a bot with your team members based on radom prompt pick.'),(247599,693353,'Photography Meetup','2024-12-01','Room 101',1,'2024-11-18 17:22:27','2024-11-19 04:43:31','active','https://media.istockphoto.com/id/1149134493/vector/girl-is-making-funny-selfie-group-picture.jpg?s=612x612&w=0&k=20&c=K4DP2b8EreiO3TYnxCnJyJqgWr5dpgYF_HkTjTFljm8=','\"Meet your club members\": Discuss the essence of Photography and different genres.'),(464201,693353,'Photography Workshop','2024-11-20','Room 103',1,'2024-11-18 17:22:27','2024-11-20 02:09:43','active','https://www.adobe.com/creativecloud/photography/discover/media_15bc773080343f8444e57be432169904b06bc76ae.png?width=750&format=png&optimize=medium','\"Nature\'s Lens\": Capture breathtaking landscapes and explore advanced photography techniques in this outdoor adventure.'),(706979,693354,'Shakespeare ','2024-11-30','Room 909',3,'2024-11-20 06:43:01','2024-11-20 02:09:43','active','https://media.npr.org/assets/img/2016/04/15/tamingoftheshrew_custom-b6bb3feb2a117480da19bf25d483f5ab435a7e01.jpg?s=1100&c=50&f=jpeg','Get ready to witness a legendary tale from the 1800s! '),(819808,693356,'Lego Champions','2024-11-22','Room 0',3,'2024-11-20 07:25:45','2024-11-20 15:14:41','active','https://i0.wp.com/truenorthbricks.com/wp-content/uploads/2023/07/Robot03.jpg?resize=1024%2C771&ssl=1','Build a legos robot with a live prompt ');
 /*!40000 ALTER TABLE `Events` ENABLE KEYS */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -527,25 +529,6 @@ DELIMITER ;;
 
     -- Assign the unique event_id to the new row
     SET NEW.event_id = random_id;
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `SetEventManagerRole` AFTER INSERT ON `events` FOR EACH ROW BEGIN
-    UPDATE Users
-    SET role = 'event_manager'
-    WHERE user_id = NEW.created_by;
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -639,7 +622,7 @@ CREATE TABLE `Users` (
 --
 
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
-INSERT INTO `Users` VALUES (1,'john_doe','John','Doe','Password123','john_doe@my.csun.edu','event_manager',NULL,'2024-10-29 02:26:12','2024-11-19 04:42:38','65c38f9a-ff0b-4d70-8db2-acc9267c134e'),(2,'newuser','New','User','password123','newuser@my.csun.edu','user',NULL,'2024-10-31 02:14:13','2024-11-19 02:11:05','998e63f2-3ba0-47e9-8447-ec751b8ee0b6'),(3,'Federico','Federico ','B','Password456','federico@my.csun.edu','club_leader',NULL,'2024-11-18 16:57:57','2024-11-19 00:47:24',NULL),(4,'kamala','Kamala','Harris','Password789','harris@my.csun.edu','club_leader',NULL,'2024-11-18 16:59:08','2024-11-19 00:47:24',NULL),(5,'slaya','Laya','P','Password111','srilaya.ponangi.484@my.csun.edu','club_leader',NULL,'2024-11-18 18:57:20','2024-11-19 01:24:34',NULL),(6,'Naomih','Naomih','N','Password222','naomih@my.csun.edu','user',NULL,'2024-11-19 01:24:58','2024-11-19 01:25:23',NULL),(7,'yuli','Yuliana','C','Password333','yuliana@my.csun.edu','user',NULL,'2024-11-19 01:26:07','2024-11-19 01:26:07',NULL),(8,'Roh','Rohita','G','Password444','rohitag@my.csun.edu','user',NULL,'2024-11-19 01:26:59','2024-11-19 01:26:59',NULL);
+INSERT INTO `Users` VALUES (1,'john_doe','John','Doe','Password123','john_doe@my.csun.edu','event_manager',NULL,'2024-10-29 02:26:12','2024-11-20 10:31:06','935a2094-cae2-4bf2-8df1-13f85e00a9b7'),(2,'newuser','New','User','password123','newuser@my.csun.edu','user',NULL,'2024-10-31 02:14:13','2024-11-20 17:00:31','f6f06241-f029-4b41-b0c4-9b7bf896d724'),(3,'Federico','Federico ','B','Password456','federico@my.csun.edu','club_leader',NULL,'2024-11-18 16:57:57','2024-11-20 17:00:52','5a888ce0-768e-4cdb-a791-96238026e441'),(4,'kamala','Kamala','Harris','Password789','harris@my.csun.edu','club_leader',NULL,'2024-11-18 16:59:08','2024-11-19 00:47:24',NULL),(5,'slaya','Laya','P','Password111','srilaya.ponangi.484@my.csun.edu','club_leader',NULL,'2024-11-18 18:57:20','2024-11-19 01:24:34',NULL),(6,'Naomih','Naomih','N','Password222','naomih@my.csun.edu','user',NULL,'2024-11-19 01:24:58','2024-11-19 01:25:23',NULL),(7,'yuli','Yuliana','C','Password333','yuliana@my.csun.edu','user',NULL,'2024-11-19 01:26:07','2024-11-19 01:26:07',NULL),(8,'Roh','Rohita','G','Password444','rohitag@my.csun.edu','user',NULL,'2024-11-19 01:26:59','2024-11-20 16:02:27','83d8de37-6104-49c2-bda5-46574dcaa723');
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 
 --
@@ -699,4 +682,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-18 21:01:04
+-- Dump completed on 2024-11-20  9:32:44
