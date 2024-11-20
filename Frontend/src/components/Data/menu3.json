@@ -41,6 +41,16 @@
             "children": []
         },
         {
+            "name": "Your Clubs",
+            "routerLink": ["clubs-leader"],
+            "identifier": "ClubsLeader",
+            "iconClass": "icofont-id-card",
+            "breadcrumbMessage": "View your clubs.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },
+        {
             "name": "Messages",
             "routerLink": ["messages"],
             "identifier": "Messages",

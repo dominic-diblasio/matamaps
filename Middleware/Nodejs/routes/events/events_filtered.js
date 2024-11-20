@@ -40,37 +40,47 @@ const authenticateToken = async (req, res, next) => {
     });
   }
 };
-
-// Endpoint to display user details
-router.get('/', authenticateToken, async (req, res) => {
-  const db = router.locals.db;
+router.get("/", authenticateToken, async (req, res) => {
   const { session_id } = req;
+  const db = router.locals.db;
 
   try {
-    // Retrieve user details using session ID
-    const user = await db('Users')
-      .select('user_id', 'username', 'email', 'first_name', 'last_name', 'role')
+    // Fetch the user details using session_id
+    const user = await db("Users")
+      .select("user_id", "role")
       .where({ session_id })
       .first();
 
     if (!user) {
-      return res.status(404).json({ success: false, message: 'User not found for the session' });
+      return res.status(404).json({ success: false, message: "User not found" });
     }
 
-    res.status(200).json({
-      success: true,
-      data: user,
-    });
+    // If user is not a club leader, return all events
+    if (user.role !== "club_leader") {
+      const events = await db("Events").select("*");
+      return res.status(200).json({ success: true, data: events });
+    }
+
+    // Fetch the club IDs managed by the club leader
+    const leaderClubs = await db("ClubMembers")
+      .select("club_id")
+      .where({ user_id: user.user_id, role_in_club: "leader", status: "active" });
+
+    const leaderClubIds = leaderClubs.map((club) => club.club_id);
+
+    // Fetch events excluding those from the leader's clubs
+    const events = await db("Events")
+      .select("*")
+      .whereNotIn("club_id", leaderClubIds);
+
+    return res.status(200).json({ success: true, data: events });
   } catch (err) {
-    console.error('Error fetching user details:', err);
-    return res.status(500).json({
-      success: false,
-      message: 'Error fetching user details',
-    });
+    console.error("Error fetching filtered events:", err);
+    res.status(500).json({ success: false, message: "Error fetching events" });
   }
 });
 
 module.exports = {
-    path: '/users/account/details',
-    router,
-  };
+  path: "/events/filtered-events",
+  router,
+};
