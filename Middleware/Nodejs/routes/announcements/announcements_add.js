@@ -11,24 +11,22 @@ const authenticateToken = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const { session_id, user_id } = decoded;
+    const { session_id } = decoded;
 
-    if (!session_id || !user_id) {
+    if (!session_id) {
       return res.status(401).json({ success: false, message: "Invalid token payload" });
     }
 
     req.session_id = session_id;
-    req.user_id = user_id;
     next();
   } catch (err) {
     console.error("Authentication error:", err);
     return res.status(500).json({ success: false, message: "Error during authentication" });
   }
 };
-
 // POST /announcements - Add a new announcement
-router.post("/", authenticateToken, async (req, res) => {
-  const { club_id, message } = req.body;
+router.post("/",  async (req, res) => {
+  const { club_id, message, event_id, announcement_name } = req.body;
   const db = router.locals.db;
 
   if (!club_id || !message) {
@@ -38,6 +36,8 @@ router.post("/", authenticateToken, async (req, res) => {
   try {
     const [insertedId] = await db("Announcements").insert({
       club_id,
+      announcement_name,
+      event_id,
       message,
       created_by: req.user_id, // Assuming `user_id` is set in authenticateToken middleware
       created_at: new Date(),

@@ -23,6 +23,7 @@ import ManageRSVPsPage from "./OtherPages/ManageRSVPsPage";
 import MyRSVPsPage from "./OtherPages/MyRSVPsPage";
 import StackingToaster from "./OtherPages/StackingToaster";
 import ClubAnnouncementsPage from "./OtherPages/ClubAnnouncementsPage";
+import ClubAnnouncements from "./OtherPages/ClubAnnouncements";
 
 function EmptyPageIndex(props) {
     // const { activekey } = props;
@@ -39,6 +40,7 @@ function EmptyPageIndex(props) {
                     <Route path="/events" element={<Events />} />
                     <Route path="/clubs" element={<Clubs />} />
                     <Route path="/clubs-leader" element={<ClubLeaderClubsPage/>}/>
+                    <Route path="/announcements" element={<ClubAnnouncements/>}/>
                     <Route path="/club-members/:club_id" element={<ClubMembers />} />
                     <Route path="/club-events/:club_id" element={<ClubEvents />} />
                     <Route path="/clubs/details/:club_id" element={<ClubDetails />} />

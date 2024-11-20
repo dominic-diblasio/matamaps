@@ -38,6 +38,7 @@ router.get("/:club_id", authenticateToken, async (req, res) => {
       .select(
         "announcement_id",
         "club_id",
+        "announcement_name",
         "event_id",
         "message",
         "created_by",

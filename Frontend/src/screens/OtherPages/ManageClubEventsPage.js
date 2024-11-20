@@ -183,6 +183,9 @@ function ManageClubEventsPage() {
           <div className="card-body">
             <h5 className="card-title">{event.event_name}</h5>
             <p className="card-text">
+              <strong>Event Id:</strong> {event.event_id}
+            </p>
+            <p className="card-text">
               <strong>Date:</strong>{" "}
               {new Date(event.event_date).toLocaleDateString()}
             </p>
