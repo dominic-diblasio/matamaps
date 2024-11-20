@@ -1,3 +1,7 @@
-Scarlet: #c13632
-Crimson Red: #a62e2b
-Grey Contrasting: #474747
+    [class="theme-matamaps"] {
+        --secondary-color: 	#c13632;
+        --body-color: 		#a62e2b;
+        --border-color:     #474747;
+        --card-color:       #300c0c;
+        --primary-gradient: linear-gradient(45deg, #f5558d, #FF1843);
+    }

@@ -1,5 +1,5 @@
 :root {
-	--dark-color: 		#323A45;
+	--dark-color: 		#474747;
 
 	--color-fff:		#FFFFFF;
 	--color-100:		#F0F0F0;
@@ -13,15 +13,16 @@
 	--color-900:		#212121;
 	--color-000:		#000000;
 
-	--border-color:		#f0f0f0;
-	--card-color: 		#ffffff;
-	--body-color: 		#f9fbfd;
-	--white-color: 		#ffffff;
-	--sidebar-color:	#fcfcfc;
-    --text-color:       #212529;
 
-	--hc-font-color:	#555555;
-	--hc-bg-color:		#f0f0f0;
+	--border-color:		#353535;
+	--card-color: 		#c13632;
+	--body-color: 		#300c0c;
+	--white-color: 		#ffffff;
+	--sidebar-color:	#eeeeee;
+    --text-color:       #ffffff;
+
+	--hc-font-color:	#9c9c9c;
+	--hc-bg-color:		#7a2222;
 
 }
 
@@ -51,28 +52,28 @@
 	--hc-bg-color:		#f0f0f0;
 
     [class="theme-matamaps"] {
-        --secondary-color: 	#F19828;
-        --body-color: 		#1e1f20;
-        --border-color:     #252525;
-        --card-color:       #111111;
-        --primary-gradient: linear-gradient(45deg, #f5558d, #FF1843);
+        --secondary-color: 	#ffffff;
+        --body-color: 		#ffffff;
+        --border-color:     #474747;
+        --card-color:       #dddddd;
+        --primary-gradient: linear-gradient(45deg, #5e2b2a, #a62e2b);
     }
 }
 
 [class="theme-matamaps"] {
-	--primary-color: 	#484c7f;
-	--secondary-color: 	#F19828;
+	--primary-color: 	#a62e2b;
+	--secondary-color: 	#c13632;
 
-    --chart-color1: 	#484c7f; 
-    --chart-color2: 	#F19828;
-    --chart-color3: 	#f5558d;
-    --chart-color4: 	#a7daff;
-    --chart-color5: 	#9cbf3b;
-    --chart-color6: 	#a0c1b8;
-    --chart-color7: 	#64868e;
+    --chart-color1: 	#9e3200; 
+    --chart-color2: 	#9e7900;
+    --chart-color3: 	#2d9e00;
+    --chart-color4: 	#7e009e;
+    --chart-color5: 	#9e3200;
+    --chart-color6: 	#9e007c;
+    --chart-color7: 	#00869e;
 
 
-	--primary-gradient: linear-gradient(45deg, #f5558d, #FF1843);
+	--primary-gradient: linear-gradient(45deg, #5e2b2a, #a62e2b);
 }
 
 
