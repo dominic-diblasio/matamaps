@@ -86,7 +86,7 @@ function LoginForm() {
                 onChange={handleInputChange}
                 required
               />
-              {errors.email && <div className="text-danger">{errors.email}</div>}
+              {errors.email && <div className="text-danger-local">{errors.email}</div>}
             </div>
             <div className="col-md-7">
               <label htmlFor="password" className="form-label">Password</label>
@@ -102,7 +102,7 @@ function LoginForm() {
             </div>
           </div>
           {loginMessage && (
-            <div className={`mt-3 ${loginMessage.includes("successful") ? "text-success" : "text-danger"}`}>
+            <div className={`mt-3 ${loginMessage.includes("successful") ? "text-success-local" : "text-danger-local"}`}>
               {loginMessage}
             </div>
           )}

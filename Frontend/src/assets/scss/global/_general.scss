@@ -31,6 +31,14 @@ body {
     }
 }
 
+.text-success-local {
+    color: lightgreen;
+}
+
+.text-danger-local {
+    color: white;
+}
+
 .small-14{
     @media only screen and (max-width: 554px){
         font-size: 13px;

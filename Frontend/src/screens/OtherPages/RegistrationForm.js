@@ -104,24 +104,24 @@ function RegistrationForm() {
                         <div className="col-md-6">
                             <label htmlFor="firstName" className="form-label">First Name</label>
                             <input type="text" className="form-control" id="firstName" name="firstName" value={formData.firstName} onChange={handleInputChange} required />
-                            {errors.firstName && <div className="text-danger">{errors.firstName}</div>}
+                            {errors.firstName && <div className="text-danger-local">{errors.firstName}</div>}
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="lastName" className="form-label">Last Name</label>
                             <input type="text" className="form-control" id="lastName" name="lastName" value={formData.lastName} onChange={handleInputChange} required />
-                            {errors.lastName && <div className="text-danger">{errors.lastName}</div>}
+                            {errors.lastName && <div className="text-danger-local">{errors.lastName}</div>}
                         </div>
 
                         <div className="col-md-6">
                             <label className="form-label">Email</label>
                             <input type="email" className="form-control" id="email" name="email" value={formData.email} onChange={handleInputChange} required />
-                            {errors.email && <div className="text-danger">{errors.email}</div>}
+                            {errors.email && <div className="text-danger-local">{errors.email}</div>}
                         </div>
 
                         <div className="col-md-6">
                             <label className="form-label">Confirm Email</label>
                             <input type="email" className="form-control" id="confirmEmail" name="confirmEmail" value={formData.confirmEmail} onChange={handleInputChange} required />
-                            {errors.confirmEmail && <div className="text-danger">{errors.confirmEmail}</div>}
+                            {errors.confirmEmail && <div className="text-danger-local">{errors.confirmEmail}</div>}
                         </div>
                     </div>
 
