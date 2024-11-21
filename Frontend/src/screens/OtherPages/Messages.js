@@ -5,9 +5,14 @@ import ResultNavigation from './ResultNavigation';
 import './Messages.css';
 
 const initialMessages = [
-    { id: "message1", sender: "Google+", subject: "You were tagged in 3 photos", snippet: "Google+ You were tagged in three photos...", uploaded_at: "2024-10-20", read: false },
-    { id: "message2", sender: "YouTube", subject: "LauraBlack just uploaded a video.", snippet: "Jess, have you seen the video LauraBlack...", uploaded_at: "2024-10-21", read: false },
-    { id: "message3", sender: "Google+", subject: "You were tagged in 3 photos", snippet: "Google+ You were tagged in three photos...", uploaded_at: "2024-10-20" },
+  { id: "message1", sender: "Computer Science Club", subject: "Bi-weekly Updates, Comp-Sci", snippet: "New event coming up on Dec 2, 2024! See more...", uploaded_at: "2024-11-14", read: false },
+  { id: "message2", sender: "Cybersecurity Travel Team", subject: "IMPORTANT: Markdown Attendance for upcoming event", snippet: "Hello team members, hope you're well today! This is regarding...", uploaded_at: "2024-11-18", read: false },
+  { id: "message3", sender: "Game Development Club", subject: "Club Hangout moved (Cancelled on 12/05/24)", snippet: "Due to some issues with location, we are moving our get-together...", uploaded_at: "2024-11-20" },
+
+  {/*
+        { id: "message1", sender: "Google+", subject: "You were tagged in 3 photos", snippet: "Google+ You were tagged in three photos...", uploaded_at: "2024-10-20", read: false },
+        { id: "message2", sender: "YouTube", subject: "LauraBlack just uploaded a video.", snippet: "Jess, have you seen the video LauraBlack...", uploaded_at: "2024-10-21", read: false },
+        { id: "message3", sender: "Google+", subject: "You were tagged in 3 photos", snippet: "Google+ You were tagged in three photos...", uploaded_at: "2024-10-20" },
         { id: "message4", sender: "YouTube", subject: "LauraBlack just uploaded a video.", snippet: "Jess, have you seen the video LauraBlack...", uploaded_at: "2024-10-21" },
         { id: "message5", sender: "Google+", subject: "You were tagged in 3 photos", snippet: "Google+ You were tagged in three photos...", uploaded_at: "2024-10-20" },
         { id: "message6", sender: "YouTube", subject: "LauraBlack just uploaded a video.", snippet: "Jess, have you seen the video LauraBlack...", uploaded_at: "2024-10-21" },
@@ -23,6 +28,7 @@ const initialMessages = [
         { id: "message16", sender: "YouTube", subject: "LauraBlack just uploaded a video.", snippet: "Jess, have you seen the video LauraBlack...", uploaded_at: "2024-10-21" },
         { id: "message17", sender: "Google+", subject: "You were tagged in 3 photos", snippet: "Google+ You were tagged in three photos...", uploaded_at: "2024-10-20" },
         { id: "message18", sender: "YouTube", subject: "LauraBlack just uploaded a video.", snippet: "Jess, have you seen the video LauraBlack...", uploaded_at: "2024-10-21" },
+         */}
 ];
 
 const ITEMS_PER_PAGE = 5;

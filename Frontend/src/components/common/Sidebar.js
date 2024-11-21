@@ -4,6 +4,10 @@ import Cookies from "js-cookie";
 import menu3 from "../Data/menu3.json";
 import LogoMain from "../../assets/images/matamaps-images/logo-design.svg";
 
+const FETCHED_IMG = (imgName) => {
+    return require(`../../assets/images/matamaps-images/icons/${imgName}`)
+}
+
 function Sidebar(props) {
     const [isSidebarMini, setIsSidebarMini] = useState(false);
     const [menuData, setMenuData] = useState([...menu3.menu3]);
@@ -46,8 +50,8 @@ function Sidebar(props) {
                         <li key={`menu-item-${i}`} className="collapsed">
                             <Link to={`/${d.routerLink[0]}`} className={`m-link ${d.routerLink[0] === activekey ? "active" : ""}`}>
                                 <i className={d.iconClass}></i>
-                                {/*<img src={require(d.iconRef)} className="menu-item-icon"/>*/}
-                                <span>{d.name}</span>
+                                {/*<img src={require(d.iconRef)} className="menu-item-icon"/>*/}                                
+                                <span><b>{d.name}</b></span>
                             </Link>
                         </li>
                     ))}

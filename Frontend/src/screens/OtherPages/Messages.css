@@ -17,7 +17,7 @@
   
   /* Sidebar setup with fixed height */
   .message-list {
-    background-color: #f8f9fa; /* Optional: background color */
+    background-color: #250000; /* Optional: background color */
     display: flex;
     flex-direction: column;
     height: 100%;

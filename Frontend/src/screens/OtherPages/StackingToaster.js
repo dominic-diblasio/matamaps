@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Toast } from "react-bootstrap";
 import Cookies from "js-cookie";
-import Avatar3 from "../../assets/images/xs/avatar3.jpg";
+import Avatar from "../../assets/images/matamaps-images/profile_av.jpg";
 
 function Announcements() {
   const [announcements, setAnnouncements] = useState([]);
@@ -47,7 +47,7 @@ function Announcements() {
         {announcements.map((announcement) => (
           <Toast key={announcement.announcement_id} className="mb-3">
             <Toast.Header closeButton={false}>
-              <img src={Avatar3} className="avatar sm rounded me-2" alt="avatar" />
+              <img src={Avatar} className="avatar sm rounded me-2" alt="avatar" />
               <strong className="me-auto">
                 Announcement: {announcement.announcement_name || "No Name"}
               </strong>

@@ -126,6 +126,8 @@ function RegistrationForm() {
                     </div>
 
                     <button type="submit" className="btn btn-primary">Submit</button>
+
+                    <p><a className="link" href="http://localhost:3000/matamaps/login">Already Registered? Login Here!</a></p>
                 </form>
             </div>
         </div>

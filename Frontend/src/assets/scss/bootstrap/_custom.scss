@@ -32,17 +32,17 @@
 // .form-control
 .form-control,.form-select {
     border-color: var(--border-color);
-    background-color: var(--color-200);
-    color: var(--text-color);
+    background-color: #cccccc;
+    color: #000000;
     font-size: 16px;
     &::placeholder{
         color: var(--color-400);
     }
     &:focus{
         box-shadow: 0 0 10px rgba($dark, .15);
-        background-color: var(--card-color);
+        background-color: #ffffff;
         border-color: var(--primary-color);
-        color: var(--text-color);
+        color: #000000;
     }
 
     &.form-control-lg{
@@ -105,12 +105,12 @@
     font-size: $font-size;
     color: var(--text-color);
     &:hover{
-        color: var(--text-color);
+        color: #ffffff;
     }
     &.btn-primary {
-        background-color: #484c7f;   
-        border-color: #484c7f;   
-        color: var(--white-color);
+        background-color: var(--secondary-color);   
+        border-color: var(--secondary-color);   
+        color: #cccccc;
         &.active{
             background: var(--secondary-color);
             border-color: var(--secondary-color);
