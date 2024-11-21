@@ -31,21 +31,25 @@ router.get("/", authenticateToken, async (req, res) => {
 
   try {
     const announcements = await db("Announcements")
-      .join("Clubs", "Announcements.club_id", "Clubs.club_id")
-      .join("Users", "Announcements.created_by", "Users.user_id")
-      .select(
-        "Announcements.announcement_id",
-        "Announcements.club_id",
-        "Clubs.club_name",
-        "Announcements.announcement_name",
-        "Announcements.event_id",
-        "Announcements.message",
-        "Announcements.created_by",
-        "Users.first_name as creator_first_name",
-        "Users.email as creator_email",
-        "Announcements.created_at",
-        "Announcements.updated_at"
-      );
+    .join("Clubs", "Announcements.club_id", "Clubs.club_id")
+    .join("Users", "Announcements.created_by", "Users.user_id")
+    .select(
+      "Announcements.announcement_id",
+      "Announcements.club_id",
+      "Clubs.club_name",
+      "Announcements.announcement_name",
+      "Announcements.event_id",
+      "Announcements.message",
+      "Announcements.created_by",
+      "Users.first_name as creator_first_name",
+      "Users.email as creator_email",
+      "Announcements.created_at",
+      "Announcements.updated_at"
+    )
+    .orderBy("Announcements.created_at", "desc"); // Optional: Add sorting if needed
+  
+
+    console.log("Fetched Announcements:", announcements);
 
     if (!announcements.length) {
       return res.status(404).json({ success: false, message: "No announcements found" });
@@ -57,6 +61,7 @@ router.get("/", authenticateToken, async (req, res) => {
     res.status(500).json({ success: false, message: "Error fetching announcements" });
   }
 });
+
 
 module.exports = {
   path: "/announcements",
