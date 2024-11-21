@@ -34,25 +34,30 @@ const authenticateToken = async (req, res, next) => {
   }
 };
 
-// Exit a club (set membership status to 'inactive')
+// Exit a club (delete user with allowed statuses)
 router.post('/:club_id', authenticateToken, async (req, res) => {
   const { club_id } = req.params;
   const { session_id } = req;
   const db = router.locals.db;
 
   try {
+    console.log(`Request received to exit club with ID: ${club_id}`);
+    console.log(`Session ID from token: ${session_id}`);
+
     // Get the user ID based on session ID
     const user = await db('Users').select('user_id').where({ session_id }).first();
+    console.log(`User fetched from DB: ${JSON.stringify(user)}`);
 
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
 
-    // Check if the user is an active member of the club
+    // Check if the user is a member of the club
     const membership = await db('ClubRegistrations')
       .select('id', 'status')
       .where({ club_id, user_id: user.user_id })
       .first();
+    console.log(`Membership fetched: ${JSON.stringify(membership)}`);
 
     if (!membership) {
       return res.status(404).json({
@@ -61,27 +66,29 @@ router.post('/:club_id', authenticateToken, async (req, res) => {
       });
     }
 
-    if (membership.status !== 'active') {
+    // Allow only 'pending' or 'active' statuses to exit
+    if (membership.status !== 'active' && membership.status !== 'pending') {
+      console.log(`Membership status is not allowed for exit: ${membership.status}`);
       return res.status(400).json({
         success: false,
-        message: 'You can only exit the club if you are an active member',
+        message: 'You can only exit the club if you have an active or pending membership',
       });
     }
 
-    // Update the membership status to 'inactive'
-    await db('ClubRegistrations')
-      .update({ status: 'inactive'})
-      .where({ id: membership.id });
+    // Delete the user's membership in the club
+    await db('ClubRegistrations').where({ id: membership.id }).del();
+    console.log('Membership successfully deleted');
 
     res.status(200).json({
       success: true,
-      message: 'You have successfully exited the club',
+      message: 'User has been successfully deleted from the system',
     });
   } catch (err) {
-    console.error('Error exiting the club:', err);
-    res.status(500).json({ success: false, message: 'An error occurred while exiting the club' });
+    console.error('Error deleting the user:', err);
+    res.status(500).json({ success: false, message: 'An error occurred while deleting the user' });
   }
 });
+
 
 module.exports = {
   path: '/club/exit',
