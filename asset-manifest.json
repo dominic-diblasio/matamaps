@@ -1,12 +1,13 @@
 {
   "files": {
-    "main.css": "/matamaps/static/css/main.b4781ffe.css",
-    "main.js": "/matamaps/static/js/main.70cf9584.js",
+    "main.css": "/matamaps/static/css/main.d835c7a8.css",
+    "main.js": "/matamaps/static/js/main.cd8a5ecb.js",
     "static/media/icofont.svg": "/matamaps/static/media/icofont.c58ba4afa0486725a94c.svg",
     "static/media/icofont.eot": "/matamaps/static/media/icofont.1ece44607007ca3ce484.eot",
     "static/media/icofont.ttf": "/matamaps/static/media/icofont.02bfbc3c0c51f6238205.ttf",
     "static/media/icofont.woff": "/matamaps/static/media/icofont.dad3accba068281878f1.woff",
     "static/media/material-icons-two-tone.woff": "/matamaps/static/media/material-icons-two-tone.3baa5b8f3469222b822d.woff",
+    "static/media/logo-design.svg": "/matamaps/static/media/logo-design.71ce215cb89d5f4fc85e8d4af5c0f2b3.svg",
     "static/media/material-icons-two-tone.woff2": "/matamaps/static/media/material-icons-two-tone.4ef4218c522f1eb6b5b1.woff2",
     "static/media/material-icons-round.woff": "/matamaps/static/media/material-icons-round.5d681e2edae8c60630db.woff",
     "static/media/material-icons-outlined.woff": "/matamaps/static/media/material-icons-outlined.f882956fd323fd322f31.woff",
@@ -18,13 +19,35 @@
     "static/media/material-icons.woff2": "/matamaps/static/media/material-icons.0c35d18bf06992036b69.woff2",
     "static/media/not_found.svg": "/matamaps/static/media/not_found.6d4adf6f6a8de4503e277bdccbe31433.svg",
     "static/media/placeholder.svg": "/matamaps/static/media/placeholder.fb982c5a1b6e78f7bf59b6f89f412f2f.svg",
+    "static/media/gear.svg": "/matamaps/static/media/gear.065c1cb0addba60bf54b.svg",
     "static/media/google.svg": "/matamaps/static/media/google.b83006e6edc31fbb1aba8b58d6a01840.svg",
+    "static/media/users.svg": "/matamaps/static/media/users.17df8f1098b2d454cf37.svg",
+    "static/media/pen-to-square.svg": "/matamaps/static/media/pen-to-square.c04167b877ee6692dfe4.svg",
+    "static/media/address-card.svg": "/matamaps/static/media/address-card.ba70430d51856e1438e5.svg",
+    "static/media/house.svg": "/matamaps/static/media/house.917f448cc383a848c4de.svg",
+    "static/media/right-to-bracket.svg": "/matamaps/static/media/right-to-bracket.bfd20bf840e084e1e76d.svg",
     "index.html": "/matamaps/index.html",
-    "main.b4781ffe.css.map": "/matamaps/static/css/main.b4781ffe.css.map",
-    "main.70cf9584.js.map": "/matamaps/static/js/main.70cf9584.js.map"
+    "static/media/palette.svg": "/matamaps/static/media/palette.20ecb3074ec7a4f00537.svg",
+    "static/media/arrow-up-from-bracket.svg": "/matamaps/static/media/arrow-up-from-bracket.ad5c91833158b7fbad11.svg",
+    "static/media/comment.svg": "/matamaps/static/media/comment.a14155901849edb09d01.svg",
+    "static/media/inbox.svg": "/matamaps/static/media/inbox.b35f101cc73d11eb9705.svg",
+    "static/media/flag.svg": "/matamaps/static/media/flag.cb5bda6d0897c186b98f.svg",
+    "static/media/bars.svg": "/matamaps/static/media/bars.8a89a9bcf96b4c79df6f.svg",
+    "static/media/xmark.svg": "/matamaps/static/media/xmark.2e3dfbc222e1abc6e7e0.svg",
+    "static/media/user-minus.svg": "/matamaps/static/media/user-minus.46de59483c5e7b836e32.svg",
+    "static/media/envelope.svg": "/matamaps/static/media/envelope.a40d5abcc498efd364c6.svg",
+    "static/media/circle-info.svg": "/matamaps/static/media/circle-info.de767cb70667da527509.svg",
+    "static/media/filter.svg": "/matamaps/static/media/filter.239998f6dead1e9fb526.svg",
+    "static/media/circle-user.svg": "/matamaps/static/media/circle-user.d73ef79eb4c17ca6fda3.svg",
+    "static/media/tag.svg": "/matamaps/static/media/tag.7dcf283620c177105f54.svg",
+    "static/media/clock.svg": "/matamaps/static/media/clock.cd8ff495a447b9a37363.svg",
+    "static/media/user.svg": "/matamaps/static/media/user.7598def04478fe7e6705.svg",
+    "static/media/location-dot.svg": "/matamaps/static/media/location-dot.28526c21d8259a63000f.svg",
+    "main.d835c7a8.css.map": "/matamaps/static/css/main.d835c7a8.css.map",
+    "main.cd8a5ecb.js.map": "/matamaps/static/js/main.cd8a5ecb.js.map"
   },
   "entrypoints": [
-    "static/css/main.b4781ffe.css",
-    "static/js/main.70cf9584.js"
+    "static/css/main.d835c7a8.css",
+    "static/js/main.cd8a5ecb.js"
   ]
 }
