@@ -22,7 +22,7 @@ function ClubDetails() {
     const fetchClubDetails = async () => {
       try {
         // Fetch club name (public data)
-        const clubResponse = await axios.get(`http://0.0.0.0:3500/club/name/${club_id}`);
+        const clubResponse = await axios.get(`http://localhost:3500/club/name/${club_id}`);
         if (clubResponse.data.success) {
           setClubName(clubResponse.data.data.club_name);
         } else {
@@ -34,7 +34,7 @@ function ClubDetails() {
         if (jwt_token) {
           try {
             const userResponse = await axios.get(
-              `http://0.0.0.0:3500/users/account/details`,
+              `http://localhost:3500/users/account/details`,
               {
                 headers: {
                   Authorization: `Bearer ${jwt_token}`,
@@ -48,7 +48,7 @@ function ClubDetails() {
 
               // Check if user is a member of the club
               const membershipResponse = await axios.get(
-                `http://0.0.0.0:3500/club/membership/status/${club_id}`,
+                `http://localhost:3500/club/membership/status/${club_id}`,
                 {
                   headers: {
                     Authorization: `Bearer ${jwt_token}`,
@@ -85,7 +85,7 @@ function ClubDetails() {
 
     try {
       const response = await axios.post(
-        `http://0.0.0.0:3500/club/exit/${club_id}`,
+        `http://localhost:3500/club/exit/${club_id}`,
         {},
         {
           headers: {
@@ -192,7 +192,7 @@ export default ClubDetails;
 //     const fetchClubDetails = async () => {
 //       try {
 //         // Fetch club name (public data)
-//         const clubResponse = await axios.get(`http://0.0.0.0:3500/club/name/${club_id}`);
+//         const clubResponse = await axios.get(`http://localhost:3500/club/name/${club_id}`);
 //         if (clubResponse.data.success) {
 //           setClubName(clubResponse.data.data.club_name);
 //         } else {
@@ -204,7 +204,7 @@ export default ClubDetails;
 //         if (jwt_token) {
 //           try {
 //             const userResponse = await axios.get(
-//               `http://0.0.0.0:3500/users/account/details`,
+//               `http://localhost:3500/users/account/details`,
 //               {
 //                 headers: {
 //                   Authorization: `Bearer ${jwt_token}`,
@@ -218,7 +218,7 @@ export default ClubDetails;
 
 //               // Check if user is a member of the club
 //               const membershipResponse = await axios.get(
-//                 `http://0.0.0.0:3500/club/membership/status/${club_id}`,
+//                 `http://localhost:3500/club/membership/status/${club_id}`,
 //                 {
 //                   headers: {
 //                     Authorization: `Bearer ${jwt_token}`,
@@ -255,7 +255,7 @@ export default ClubDetails;
 
 //     try {
 //       const response = await axios.post(
-//         `http://0.0.0.0:3500/club/exit/${club_id}`,
+//         `http://localhost:3500/club/exit/${club_id}`,
 //         {},
 //         {
 //           headers: {
@@ -355,7 +355,7 @@ export default ClubDetails;
 //     const fetchClubDetails = async () => {
 //       try {
 //         // Fetch club name (public data)
-//         const clubResponse = await axios.get(`http://0.0.0.0:3500/club/name/${club_id}`);
+//         const clubResponse = await axios.get(`http://localhost:3500/club/name/${club_id}`);
 //         if (clubResponse.data.success) {
 //           setClubName(clubResponse.data.data.club_name);
 //         } else {
@@ -367,7 +367,7 @@ export default ClubDetails;
 //         if (jwt_token) {
 //           try {
 //             const userResponse = await axios.get(
-//               `http://0.0.0.0:3500/users/account/details`,
+//               `http://localhost:3500/users/account/details`,
 //               {
 //                 headers: {
 //                   Authorization: `Bearer ${jwt_token}`,
@@ -381,7 +381,7 @@ export default ClubDetails;
 
 //               // Check if user is a member of the club
 //               const membershipResponse = await axios.get(
-//                 `http://0.0.0.0:3500/club/membership/status/${club_id}`,
+//                 `http://localhost:3500/club/membership/status/${club_id}`,
 //                 {
 //                   headers: {
 //                     Authorization: `Bearer ${jwt_token}`,
@@ -419,7 +419,7 @@ export default ClubDetails;
 
 //     try {
 //       const response = await axios.post(
-//         `http://0.0.0.0:3500/club/exit/${club_id}`,
+//         `http://localhost:3500/club/exit/${club_id}`,
 //         {},
 //         {
 //           headers: {

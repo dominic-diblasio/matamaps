@@ -19,7 +19,7 @@ function ClubLeaderClubsPage() {
       }
 
       try {
-        const response = await axios.get("http://0.0.0.0:3500/club-leader/clubs", {
+        const response = await axios.get("http://localhost:3500/club-leader/clubs", {
           headers: {
             Authorization: `Bearer ${jwt_token}`,
           },
@@ -128,7 +128,7 @@ export default ClubLeaderClubsPage;
 //       }
 
 //       try {
-//         const response = await axios.get("http://0.0.0.0:3500/club-leader/clubs", {
+//         const response = await axios.get("http://localhost:3500/club-leader/clubs", {
 //           headers: {
 //             Authorization: `Bearer ${jwt_token}`,
 //           },

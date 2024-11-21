@@ -19,7 +19,7 @@ function ClubAnnouncements() {
 
       try {
         const response = await axios.get(
-          `http://0.0.0.0:3500/announcements/get/${club_id}`,
+          `http://localhost:3500/announcements/get/${club_id}`,
           {
             headers: {
               Authorization: `Bearer ${jwt_token}`,
@@ -48,7 +48,7 @@ function ClubAnnouncements() {
 
     try {
       const response = await axios.post(
-        `http://0.0.0.0:3500/announcements/add`,
+        `http://localhost:3500/announcements/add`,
         {
           club_id,
           message: newAnnouncement,
@@ -78,7 +78,7 @@ function ClubAnnouncements() {
 
     try {
       const response = await axios.delete(
-        `http://0.0.0.0:3500/announcements/delete/${announcementId}`,
+        `http://localhost:3500/announcements/delete/${announcementId}`,
         {
           headers: {
             Authorization: `Bearer ${jwt_token}`,

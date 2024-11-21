@@ -70,7 +70,7 @@ function RegistrationForm() {
     
                 // Send the request using axios
                 const response = await axios.post(
-                    "http://0.0.0.0:3500/employee/register", 
+                    "http://localhost:3500/employee/register", 
                     dataToSend
                 );
     

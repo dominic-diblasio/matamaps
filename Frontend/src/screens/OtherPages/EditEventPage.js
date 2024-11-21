@@ -198,7 +198,7 @@ export default EditEventPage;
 
 //     try {
 //       const response = await axios.get(
-//         `http://0.0.0.0:3500/club-leader/events/details/${event_id}`,
+//         `http://localhost:3500/club-leader/events/details/${event_id}`,
 //         {
 //           headers: {
 //             Authorization: `Bearer ${jwt_token}`,
@@ -242,7 +242,7 @@ export default EditEventPage;
 
 //     try {
 //       const response = await axios.put(
-//         `http://0.0.0.0:3500/club-leader/events/edit/${event_id}`,
+//         `http://localhost:3500/club-leader/events/edit/${event_id}`,
 //         {
 //           event_name: eventName,
 //           event_description: eventDescription,
@@ -369,7 +369,7 @@ export default EditEventPage;
 
     //     try {
     //         const response = await axios.get(
-    //         `http://0.0.0.0:3500/club-leader/events/details/${event_id}`,
+    //         `http://localhost:3500/club-leader/events/details/${event_id}`,
     //         {
     //             headers: {
     //             Authorization: `Bearer ${jwt_token}`,

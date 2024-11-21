@@ -21,7 +21,7 @@ function ClubAnnouncementsPage() {
           return;
         }
 
-        const response = await axios.get(`http://0.0.0.0:3500/announcements/get/${club_id}`, {
+        const response = await axios.get(`http://localhost:3500/announcements/get/${club_id}`, {
           headers: { Authorization: `Bearer ${jwt_token}` },
         });
 
@@ -55,7 +55,7 @@ function ClubAnnouncementsPage() {
       }
 
       const response = await axios.post(
-        "http://0.0.0.0:3500/announcements/add",
+        "http://localhost:3500/announcements/add",
         {
           club_id,
           announcement_name: announcementName.trim(),
@@ -90,7 +90,7 @@ function ClubAnnouncementsPage() {
       }
 
       const response = await axios.delete(
-        `http://0.0.0.0:3500/announcements/delete/${announcementId}`,
+        `http://localhost:3500/announcements/delete/${announcementId}`,
         { headers: { Authorization: `Bearer ${jwt_token}` } }
       );
 
@@ -208,7 +208,7 @@ export default ClubAnnouncementsPage;
 //       }
 
 //       try {
-//         const response = await axios.get(`http://0.0.0.0:3500/announcements/get/${club_id}`, {
+//         const response = await axios.get(`http://localhost:3500/announcements/get/${club_id}`, {
 //           headers: {
 //             Authorization: `Bearer ${jwt_token}`,
 //           },
@@ -242,7 +242,7 @@ export default ClubAnnouncementsPage;
 //       }
 
 //       const response = await axios.post(
-//         "http://0.0.0.0:3500/announcements/add",
+//         "http://localhost:3500/announcements/add",
 //         {
 //           club_id,
 //           message: newAnnouncement,
@@ -274,7 +274,7 @@ export default ClubAnnouncementsPage;
 
 //     try {
 //       const response = await axios.delete(
-//         `http://0.0.0.0:3500/announcements/delete/${announcementId}`,
+//         `http://localhost:3500/announcements/delete/${announcementId}`,
 //         {
 //           headers: {
 //             Authorization: `Bearer ${jwt_token}`,
