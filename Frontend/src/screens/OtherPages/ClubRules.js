@@ -14,7 +14,7 @@ function ClubRules() {
     const fetchClubDetails = async () => {
       const jwt_token = Cookies.get("jwt_token"); // Retrieve token from cookies
       try {
-        const response = await axios.get(`http://0.0.0.0:3500/club/rules/${club_id}`, {
+        const response = await axios.get(`http://localhost:3500/club/rules/${club_id}`, {
           headers: {
             Authorization: `Bearer ${jwt_token}`, // Add token in Authorization header
           },

@@ -21,7 +21,7 @@ function ClubEvents() {
       try {
         // Fetch club events
         const eventResponse = await axios.get(
-          `http://0.0.0.0:3500/clubs/events/${club_id}`
+          `http://localhost:3500/clubs/events/${club_id}`
         );
         if (eventResponse.data.success) {
           setEvents(eventResponse.data.data);
@@ -35,7 +35,7 @@ function ClubEvents() {
         if (jwt_token) {
           try {
             const userResponse = await axios.get(
-              `http://0.0.0.0:3500/users/account/details`,
+              `http://localhost:3500/users/account/details`,
               {
                 headers: {
                   Authorization: `Bearer ${jwt_token}`,
@@ -49,7 +49,7 @@ function ClubEvents() {
 
               // Fetch RSVP details
               const rsvpResponse = await axios.get(
-                `http://0.0.0.0:3500/users/rsvp/display`,
+                `http://localhost:3500/users/rsvp/display`,
                 {
                   headers: {
                     Authorization: `Bearer ${jwt_token}`,
@@ -206,7 +206,7 @@ export default ClubEvents;
 //       try {
 //         // Fetch club events
 //         const eventResponse = await axios.get(
-//           `http://0.0.0.0:3500/clubs/events/${club_id}`
+//           `http://localhost:3500/clubs/events/${club_id}`
 //         );
 //         if (eventResponse.data.success) {
 //           setEvents(eventResponse.data.data);
@@ -220,7 +220,7 @@ export default ClubEvents;
 //         if (jwt_token) {
 //           try {
 //             const userResponse = await axios.get(
-//               `http://0.0.0.0:3500/users/account/details`,
+//               `http://localhost:3500/users/account/details`,
 //               {
 //                 headers: {
 //                   Authorization: `Bearer ${jwt_token}`,
@@ -234,7 +234,7 @@ export default ClubEvents;
 
 //               // Fetch RSVP details
 //               const rsvpResponse = await axios.get(
-//                 `http://0.0.0.0:3500/users/rsvp/display`,
+//                 `http://localhost:3500/users/rsvp/display`,
 //                 {
 //                   headers: {
 //                     Authorization: `Bearer ${jwt_token}`,
@@ -394,7 +394,7 @@ export default ClubEvents;
 //       try {
 //         // Fetch club events
 //         const eventResponse = await axios.get(
-//           `http://0.0.0.0:3500/clubs/events/${club_id}`
+//           `http://localhost:3500/clubs/events/${club_id}`
 //         );
 //         if (eventResponse.data.success) {
 //           fetchedEvents = eventResponse.data.data;
@@ -408,7 +408,7 @@ export default ClubEvents;
 //         // Fetch user account details and RSVPs if logged in
 //         if (jwt_token) {
 //           const userResponse = await axios.get(
-//             `http://0.0.0.0:3500/users/account/details`,
+//             `http://localhost:3500/users/account/details`,
 //             {
 //               headers: {
 //                 Authorization: `Bearer ${jwt_token}`,
@@ -422,7 +422,7 @@ export default ClubEvents;
 
 //             // Fetch all RSVP details for the user
 //             const rsvpResponse = await axios.get(
-//               `http://0.0.0.0:3500/users/rsvp/display`,
+//               `http://localhost:3500/users/rsvp/display`,
 //               {
 //                 headers: {
 //                   Authorization: `Bearer ${jwt_token}`,

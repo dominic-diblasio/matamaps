@@ -285,7 +285,7 @@ export default PersonalDetailsPage;
   
 //     try {
 //       const response = await axios.post(
-//         `http://0.0.0.0:3500/employee/personal/details/edit/save/${session_id}`,
+//         `http://localhost:3500/employee/personal/details/edit/save/${session_id}`,
 //         {
 //           profile: {
 //             firstName: profile.firstName,
