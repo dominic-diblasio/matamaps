@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 
 function RegistrationForm() {
@@ -127,7 +128,7 @@ function RegistrationForm() {
 
                     <button type="submit" className="btn btn-primary">Submit</button>
 
-                    <p><a className="link" href="http://localhost:3000/matamaps/login">Already Registered? Login Here!</a></p>
+                    <p><Link to={`/login`} className="link">Already Registered? Login Here!</Link></p>
                 </form>
             </div>
         </div>
