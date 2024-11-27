@@ -1,7 +1,5 @@
-<h1 align="center"> MATAMAPS!</h1>
-<!-- PROJECT LOGO -->
-<br />
 <div align="center">
+  <img src="Frontend/src/assets/images/matamaps-images/logo-design.svg" style="width:200px"/>
   <h3 align="center">CSUN Senior Project 2024/25</h3>
   <h4>Dominic DiBlasio, Sam Mehta, Federico Bailaque, Vinicius Bosque, Srilaya Ponangi</h4>
   <p align="center">
@@ -18,4 +16,5 @@
     ·
     <a href="https://github.com/dominic-diblasio/matamaps/pulls">Active Pull Requests</a>
   </p>
+  <img src="Frontend/src/assets/images/matamaps-images/logo-drop.svg" style="width:200px"/>
 </div>
