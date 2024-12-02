@@ -58,7 +58,6 @@ function EmptyPageIndex(props) {
                     <Route path="/users-manage" element={<UserManagementPage/>} />
                     <Route path="/club-leader/events/add/:club_id" element={<AddEventPage/>} />
                     <Route path="/add-club" element={<AddClubPage/>} />
-                    <Route path="/add-club-member" element={<AddClubMemberPage/>} />
                     <Route path="/club-leader/events/edit/:event_id" element={<EditEventPage/>} />
                     <Route path="/members-leader/:club_id" element={<ManageClubMembersPage/>}/>
                     <Route path="/club-leader/students/:club_id" element={<ManageClubStudentsPage />} />
