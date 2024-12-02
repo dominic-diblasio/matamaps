@@ -24,6 +24,11 @@ import MyRSVPsPage from "./OtherPages/MyRSVPsPage";
 import StackingToaster from "./OtherPages/StackingToaster";
 import ClubAnnouncementsPage from "./OtherPages/ClubAnnouncementsPage";
 import ClubAnnouncements from "./OtherPages/ClubAnnouncements";
+import AdminClubsPage from "./OtherPages/AdminClubsPage";
+import AdminClubDetails from "./OtherPages/AdminClubDetails";
+import UserManagementPage from "./OtherPages/UserManagementPage";
+import AddClubPage from "./OtherPages/AddClubPage";
+import AddClubMemberPage from "./OtherPages/AddClubMemberPage";
 
 function EmptyPageIndex(props) {
     // const { activekey } = props;
@@ -48,7 +53,12 @@ function EmptyPageIndex(props) {
                     <Route path="/club-leader/events/:club_id" element={<ManageClubEventsPage/>} />
                     <Route path="/club-leader/events/rsvps/:event_id" element={<ManageRSVPsPage/>} /> 
                     <Route path="/my-rsvp" element={<MyRSVPsPage/>} />   
+                    <Route path="/admin/clubs" element={<AdminClubsPage />} />
+                    <Route path="/admin/club/details/:club_id" element={<AdminClubDetails/>} />
+                    <Route path="/users-manage" element={<UserManagementPage/>} />
                     <Route path="/club-leader/events/add/:club_id" element={<AddEventPage/>} />
+                    <Route path="/add-club" element={<AddClubPage/>} />
+                    <Route path="/add-club-member" element={<AddClubMemberPage/>} />
                     <Route path="/club-leader/events/edit/:event_id" element={<EditEventPage/>} />
                     <Route path="/members-leader/:club_id" element={<ManageClubMembersPage/>}/>
                     <Route path="/club-leader/students/:club_id" element={<ManageClubStudentsPage />} />
