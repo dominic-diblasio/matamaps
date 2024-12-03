@@ -1,16 +1,14 @@
 const express = require('express');
-const axios = require('axios');
 const router = express.Router();
 require('dotenv').config();
 
 const serverUrl = 'http://localhost:3500'; // Update to your current server URL
 
-// Registration route for user, club leader, event manager, administrator
+// Registration route
 router.post('/', async (req, res) => {
   console.log('Received a request for registration');
 
   const {
-    role, // user, club leader, event manager, administrator
     username,
     email,
     password,
@@ -20,7 +18,7 @@ router.post('/', async (req, res) => {
   const db = router.locals.db;
 
   // Validate required fields
-  if (!role || !username || !email || !password || !confirmPassword) {
+  if (!username || !email || !password || !confirmPassword) {
     console.log('Validation failed: Missing required fields');
     return res.status(400).json({
       success: false,
@@ -63,7 +61,7 @@ router.post('/', async (req, res) => {
 
   try {
     console.log('Checking if email already exists in the database...');
-    const existingResults = await db('users')
+    const existingResults = await db('Users')
       .select('user_id')
       .where('email', email);
 
@@ -76,29 +74,38 @@ router.post('/', async (req, res) => {
       });
     }
 
+    // Start a database transaction
     const trx = await db.transaction();
 
     try {
-      const [insertedId] = await trx('users').insert({
+      // Insert the new user into the database with the default role "user"
+      const [insertedId] = await trx('Users').insert({
         username,
         email,
-        password, // Store as plain text (note: this is not recommended for production)
-        role,
+        password, // Storing plain text (not recommended for production)
+        role: 'user', // Default role for all new users
       });
 
+      // Commit the transaction
       await trx.commit();
+
+      console.log('User registered successfully with ID:', insertedId);
 
       return res.status(201).json({
         success: true,
         message: 'Registration successful',
-        data: null,
+        data: {
+          user_id: insertedId,
+        },
       });
     } catch (insertError) {
+      // Rollback the transaction in case of an error
       await trx.rollback();
       console.error('Error during transaction:', insertError);
       throw insertError;
     }
   } catch (error) {
+    console.error('Unexpected error during registration:', error);
     return res.status(500).json({
       success: false,
       message: 'An unexpected error occurred',
