@@ -7,7 +7,7 @@ const fs = require('fs');
 const cookieParser = require('cookie-parser');
 
 const app = express();
-const port = 3500;
+const port = process.env.PORT || 3500;
 const corsOptions = {
   origin: 'http://localhost:3000',
   credentials: true,
@@ -85,6 +85,6 @@ const loadRoutes = (directories) => {
 // Load routes only from the 'routes' directory
 loadRoutes([path.join(__dirname, 'routes')]);
 
-app.listen(port, 'localhost', () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.listen(port, process.env.protocol, () => {
+  console.log(`Server is running on http://process.env.protocol:${port}`);
 });
