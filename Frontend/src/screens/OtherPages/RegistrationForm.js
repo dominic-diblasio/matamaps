@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import APIClient from "./APIClient";
 
 function RegistrationForm() {
     const [formData, setFormData] = useState({
@@ -85,8 +86,8 @@ function RegistrationForm() {
                     role: "user", // Default role as "user"
                 };
 
-                const response = await axios.post(
-                    "http://localhost:3500/register", 
+                const response = await APIClient.post(
+                    "register", 
                     dataToSend
                 );
 
@@ -230,8 +231,8 @@ export default RegistrationForm;
 //                 console.log("Sending Data: ", dataToSend); // Log data sent to backend
     
 //                 // Send the request using axios
-//                 const response = await axios.post(
-//                     "http://localhost:3500/employee/register", 
+//                 const response = await APIClient.post(
+//                     "employee/register", 
 //                     dataToSend
 //                 );
     

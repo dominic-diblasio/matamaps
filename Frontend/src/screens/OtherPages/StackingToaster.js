@@ -3,6 +3,7 @@ import axios from "axios";
 import { Toast } from "react-bootstrap";
 import Cookies from "js-cookie";
 import Avatar from "../../assets/images/matamaps-images/profile_av.jpg";
+import APIClient from "./APIClient";
 
 function Announcements() {
   const [announcements, setAnnouncements] = useState([]);
@@ -16,7 +17,7 @@ function Announcements() {
         // Get JWT token from cookies
         const jwt_token = Cookies.get("jwt_token");
 
-        const response = await axios.get("http://localhost:3500/announcements", {
+        const response = await APIClient.get("announcements", {
           headers: jwt_token ? { Authorization: `Bearer ${jwt_token}` } : {},
           withCredentials: true,
         });
@@ -96,7 +97,7 @@ export default Announcements;
 //         // Get JWT token from cookies
 //         const jwt_token = Cookies.get("jwt_token");
 
-//         const response = await axios.get("http://localhost:3500/announcements", {
+//         const response = await APIClient.get("announcements", {
 //           headers: jwt_token ? { Authorization: `Bearer ${jwt_token}` } : {},
 //           withCredentials: true,
 //         });

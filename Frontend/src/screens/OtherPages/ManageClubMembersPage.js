@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
+import APIClient from "./APIClient";
 
 function ManageClubMembersPage() {
   const { club_id } = useParams(); // Get club_id from the URL
@@ -23,8 +24,8 @@ function ManageClubMembersPage() {
       try {
         console.log("Fetching members for club_id:", club_id);
 
-        const response = await axios.get(
-          `http://localhost:3500/club-leader/members/${club_id}`,
+        const response = await APIClient.get(
+          `club-leader/members/${club_id}`,
           {
             headers: {
               Authorization: `Bearer ${jwt_token}`,
@@ -125,7 +126,7 @@ export default ManageClubMembersPage;
 //       }
 
 //       try {
-//         const response = await axios.get(`http://localhost:3500/club-leader/members/${club_id}`, {
+//         const response = await APIClient.get(`club-leader/members/${club_id}`, {
 //           headers: {
 //             Authorization: `Bearer ${jwt_token}`,
 //           },

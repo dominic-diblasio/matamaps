@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import APIClient from "./APIClient";
 
 function JoinClubPopup({ clubId, clubName, username, onClose }) {
   const [agree, setAgree] = useState(false);
@@ -15,8 +16,8 @@ function JoinClubPopup({ clubId, clubName, username, onClose }) {
     const jwt_token = Cookies.get("jwt_token"); // Get token from cookies
 
     try {
-      const response = await axios.post(
-        "http://localhost:3500/club/join",
+      const response = await APIClient.post(
+        "club/join",
         {
           club_id: clubId,
           club_name: clubName,

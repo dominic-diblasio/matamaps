@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import './PersonalDetailsPage.css';
+import APIClient from "./APIClient";
 
 function PersonalDetailsPage() {
   const [activeTab, setActiveTab] = useState('profile');
@@ -29,7 +30,7 @@ function PersonalDetailsPage() {
 
       if (jwt_token) {
         try {
-          const response = await axios.get(`http://localhost:3500/users/account/details`, {
+          const response = await APIClient.get(`users/account/details`, {
             headers: {
               Authorization: `Bearer ${jwt_token}`,
             },
@@ -92,8 +93,8 @@ function PersonalDetailsPage() {
     console.log('Sending update request with payload:', payload);
   
     try {
-      const response = await axios.put(
-        `http://localhost:3500/users/account/update`,
+      const response = await APIClient.put(
+        `users/account/update`,
         payload,
         {
           headers: {
@@ -231,7 +232,7 @@ export default PersonalDetailsPage;
 
 //       if (jwt_token) {
 //         try {
-//           const response = await axios.get(`http://localhost:3500/employee/personal/details/display/${session_id}`, {
+//           const response = await APIClient.get(`employee/personal/details/display/${session_id}`, {
 //             headers: {
 //               Authorization: `Bearer ${jwt_token}`,
 //             },
@@ -284,8 +285,8 @@ export default PersonalDetailsPage;
 //     const session_id = Cookies.get("session_id");
   
 //     try {
-//       const response = await axios.post(
-//         `http://localhost:3500/employee/personal/details/edit/save/${session_id}`,
+//       const response = await APIClient.post(
+//         `employee/personal/details/edit/save/${session_id}`,
 //         {
 //           profile: {
 //             firstName: profile.firstName,

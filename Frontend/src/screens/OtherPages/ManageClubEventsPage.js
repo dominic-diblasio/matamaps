@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useParams, useNavigate } from "react-router-dom";
+import APIClient from "./APIClient";
 
 function ManageClubEventsPage() {
   const { club_id } = useParams();
@@ -22,8 +23,8 @@ function ManageClubEventsPage() {
       }
 
       try {
-        const response = await axios.get(
-          `http://localhost:3500/club/leader/events/${club_id}`,
+        const response = await APIClient.get(
+          `club/leader/events/${club_id}`,
           {
             headers: {
               Authorization: `Bearer ${jwt_token}`,
@@ -72,8 +73,8 @@ function ManageClubEventsPage() {
 
     if (window.confirm("Are you sure you want to delete this event?")) {
       try {
-        const response = await axios.delete(
-          `http://localhost:3500/club-leader/events/delete/${event_id}`,
+        const response = await APIClient.delete(
+          `club-leader/events/delete/${event_id}`,
           {
             headers: {
               Authorization: `Bearer ${jwt_token}`,
@@ -101,8 +102,8 @@ function ManageClubEventsPage() {
     const jwt_token = Cookies.get("jwt_token");
 
     try {
-      const response = await axios.put(
-        `http://localhost:3500/club-leader/events/status/${event_id}`,
+      const response = await APIClient.put(
+        `club-leader/events/status/${event_id}`,
         { status: newStatus },
         {
           headers: {
@@ -358,8 +359,8 @@ export default ManageClubEventsPage;
 //       }
 
 //       try {
-//         const response = await axios.get(
-//           `http://localhost:3500/club/leader/events/${club_id}`,
+//         const response = await APIClient.get(
+//           `club/leader/events/${club_id}`,
 //           {
 //             headers: {
 //               Authorization: `Bearer ${jwt_token}`,
@@ -404,8 +405,8 @@ export default ManageClubEventsPage;
 
 //     if (window.confirm("Are you sure you want to delete this event?")) {
 //       try {
-//         const response = await axios.delete(
-//           `http://localhost:3500/club-leader/events/delete/${event_id}`,
+//         const response = await APIClient.delete(
+//           `club-leader/events/delete/${event_id}`,
 //           {
 //             headers: {
 //               Authorization: `Bearer ${jwt_token}`,
@@ -433,8 +434,8 @@ export default ManageClubEventsPage;
 //     const jwt_token = Cookies.get("jwt_token");
 
 //     try {
-//       const response = await axios.put(
-//         `http://localhost:3500/club-leader/events/status/${event_id}`,
+//       const response = await APIClient.put(
+//         `club-leader/events/status/${event_id}`,
 //         { status: newStatus },
 //         {
 //           headers: {

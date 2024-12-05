@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import ClubRules from "./ClubRules";
 import JoinClubPopup from "./JoinClubPopup";
 import ClubAnnouncements from "./ClubAnnouncements";
+import APIClient from "./APIClient";
 
 function ClubDetails() {
   const { club_id } = useParams(); // Get club_id from the URL
@@ -22,7 +23,7 @@ function ClubDetails() {
     const fetchClubDetails = async () => {
       try {
         // Fetch club name (public data)
-        const clubResponse = await axios.get(`http://localhost:3500/club/name/${club_id}`);
+        const clubResponse = await APIClient.get(`club/name/${club_id}`);
         if (clubResponse.data.success) {
           setClubName(clubResponse.data.data.club_name);
         } else {
@@ -33,8 +34,8 @@ function ClubDetails() {
         const jwt_token = Cookies.get("jwt_token");
         if (jwt_token) {
           try {
-            const userResponse = await axios.get(
-              `http://localhost:3500/users/account/details`,
+            const userResponse = await APIClient.get(
+              `users/account/details`,
               {
                 headers: {
                   Authorization: `Bearer ${jwt_token}`,
@@ -47,8 +48,8 @@ function ClubDetails() {
               setUsername(userResponse.data.data.username);
 
               // Check if user is a member of the club
-              const membershipResponse = await axios.get(
-                `http://localhost:3500/club/membership/status/${club_id}`,
+              const membershipResponse = await APIClient.get(
+                `club/membership/status/${club_id}`,
                 {
                   headers: {
                     Authorization: `Bearer ${jwt_token}`,
@@ -84,8 +85,8 @@ function ClubDetails() {
     if (!jwt_token) return;
 
     try {
-      const response = await axios.post(
-        `http://localhost:3500/club/exit/${club_id}`,
+      const response = await APIClient.post(
+        `club/exit/${club_id}`,
         {},
         {
           headers: {
@@ -192,7 +193,7 @@ export default ClubDetails;
 //     const fetchClubDetails = async () => {
 //       try {
 //         // Fetch club name (public data)
-//         const clubResponse = await axios.get(`http://localhost:3500/club/name/${club_id}`);
+//         const clubResponse = await APIClient.get(`club/name/${club_id}`);
 //         if (clubResponse.data.success) {
 //           setClubName(clubResponse.data.data.club_name);
 //         } else {
@@ -203,8 +204,8 @@ export default ClubDetails;
 //         const jwt_token = Cookies.get("jwt_token");
 //         if (jwt_token) {
 //           try {
-//             const userResponse = await axios.get(
-//               `http://localhost:3500/users/account/details`,
+//             const userResponse = await APIClient.get(
+//               `users/account/details`,
 //               {
 //                 headers: {
 //                   Authorization: `Bearer ${jwt_token}`,
@@ -217,8 +218,8 @@ export default ClubDetails;
 //               setUsername(userResponse.data.data.username);
 
 //               // Check if user is a member of the club
-//               const membershipResponse = await axios.get(
-//                 `http://localhost:3500/club/membership/status/${club_id}`,
+//               const membershipResponse = await APIClient.get(
+//                 `club/membership/status/${club_id}`,
 //                 {
 //                   headers: {
 //                     Authorization: `Bearer ${jwt_token}`,
@@ -254,8 +255,8 @@ export default ClubDetails;
 //     if (!jwt_token) return;
 
 //     try {
-//       const response = await axios.post(
-//         `http://localhost:3500/club/exit/${club_id}`,
+//       const response = await APIClient.post(
+//         `club/exit/${club_id}`,
 //         {},
 //         {
 //           headers: {
@@ -355,7 +356,7 @@ export default ClubDetails;
 //     const fetchClubDetails = async () => {
 //       try {
 //         // Fetch club name (public data)
-//         const clubResponse = await axios.get(`http://localhost:3500/club/name/${club_id}`);
+//         const clubResponse = await APIClient.get(`club/name/${club_id}`);
 //         if (clubResponse.data.success) {
 //           setClubName(clubResponse.data.data.club_name);
 //         } else {
@@ -366,8 +367,8 @@ export default ClubDetails;
 //         const jwt_token = Cookies.get("jwt_token");
 //         if (jwt_token) {
 //           try {
-//             const userResponse = await axios.get(
-//               `http://localhost:3500/users/account/details`,
+//             const userResponse = await APIClient.get(
+//               `users/account/details`,
 //               {
 //                 headers: {
 //                   Authorization: `Bearer ${jwt_token}`,
@@ -380,8 +381,8 @@ export default ClubDetails;
 //               setUsername(userResponse.data.data.username);
 
 //               // Check if user is a member of the club
-//               const membershipResponse = await axios.get(
-//                 `http://localhost:3500/club/membership/status/${club_id}`,
+//               const membershipResponse = await APIClient.get(
+//                 `club/membership/status/${club_id}`,
 //                 {
 //                   headers: {
 //                     Authorization: `Bearer ${jwt_token}`,
@@ -418,8 +419,8 @@ export default ClubDetails;
 //     if (!jwt_token) return;
 
 //     try {
-//       const response = await axios.post(
-//         `http://localhost:3500/club/exit/${club_id}`,
+//       const response = await APIClient.post(
+//         `club/exit/${club_id}`,
 //         {},
 //         {
 //           headers: {

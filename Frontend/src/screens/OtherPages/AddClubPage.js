@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import APIClient from "./APIClient";
 
 function AddClubPage() {
   const [clubName, setClubName] = useState("");
@@ -21,8 +22,8 @@ function AddClubPage() {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:3500/admin/clubs/add",
+      const response = await APIClient.post(
+        "admin/clubs/add",
         {
           club_name: clubName,
           description,
@@ -143,7 +144,7 @@ export default AddClubPage;
 //     if (image) formData.append("image", image);
 
 //     try {
-//       const response = await axios.post("http://localhost:3500/admin/clubs/add", formData, {
+//       const response = await APIClient.post("admin/clubs/add", formData, {
 //         headers: {
 //           Authorization: `Bearer ${jwt_token}`,
 //           "Content-Type": "multipart/form-data",

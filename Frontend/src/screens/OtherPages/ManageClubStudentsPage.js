@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
+import APIClient from "./APIClient";
 
 function ManageClubStudentsPage() {
   const { club_id } = useParams(); // Get club_id from the URL
@@ -21,8 +22,8 @@ function ManageClubStudentsPage() {
       }
 
       try {
-        const response = await axios.get(
-          `http://localhost:3500/club-leader/students/${club_id}`,
+        const response = await APIClient.get(
+          `club-leader/students/${club_id}`,
           {
             headers: {
               Authorization: `Bearer ${jwt_token}`,
@@ -51,8 +52,8 @@ function ManageClubStudentsPage() {
     const jwt_token = Cookies.get("jwt_token");
 
     try {
-      const response = await axios.put(
-        `http://localhost:3500/club-leader/students/${id}/status`,
+      const response = await APIClient.put(
+        `club-leader/students/${id}/status`,
         { status: newStatus },
         {
           headers: {

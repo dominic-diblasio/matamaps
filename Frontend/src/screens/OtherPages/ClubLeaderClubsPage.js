@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
+import APIClient from "./APIClient";
 
 function ClubLeaderClubsPage() {
   const [clubs, setClubs] = useState([]);
@@ -19,7 +20,7 @@ function ClubLeaderClubsPage() {
       }
 
       try {
-        const response = await axios.get("http://localhost:3500/club-leader/clubs", {
+        const response = await APIClient.get("club-leader/clubs", {
           headers: {
             Authorization: `Bearer ${jwt_token}`,
           },
@@ -128,7 +129,7 @@ export default ClubLeaderClubsPage;
 //       }
 
 //       try {
-//         const response = await axios.get("http://localhost:3500/club-leader/clubs", {
+//         const response = await APIClient.get("club-leader/clubs", {
 //           headers: {
 //             Authorization: `Bearer ${jwt_token}`,
 //           },

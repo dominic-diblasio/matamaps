@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import APIClient from "./APIClient";
 
 function AddEventPage() {
   const { club_id } = useParams(); // Get club_id from the URL
@@ -33,8 +34,8 @@ function AddEventPage() {
         event_image: eventImage,
       });
   
-      const response = await axios.post(
-        `http://localhost:3500/club-leader/events/add`,
+      const response = await APIClient.post(
+        `club-leader/events/add`,
         {
           club_id,
           event_name: eventName,

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import APIClient from "./APIClient";
 
 function EventRegisterPopup({ event, username, onClose }) {
   const [agree, setAgree] = useState(false);
@@ -15,8 +16,8 @@ function EventRegisterPopup({ event, username, onClose }) {
     const jwt_token = Cookies.get("jwt_token"); // Get token from cookies
 
     try {
-      const response = await axios.post(
-        "http://localhost:3500/events/rsvp",
+      const response = await APIClient.post(
+        "events/rsvp",
         {
           event_id: event.event_id,
           username,

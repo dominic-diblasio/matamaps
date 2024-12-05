@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import APIClient from "./APIClient";
 
 function MyRSVPsPage() {
   const [rsvps, setRSVPs] = useState([]);
@@ -18,7 +19,7 @@ function MyRSVPsPage() {
       }
 
       try {
-        const response = await axios.get("http://localhost:3500/events/my-rsvps", {
+        const response = await APIClient.get("events/my-rsvps", {
           headers: {
             Authorization: `Bearer ${jwt_token}`,
           },

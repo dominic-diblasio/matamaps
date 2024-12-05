@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import APIClient from "./APIClient";
 
 function AdminClubsPage() {
   const [clubs, setClubs] = useState([]);
@@ -22,7 +23,7 @@ function AdminClubsPage() {
         }
 
         // Fetch user details
-        const userResponse = await axios.get("http://localhost:3500/users/account/details", {
+        const userResponse = await APIClient.get("users/account/details", {
           headers: { Authorization: `Bearer ${jwt_token}` },
           withCredentials: true,
         });
@@ -44,9 +45,9 @@ function AdminClubsPage() {
         }
 
         // Fetch filtered or all active clubs
-        const endpoint = "http://localhost:3500/admin/clubs";
+        const endpoint = "admin/clubs";
 
-        const response = await axios.get(endpoint, {
+        const response = await APIClient.get(endpoint, {
           headers: { Authorization: `Bearer ${jwt_token}` },
           withCredentials: true,
         });
@@ -139,7 +140,7 @@ export default AdminClubsPage;
 //       try {
 //         // Fetch user details only if a token exists
 //         if (jwt_token) {
-//           const userResponse = await axios.get("http://localhost:3500/users/account/details", {
+//           const userResponse = await APIClient.get("users/account/details", {
 //             headers: { Authorization: `Bearer ${jwt_token}` },
 //             withCredentials: true,
 //           });
@@ -152,9 +153,9 @@ export default AdminClubsPage;
 
 //         // Fetch filtered or all active clubs based on role
 //         const endpoint =
-//           "http://localhost:3500/admin/clubs";
+//           "admin/clubs";
 
-//         const response = await axios.get(endpoint, {
+//         const response = await APIClient.get(endpoint, {
 //           headers: jwt_token ? { Authorization: `Bearer ${jwt_token}` } : {},
 //           withCredentials: !!jwt_token,
 //         });

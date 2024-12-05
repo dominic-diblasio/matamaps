@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
+import APIClient from "./APIClient";
 
 function ClubAnnouncementsPage() {
   const [announcements, setAnnouncements] = useState([]);
@@ -21,7 +22,7 @@ function ClubAnnouncementsPage() {
           return;
         }
 
-        const response = await axios.get(`http://localhost:3500/announcements/get/${club_id}`, {
+        const response = await APIClient.get(`announcements/get/${club_id}`, {
           headers: { Authorization: `Bearer ${jwt_token}` },
         });
 
@@ -54,8 +55,8 @@ function ClubAnnouncementsPage() {
         return;
       }
 
-      const response = await axios.post(
-        "http://localhost:3500/announcements/add",
+      const response = await APIClient.post(
+        "announcements/add",
         {
           club_id,
           announcement_name: announcementName.trim(),
@@ -89,8 +90,8 @@ function ClubAnnouncementsPage() {
         return;
       }
 
-      const response = await axios.delete(
-        `http://localhost:3500/announcements/delete/${announcementId}`,
+      const response = await APIClient.delete(
+        `announcements/delete/${announcementId}`,
         { headers: { Authorization: `Bearer ${jwt_token}` } }
       );
 
@@ -208,7 +209,7 @@ export default ClubAnnouncementsPage;
 //       }
 
 //       try {
-//         const response = await axios.get(`http://localhost:3500/announcements/get/${club_id}`, {
+//         const response = await APIClient.get(`announcements/get/${club_id}`, {
 //           headers: {
 //             Authorization: `Bearer ${jwt_token}`,
 //           },
@@ -241,8 +242,8 @@ export default ClubAnnouncementsPage;
 //         return;
 //       }
 
-//       const response = await axios.post(
-//         "http://localhost:3500/announcements/add",
+//       const response = await APIClient.post(
+//         "announcements/add",
 //         {
 //           club_id,
 //           message: newAnnouncement,
@@ -273,8 +274,8 @@ export default ClubAnnouncementsPage;
 //     }
 
 //     try {
-//       const response = await axios.delete(
-//         `http://localhost:3500/announcements/delete/${announcementId}`,
+//       const response = await APIClient.delete(
+//         `announcements/delete/${announcementId}`,
 //         {
 //           headers: {
 //             Authorization: `Bearer ${jwt_token}`,

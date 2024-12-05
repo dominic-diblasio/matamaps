@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from "axios";
+import APIClient from "./APIClient";
 
 function ForgotPassword() {
   const [formData, setFormData] = useState({
@@ -75,7 +76,7 @@ function ForgotPassword() {
           password: formData.newPassword,
         });
 
-        const response = await axios.post("http://localhost:3500/employee/forgot/password", {
+        const response = await APIClient.post("employee/forgot/password", {
           email: formData.email,
           password: formData.newPassword,
         });

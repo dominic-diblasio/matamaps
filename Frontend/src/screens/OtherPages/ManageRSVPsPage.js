@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
+import APIClient from "./APIClient";
 
 function ManageRSVPsPage() {
   const { event_id } = useParams();
@@ -21,8 +22,8 @@ function ManageRSVPsPage() {
       }
 
       try {
-        const response = await axios.get(
-          `http://localhost:3500/events/rsvps/${event_id}`,
+        const response = await APIClient.get(
+          `events/rsvps/${event_id}`,
           {
             headers: {
               Authorization: `Bearer ${jwt_token}`,
@@ -51,8 +52,8 @@ function ManageRSVPsPage() {
     const jwt_token = Cookies.get("jwt_token");
 
     try {
-      const response = await axios.put(
-        `http://localhost:3500/events/rsvps/update/${rsvp_id}`,
+      const response = await APIClient.put(
+        `events/rsvps/update/${rsvp_id}`,
         { status: newStatus },
         {
           headers: {
@@ -194,8 +195,8 @@ export default ManageRSVPsPage;
 //       }
 
 //       try {
-//         const response = await axios.get(
-//           `http://localhost:3500/events/rsvps/${event_id}`,
+//         const response = await APIClient.get(
+//           `events/rsvps/${event_id}`,
 //           {
 //             headers: {
 //               Authorization: `Bearer ${jwt_token}`,
@@ -224,8 +225,8 @@ export default ManageRSVPsPage;
 //     const jwt_token = Cookies.get("jwt_token");
 
 //     try {
-//       const response = await axios.put(
-//         `http://localhost:3500/events/rsvps/update/${rsvp_id}`,
+//       const response = await APIClient.put(
+//         `events/rsvps/update/${rsvp_id}`,
 //         { status: newStatus },
 //         {
 //           headers: {

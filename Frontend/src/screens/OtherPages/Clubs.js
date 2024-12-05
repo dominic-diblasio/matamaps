@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
+import APIClient from "./APIClient";
 
 function Clubs() {
   const [clubs, setClubs] = useState([]);
@@ -16,7 +17,7 @@ function Clubs() {
       try {
         // Fetch user details only if a token exists
         if (jwt_token) {
-          const userResponse = await axios.get("http://localhost:3500/users/account/details", {
+          const userResponse = await APIClient.get("users/account/details", {
             headers: { Authorization: `Bearer ${jwt_token}` },
             withCredentials: true,
           });
@@ -30,10 +31,10 @@ function Clubs() {
         // Fetch filtered or all active clubs based on role
         const endpoint =
           role === "club_leader"
-            ? "http://localhost:3500/clubs/filtered-active"
-            : "http://localhost:3500/clubs/active";
+            ? "clubs/filtered-active"
+            : "clubs/active";
 
-        const response = await axios.get(endpoint, {
+        const response = await APIClient.get(endpoint, {
           headers: jwt_token ? { Authorization: `Bearer ${jwt_token}` } : {},
           withCredentials: !!jwt_token,
         });
@@ -118,7 +119,7 @@ export default Clubs;
 //     const fetchActiveClubs = async () => {
 //       const jwt_token = Cookies.get("jwt_token");
 //       try {
-//         const response = await axios.get("http://localhost:3500/clubs/active", {
+//         const response = await APIClient.get("clubs/active", {
 //           headers: {
 //             Authorization: `Bearer ${jwt_token}`,
 //           },

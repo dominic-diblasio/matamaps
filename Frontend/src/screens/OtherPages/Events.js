@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import EventRegisterPopup from "./EventRegisterPopup";
+import APIClient from "./APIClient";
 
 function Events() {
   const [events, setEvents] = useState([]);
@@ -21,7 +22,7 @@ function Events() {
         let fetchedEvents = [];
 
         // Fetch events
-        const eventResponse = await axios.get("http://localhost:3500/events");
+        const eventResponse = await APIClient.get("events");
         if (eventResponse.data.success) {
           fetchedEvents = eventResponse.data.data;
           setEvents(fetchedEvents);
@@ -35,8 +36,8 @@ function Events() {
         // Fetch user details and RSVP details if logged in
         if (jwt_token) {
           try {
-            const userResponse = await axios.get(
-              "http://localhost:3500/users/account/details",
+            const userResponse = await APIClient.get(
+              "users/account/details",
               {
                 headers: { Authorization: `Bearer ${jwt_token}` },
                 withCredentials: true,
@@ -47,8 +48,8 @@ function Events() {
               setUsername(userResponse.data.data.username);
 
               // Fetch RSVP details
-              const rsvpResponse = await axios.get(
-                "http://localhost:3500/users/rsvp/display",
+              const rsvpResponse = await APIClient.get(
+                "users/rsvp/display",
                 {
                   headers: { Authorization: `Bearer ${jwt_token}` },
                   withCredentials: true,
@@ -240,7 +241,7 @@ export default Events;
 //         const jwt_token = Cookies.get("jwt_token");
 
 //         if (jwt_token) {
-//           const userResponse = await axios.get("http://localhost:3500/users/account/details", {
+//           const userResponse = await APIClient.get("users/account/details", {
 //             headers: { Authorization: `Bearer ${jwt_token}` },
 //             withCredentials: true,
 //           });
@@ -255,10 +256,10 @@ export default Events;
 //         // Fetch events based on role
 //         const endpoint =
 //           role === "club_leader"
-//             ? "http://localhost:3500/events/filtered-events"
-//             : "http://localhost:3500/events";
+//             ? "events/filtered-events"
+//             : "events";
 
-//         const eventsResponse = await axios.get(endpoint, {
+//         const eventsResponse = await APIClient.get(endpoint, {
 //           headers: jwt_token ? { Authorization: `Bearer ${jwt_token}` } : {},
 //           withCredentials: !!jwt_token,
 //         });

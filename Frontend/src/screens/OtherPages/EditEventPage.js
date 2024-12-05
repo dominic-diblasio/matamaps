@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
+import APIClient from "./APIClient";
 
 function EditEventPage() {
   const { event_id } = useParams(); // Only event_id is passed as a parameter
@@ -25,8 +26,8 @@ function EditEventPage() {
     }
 
     try {
-      const response = await axios.get(
-        `http://localhost:3500/club-leader/events/details/${event_id}`,
+      const response = await APIClient.get(
+        `club-leader/events/details/${event_id}`,
         {
           headers: {
             Authorization: `Bearer ${jwt_token}`,
@@ -68,8 +69,8 @@ function EditEventPage() {
     }
 
     try {
-      const response = await axios.put(
-        `http://localhost:3500/club-leader/events/edit/${event_id}`,
+      const response = await APIClient.put(
+        `club-leader/events/edit/${event_id}`,
         {
           event_name: eventName,
           event_description: eventDescription,
@@ -197,8 +198,8 @@ export default EditEventPage;
 //     }
 
 //     try {
-//       const response = await axios.get(
-//         `http://localhost:3500/club-leader/events/details/${event_id}`,
+//       const response = await APIClient.get(
+//         `club-leader/events/details/${event_id}`,
 //         {
 //           headers: {
 //             Authorization: `Bearer ${jwt_token}`,
@@ -241,8 +242,8 @@ export default EditEventPage;
 //     }
 
 //     try {
-//       const response = await axios.put(
-//         `http://localhost:3500/club-leader/events/edit/${event_id}`,
+//       const response = await APIClient.put(
+//         `club-leader/events/edit/${event_id}`,
 //         {
 //           event_name: eventName,
 //           event_description: eventDescription,
@@ -368,8 +369,8 @@ export default EditEventPage;
     //     }
 
     //     try {
-    //         const response = await axios.get(
-    //         `http://localhost:3500/club-leader/events/details/${event_id}`,
+    //         const response = await APIClient.get(
+    //         `club-leader/events/details/${event_id}`,
     //         {
     //             headers: {
     //             Authorization: `Bearer ${jwt_token}`,
@@ -409,8 +410,8 @@ export default EditEventPage;
     //     }
 
     //     try {
-    //     const response = await axios.put(
-    //         `http://localhost:3500/club-leader/events/edit/${event_id}`,
+    //     const response = await APIClient.put(
+    //         `club-leader/events/edit/${event_id}`,
     //         {
     //         event_name: eventName,
     //         event_description: eventDescription,

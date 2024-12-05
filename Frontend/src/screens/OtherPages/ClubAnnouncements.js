@@ -4,6 +4,7 @@ import { Toast } from "react-bootstrap";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
 import Avatar from "../../assets/images/matamaps-images/profile_av.jpg";
+import APIClient from "./APIClient";
 
 function ClubAnnouncements() {
   const [announcements, setAnnouncements] = useState([]);
@@ -18,8 +19,8 @@ function ClubAnnouncements() {
       const jwt_token = Cookies.get("jwt_token");
 
       try {
-        const response = await axios.get(
-          `http://localhost:3500/announcements/get/${club_id}`,
+        const response = await APIClient.get(
+          `announcements/get/${club_id}`,
           {
             headers: {
               Authorization: `Bearer ${jwt_token}`,
@@ -47,8 +48,8 @@ function ClubAnnouncements() {
     const jwt_token = Cookies.get("jwt_token");
 
     try {
-      const response = await axios.post(
-        `http://localhost:3500/announcements/add`,
+      const response = await APIClient.post(
+        `announcements/add`,
         {
           club_id,
           message: newAnnouncement,
@@ -77,8 +78,8 @@ function ClubAnnouncements() {
     const jwt_token = Cookies.get("jwt_token");
 
     try {
-      const response = await axios.delete(
-        `http://localhost:3500/announcements/delete/${announcementId}`,
+      const response = await APIClient.delete(
+        `announcements/delete/${announcementId}`,
         {
           headers: {
             Authorization: `Bearer ${jwt_token}`,

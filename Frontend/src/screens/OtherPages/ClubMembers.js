@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
+import APIClient from "./APIClient";
 
 function ClubMembers() {
   const [members, setMembers] = useState([]);
@@ -14,8 +15,8 @@ function ClubMembers() {
       const jwt_token = Cookies.get("jwt_token"); // Retrieve JWT token from cookies
 
       try {
-        const response = await axios.get(
-          `http://localhost:3500/clubs/members/${club_id}`,
+        const response = await APIClient.get(
+          `clubs/members/${club_id}`,
           {
             headers: {
               Authorization: `Bearer ${jwt_token}`,
@@ -108,8 +109,8 @@ export default ClubMembers;
 //       const jwt_token = Cookies.get("jwt_token"); // Retrieve JWT token from cookies
 
 //       try {
-//         const response = await axios.get(
-//           `http://localhost:3500/clubs/members/${club_id}`,
+//         const response = await APIClient.get(
+//           `clubs/members/${club_id}`,
 //           {
 //             headers: {
 //               Authorization: `Bearer ${jwt_token}`,

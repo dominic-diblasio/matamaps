@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Cookies from 'js-cookie';
+import APIClient from "./APIClient";
 
 function ClubRules() {
   const { club_id } = useParams(); // Get club_id from the URL
@@ -14,7 +15,7 @@ function ClubRules() {
     const fetchClubDetails = async () => {
       const jwt_token = Cookies.get("jwt_token"); // Retrieve token from cookies
       try {
-        const response = await axios.get(`http://localhost:3500/club/rules/${club_id}`, {
+        const response = await APIClient.get(`club/rules/${club_id}`, {
           headers: {
             Authorization: `Bearer ${jwt_token}`, // Add token in Authorization header
           },

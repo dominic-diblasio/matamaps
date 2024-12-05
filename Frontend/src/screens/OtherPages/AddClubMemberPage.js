@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import APIClient from "./APIClient";
 
 function AddClubMemberPage() {
   const [clubs, setClubs] = useState([]);
@@ -22,7 +23,7 @@ function AddClubMemberPage() {
 
       try {
         // Fetch clubs
-        const clubsResponse = await axios.get("http://localhost:3500/admin/clubs", {
+        const clubsResponse = await APIClient.get("admin/clubs", {
           headers: { Authorization: `Bearer ${jwt_token}` },
         });
         if (clubsResponse.data.success) {
@@ -30,7 +31,7 @@ function AddClubMemberPage() {
         }
 
         // Fetch users
-        const usersResponse = await axios.get("http://localhost:3500/admin/users/display", {
+        const usersResponse = await APIClient.get("admin/users/display", {
           headers: { Authorization: `Bearer ${jwt_token}` },
         });
         if (usersResponse.data.success) {
@@ -55,8 +56,8 @@ function AddClubMemberPage() {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:3500/admin/clubs/add-member",
+      const response = await APIClient.post(
+        "admin/clubs/add-member",
         {
           club_id: selectedClub,
           club_name: clubs.find((club) => club.club_id === parseInt(selectedClub))?.club_name,

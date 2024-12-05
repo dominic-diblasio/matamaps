@@ -54,11 +54,13 @@ function Sidebar(props) {
         return;
       }
 
+      // Try referencing through the new APIClient - 12/4/24
+      /*
       try {
         // Fetch user details to determine the role
-        const response = await fetch("http://localhost:3500/users/account/details", {
-          headers: { Authorization: `Bearer ${jwt_token}` },
-        });
+        //const response = await fetch("users/account/details", {
+        //  headers: { Authorization: `Bearer ${jwt_token}` },
+        //});
 
         const result = await response.json();
         if (result.success) {
@@ -71,6 +73,7 @@ function Sidebar(props) {
         console.error("Error fetching user role:", err);
         setMenuData(filterMenuByRole(null));
       }
+        */
     };
 
     fetchUserRole();

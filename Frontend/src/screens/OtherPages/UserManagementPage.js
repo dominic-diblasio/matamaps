@@ -3,6 +3,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import DataTable from "react-data-table-component";
 import { Modal, Button } from "react-bootstrap";
+import APIClient from "./APIClient";
 
 function UserManagementPage() {
   const [users, setUsers] = useState([]);
@@ -73,8 +74,8 @@ function UserManagementPage() {
       const jwt_token = Cookies.get("jwt_token");
       try {
         // Fetch users
-        const usersResponse = await axios.get(
-          "http://localhost:3500/admin/users/display",
+        const usersResponse = await APIClient.get(
+          "admin/users/display",
           {
             headers: { Authorization: `Bearer ${jwt_token}` },
           }
@@ -86,8 +87,8 @@ function UserManagementPage() {
         }
 
         // Fetch clubs
-        const clubsResponse = await axios.get(
-          "http://localhost:3500/admin/clubs",
+        const clubsResponse = await APIClient.get(
+          "admin/clubs",
           {
             headers: { Authorization: `Bearer ${jwt_token}` },
           }
@@ -111,8 +112,8 @@ function UserManagementPage() {
   const viewUserClubs = async (userId) => {
     const jwt_token = Cookies.get("jwt_token");
     try {
-      const response = await axios.get(
-        `http://localhost:3500/admin/users/${userId}/clubs`,
+      const response = await APIClient.get(
+        `admin/users/${userId}/clubs`,
         {
           headers: { Authorization: `Bearer ${jwt_token}` },
         }
@@ -141,8 +142,8 @@ function UserManagementPage() {
     const jwt_token = Cookies.get("jwt_token");
 
     try {
-      const response = await axios.get(
-        `http://localhost:3500/admin/users/${user.user_id}/clubs`,
+      const response = await APIClient.get(
+        `admin/users/${user.user_id}/clubs`,
         {
           headers: { Authorization: `Bearer ${jwt_token}` },
         }
@@ -222,8 +223,8 @@ function UserManagementPage() {
     const jwt_token = Cookies.get("jwt_token");
 
     try {
-      const response = await axios.put(
-        `http://localhost:3500/admin/users/${selectedUser.user_id}/role`,
+      const response = await APIClient.put(
+        `admin/users/${selectedUser.user_id}/role`,
         { roles: selectedRoles },
         { headers: { Authorization: `Bearer ${jwt_token}` } }
       );
@@ -248,8 +249,8 @@ function UserManagementPage() {
     const jwt_token = Cookies.get("jwt_token");
 
     try {
-      const response = await axios.delete(
-        `http://localhost:3500/admin/users/${userId}`,
+      const response = await APIClient.delete(
+        `admin/users/${userId}`,
         { headers: { Authorization: `Bearer ${jwt_token}` } }
       );
 
@@ -456,7 +457,7 @@ export default UserManagementPage;
 //       const jwt_token = Cookies.get("jwt_token");
 //       try {
 //         // Fetch users
-//         const usersResponse = await axios.get("http://localhost:3500/admin/users/display", {
+//         const usersResponse = await APIClient.get("admin/users/display", {
 //           headers: { Authorization: `Bearer ${jwt_token}` },
 //         });
 //         if (usersResponse.data.success) {
@@ -466,7 +467,7 @@ export default UserManagementPage;
 //         }
 
 //         // Fetch clubs
-//         const clubsResponse = await axios.get("http://localhost:3500/admin/clubs", {
+//         const clubsResponse = await APIClient.get("admin/clubs", {
 //           headers: { Authorization: `Bearer ${jwt_token}` },
 //         });
 //         if (clubsResponse.data.success) {
@@ -497,8 +498,8 @@ export default UserManagementPage;
 //   const updateUserRole = async (userId, role, clubIds = []) => {
 //     const jwt_token = Cookies.get("jwt_token");
 //     try {
-//       const response = await axios.put(
-//         `http://localhost:3500/admin/users/${userId}/role`,
+//       const response = await APIClient.put(
+//         `admin/users/${userId}/role`,
 //         { role, club_ids: clubIds },
 //         { headers: { Authorization: `Bearer ${jwt_token}` } }
 //       );
@@ -521,7 +522,7 @@ export default UserManagementPage;
 //   const fetchUserClubs = async (userId) => {
 //     const jwt_token = Cookies.get("jwt_token");
 //     try {
-//       const response = await axios.get(`http://localhost:3500/admin/users/${userId}/clubs`, {
+//       const response = await APIClient.get(`admin/users/${userId}/clubs`, {
 //         headers: { Authorization: `Bearer ${jwt_token}` },
 //       });
 
@@ -540,8 +541,8 @@ export default UserManagementPage;
 //   const deleteUser = async (userId) => {
 //     const jwt_token = Cookies.get("jwt_token");
 //     try {
-//       const response = await axios.delete(
-//         `http://localhost:3500/admin/users/${userId}`,
+//       const response = await APIClient.delete(
+//         `admin/users/${userId}`,
 //         { headers: { Authorization: `Bearer ${jwt_token}` } }
 //       );
 
