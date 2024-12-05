@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie"; // Import js-cookie library
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import APIClient from "./APIClient";
 
 function LoginForm() {
   const [formData, setFormData] = useState({
@@ -40,8 +41,8 @@ function LoginForm() {
 
     if (!emailError) {
       try {
-        const response = await axios.post(
-          `http://localhost:3500/user/login/check`,
+        const response = await APIClient.post(
+          `user/login/check`,
           formData,
           { withCredentials: true } // Ensures cookies like JWT and session_id are sent with request
         );
