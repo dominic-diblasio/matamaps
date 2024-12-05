@@ -3,19 +3,21 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+/*
 var url;
 switch(process.env.ENV_TYPE)
 {
     case 'prod':
-      url = process.env.url;
+      url = process.env.MIDDLEWARE_URL;
       break;
     default:
       url = 'https://localhost:3500';
       break;
 }
+      */
 
 const APIClient = axios.create({
-  baseURL: url,
+  baseURL: process.env.MIDDLEWARE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
