@@ -86,5 +86,5 @@ const loadRoutes = (directories) => {
 loadRoutes([path.join(__dirname, 'routes')]);
 
 app.listen(port, process.env.protocol, () => {
-  console.log(`Server is running on {process.env.protocol}:${port}`);
+  console.log(`Server is running on ${process.env.protocol}:${port}`);
 });
