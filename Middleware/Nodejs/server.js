@@ -85,6 +85,6 @@ const loadRoutes = (directories) => {
 // Load routes only from the 'routes' directory
 loadRoutes([path.join(__dirname, 'routes')]);
 
-app.listen(port, 'localhost', () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.listen(port, process.env.protocol, () => {
+  console.log(`Server is running on http://process.env.protocol:${port}`);
 });
