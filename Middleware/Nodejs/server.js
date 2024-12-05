@@ -7,7 +7,7 @@ const fs = require('fs');
 const cookieParser = require('cookie-parser');
 
 const app = express();
-const port = 3500;
+const port = process.env.PORT || 3500;
 const corsOptions = {
   origin: 'http://localhost:3000',
   credentials: true,
