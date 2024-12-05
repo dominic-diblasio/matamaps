@@ -1,5 +1,6 @@
 import axios from 'axios';
-const dotenv = require('dotenv');
+
+//const dotenv = require('dotenv');
 
 dotenv.config();
 
@@ -17,7 +18,8 @@ switch(process.env.ENV_TYPE)
       */
 
 const APIClient = axios.create({
-  baseURL: process.env.MIDDLEWARE_URL,
+  //baseURL: process.env.MIDDLEWARE_URL,
+  baseURL: 'https://matamaps-middleware.onrender.com/',
   headers: {
     'Content-Type': 'application/json',
   },
