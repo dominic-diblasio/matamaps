@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie"; // Import js-cookie library
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+// import { useAuth } from "../../AuthContext"; // Import AuthContext
 import APIClient from "./APIClient";
 
 function LoginForm() {
@@ -13,6 +14,7 @@ function LoginForm() {
   const [errors, setErrors] = useState({});
   const [loginMessage, setLoginMessage] = useState("");
   const navigate = useNavigate(); // Initialize useNavigate
+  // const { updateAuthState } = useAuth(); // Get updateAuthState from context
 
   // Field validation for email format
   const validateField = (name, value) => {
@@ -56,9 +58,11 @@ function LoginForm() {
           // Cookies.set('session_id', response.data.data.session_id, { secure: false });
 
           setLoginMessage("Login successful!");
-
+// Update authState in context
+// updateAuthState({ isLoggedIn: true, username: response.data.data.username, role: response.data.data.role });
           // Redirect to the target page after successful login
           navigate("/dashboard");
+          localStorage.setItem("login_event", Date.now());
         } else {
           setLoginMessage(response.data.message || "Login failed. Invalid credentials.");
         }

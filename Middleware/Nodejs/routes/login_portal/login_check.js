@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
           .first();
 
         if (clubDetails) {
-          responseData = { ...responseData, club_id: clubDetails.club_id, membership_id: clubDetails.membership_id };
+          responseData = { ...responseData, club_id: clubDetails.club_id, membership_id: clubDetails.membership_id, username: user.username, role: user.role };
         }
       }
 
