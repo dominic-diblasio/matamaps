@@ -19,7 +19,7 @@ switch(process.env.ENV_TYPE)
 
 const APIClient = axios.create({
   //baseURL: process.env.MIDDLEWARE_URL,
-  baseURL: 'http://localhost:3500/',
+  baseURL: 'https://matamaps-middleware.onrender.com/',
   headers: {
     'Content-Type': 'application/json',
   },
