@@ -1,61 +1,34 @@
-// import React, { createContext, useContext, useState } from "react";
+// import React, { createContext, useContext, useState, useEffect } from "react";
 
 // const AuthContext = createContext();
 
 // export function AuthProvider({ children }) {
-//   const [authState, setAuthState] = useState({
-//     isLoggedIn: false,
-//     username: "", // Use username
-//     role: null, // Track user role
-//   });
+//   const [authState, setAuthState] = useState({ isLoggedIn: false, username: "", role: null });
 
-//   const login = (username, role) => {
-//     setAuthState({ isLoggedIn: true, username, role });
-//   };
-
-//   const logout = () => {
-//     setAuthState({ isLoggedIn: false, username: "", role: null });
-//   };
-
-//   const updateAuthState = (newState) => {
-//     setAuthState((prevState) => ({ ...prevState, ...newState }));
-//   };
+//   useEffect(() => {
+//     const jwtToken = localStorage.getItem('jwt_token');
+//     if (jwtToken) {
+//       fetch(`http://localhost:3500/users/account/details`, {
+//         headers: { Authorization: `Bearer ${jwtToken}` }
+//       })
+//       .then(response => response.json())
+//       .then(result => {
+//         if (result.success) {
+//           setAuthState({ 
+//             isLoggedIn: true, 
+//             username: result.data.username, 
+//             role: result.data.role 
+//           });
+//         }
+//       });
+//     }
+//   }, []);
 
 //   return (
-//     <AuthContext.Provider value={{ authState, login, logout, updateAuthState }}>
+//     <AuthContext.Provider value={{ authState, setAuthState }}>
 //       {children}
 //     </AuthContext.Provider>
 //   );
-// }
-
-// export const useAuth = () => useContext(AuthContext);
-// import React, { createContext, useContext, useState } from "react";
-
-// const AuthContext = createContext();
-
-// export function AuthProvider({ children }) {
-//     const [authState, setAuthState] = useState({
-//         isLoggedIn: false,
-//         firstName: "",
-//     });
-
-//     const login = (firstName) => {
-//         setAuthState({ isLoggedIn: true, firstName });
-//     };
-
-//     const logout = () => {
-//         setAuthState({ isLoggedIn: false, firstName: "" });
-//     };
-
-//     const updateAuthState = (newState) => {
-//         setAuthState((prevState) => ({ ...prevState, ...newState }));
-//     };
-
-//     return (
-//         <AuthContext.Provider value={{ authState, login, logout, updateAuthState }}>
-//             {children}
-//         </AuthContext.Provider>
-//     );
 // }
 
 // export const useAuth = () => useContext(AuthContext);
