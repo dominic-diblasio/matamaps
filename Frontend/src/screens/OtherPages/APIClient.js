@@ -1,8 +1,6 @@
 import axios from 'axios';
-
-const dotenv = require('dotenv');
-
-dotenv.config();
+//import dotenv from 'dotenv';
+//dotenv.config();
 
 /*
 var url;
