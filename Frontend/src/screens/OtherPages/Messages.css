@@ -1,0 +1,55 @@
+/* Main container fills the viewport height */
+.messages-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 20px;
+  }
+  
+  /* Row takes up remaining viewport space */
+  .messages-row {
+    flex-grow: 1;
+    display: flex;
+    overflow: hidden;
+    margin: 0;
+  }
+  
+  /* Sidebar setup with fixed height */
+  .message-list {
+    background-color: #250000; /* Optional: background color */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+  
+  /* Styling for individual message items */
+  .message-item {
+    padding: 15px;
+    border-bottom: 1px solid #8a8888;
+    cursor: pointer;
+  }
+  
+  .message-item:hover {
+    background-color: #e9ecef;
+  }
+  
+  /* Result navigation positioned at the bottom of the sidebar */
+  .result-navigation {
+    margin-top: auto; /* Automatically aligns to the bottom */
+    padding: 20px;
+  }
+  
+  /* Main content area styling */
+  .message-content {
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+  }
+  
+  /* Optional: Adjusts spacing for headings */
+  .messages-heading {
+    margin-bottom: 20px;
+  }  

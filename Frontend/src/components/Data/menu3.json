@@ -1,0 +1,122 @@
+{
+    "menu3": [
+        {
+            "name": "Login",
+            "routerLink": ["login"],
+            "identifier": "Login",
+            "iconClass": "icofont-login",
+            "iconRef": "gear",
+            "breadcrumbMessage": "Login account.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },
+        {
+            "name": "Registration",
+            "routerLink": ["registration"],
+            "identifier": "Registration",
+            "iconClass": "icofont-users-alt-5",
+            "iconRef": "gear",
+            "breadcrumbMessage": "Register a new employee.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },{
+            "name": "Announcements Page",
+            "routerLink": ["st"],
+            "identifier": "Announcements",
+            "iconClass": "icofont-calendar",
+            "iconRef": "gear",
+            "breadcrumbMessage": "View Announcements.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },
+        {
+            "name": "Events",
+            "routerLink": ["events"],
+            "identifier": "Events",
+            "iconClass": "icofont-calendar",
+            "iconRef": "gear",
+            "breadcrumbMessage": "View events.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },
+        {
+            "name": "Clubs",
+            "routerLink": ["clubs"],
+            "identifier": "Clubs",
+            "iconClass": "icofont-group",
+            "iconRef": "gear",
+            "breadcrumbMessage": "View clubs.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },
+        {
+            "name": "Event RSVPS",
+            "routerLink": ["my-rsvp"],
+            "identifier": "MyRSVPPS",
+            "iconClass": "icofont-id-card",
+            "iconRef": "gear",
+            "breadcrumbMessage": "View your rsvps.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },
+        {
+            "name": "Your Clubs",
+            "routerLink": ["clubs-leader"],
+            "identifier": "ClubsLeader",
+            "iconClass": "icofont-id-card",
+            "iconRef": "gear",
+            "breadcrumbMessage": "View your clubs.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },{
+            "name": "Admin Clubs",
+            "routerLink": ["admin/clubs"],
+            "identifier": "ClubsAdmin",
+            "iconClass": "icofont-id-card",
+            "iconRef": "gear",
+            "breadcrumbMessage": "Manage clubs.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },{
+            "name": "Manage Users",
+            "routerLink": ["users-manage"],
+            "identifier": "ManageUsers",
+            "iconClass": "icofont-id-card",
+            "iconRef": "gear",
+            "breadcrumbMessage": "Manage Users.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },
+        {
+            "name": "Messages",
+            "routerLink": ["messages"],
+            "identifier": "Messages",
+            "iconClass": "icofont-envelope",
+            "iconRef": "gear",
+            "breadcrumbMessage": "View messages.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },
+        {
+            "name": "Personal Details",
+            "routerLink": ["personal-details"],
+            "identifier": "PersonalDetails",
+            "iconClass": "icofont-id-card",
+            "iconRef": "gear",
+            "breadcrumbMessage": "View personal details.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        }
+    ]
+}
