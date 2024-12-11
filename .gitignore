@@ -43,3 +43,5 @@ yarn-error.log*
 /Middleware/Nodejs
 /Middleware
 Middleware/Nodejs/.env
+# Local Netlify folder
+.netlify

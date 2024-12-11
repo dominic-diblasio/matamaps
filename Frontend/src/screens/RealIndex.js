@@ -1,5 +1,6 @@
 import React from "react";
-import { Route, Routes as ReactRoutes } from "react-router-dom";
+import { Route, Routes } from 'react-router-dom';
+// import { Route, Routes as ReactRoutes } from "react-router-dom";
 import HrDashboard from "./Dashboard/HrDashboard";
 import RegisterationForm from "./OtherPages/RegistrationForm";
 import LoginPage from "./OtherPages/LoginPage";
@@ -34,9 +35,9 @@ function EmptyPageIndex(props) {
     // const { activekey } = props;
 
     return (
-        <div className="main px-lg-4 px-md-4">
-            <div className="body d-flex py-lg-3 py-md-2">
-                <ReactRoutes>
+            <div className="main px-lg-4 px-md-4">
+                <div className="body d-flex py-lg-3 py-md-2">
+                    <Routes>
                     <Route exact path="/" element={<HrDashboard />} />
                     <Route exact path="/registration" element={<RegisterationForm />} />
                     <Route exact path="/login" element={<LoginPage />} />
@@ -65,9 +66,9 @@ function EmptyPageIndex(props) {
                     <Route exact path="/personal-details" element={<PersonalDetailsPage />} />
                     <Route exact path="/st" element={<StackingToaster />} />
                     <Route exact path="/club-announcements/:club_id" element={<ClubAnnouncementsPage />} />
-                </ReactRoutes>
+                    </Routes>
+                </div>
             </div>
-        </div>
     );
 }
 

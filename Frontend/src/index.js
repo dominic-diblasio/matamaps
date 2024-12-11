@@ -6,7 +6,7 @@ import "./assets/scss/main.scss"
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <BrowserRouter basename="/matamaps">
+  <BrowserRouter>
       <App />
     </BrowserRouter>
 );
