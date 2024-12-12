@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const port = process.env.PORT || 3500;
 const corsOptions = {
-  origin: process.env.url,
+  origin: true, // Allow any origin
   credentials: true,
 };
 app.use(cors(corsOptions));
