@@ -1,9 +1,9 @@
 import React from "react";
 import { Route, Routes as ReactRoutes } from "react-router-dom";
 import HrDashboard from "./Dashboard/HrDashboard";
-import RegisterationForm from "./OtherPages/RegistrationForm";
-import LoginPage from "./OtherPages/LoginPage";
-import ForgotPassword from "./OtherPages/ForgotPassword";
+// import RegisterationForm from "./OtherPages/RegistrationForm";
+// import LoginPage from "./OtherPages/LoginPage";
+// import ForgotPassword from "./OtherPages/ForgotPassword";
 import Dashboard from "./OtherPages/Dashboard";
 import Messages from "./OtherPages/Messages";
 import Events from "./OtherPages/Events";
@@ -29,18 +29,23 @@ import AdminClubDetails from "./OtherPages/AdminClubDetails";
 import UserManagementPage from "./OtherPages/UserManagementPage";
 import AddClubPage from "./OtherPages/AddClubPage";
 import AddClubMemberPage from "./OtherPages/AddClubMemberPage";
+// import PageHeader1 from "../components/common/PageHeader1";
+// import Header from "../components/common/Header";
+// import PageHeader from "../components/common/PageHeader";
+
 
 function EmptyPageIndex(props) {
     // const { activekey } = props;
 
     return (
         <div className="main px-lg-4 px-md-4">
+            {/* {activekey !== "/dashboard" ? activekey === "/documentation" ? <PageHeader /> : <PageHeader1 /> : ""} */}
             <div className="body d-flex py-lg-3 py-md-2">
                 <ReactRoutes>
                     <Route exact path="/" element={<HrDashboard />} />
-                    <Route exact path="/registration" element={<RegisterationForm />} />
+                    {/* <Route exact path="/registration" element={<RegisterationForm />} />
                     <Route exact path="/login" element={<LoginPage />} />
-                    <Route exact path="/forgot-password" element={<ForgotPassword />} />
+                    <Route exact path="/forgot-password" element={<ForgotPassword />} /> */}
                     <Route exact path="/dashboard" element={<Dashboard />} />
                     <Route path="/events" element={<Events />} />
                     <Route path="/clubs" element={<Clubs />} />

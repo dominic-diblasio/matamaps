@@ -1,27 +1,6 @@
 {
     "menu3": [
-        {
-            "name": "Login",
-            "routerLink": ["login"],
-            "identifier": "Login",
-            "iconClass": "icofont-login",
-            "iconRef": "gear",
-            "breadcrumbMessage": "Login account.",
-            "isCategory": false,
-            "isApp": false,
-            "children": []
-        },
-        {
-            "name": "Registration",
-            "routerLink": ["registration"],
-            "identifier": "Registration",
-            "iconClass": "icofont-users-alt-5",
-            "iconRef": "gear",
-            "breadcrumbMessage": "Register a new employee.",
-            "isCategory": false,
-            "isApp": false,
-            "children": []
-        },{
+       {
             "name": "Announcements Page",
             "routerLink": ["st"],
             "identifier": "Announcements",

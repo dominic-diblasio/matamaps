@@ -1,35 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "./components/common/Sidebar";
-import AuthIndex from "./screens/AuthIndex";
-// import MainIndex from "./screens/MainIndex";
 import RealIndex from "./screens/RealIndex";
+import MainIndex from "./screens/MainIndex";
 
 function App(props) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [key, setKey] = useState(0); // Force re-renders using the key
 
-  function activekey() {
-    const baseUrl = process.env.PUBLIC_URL || "";
-    const res = window.location.pathname.replace(baseUrl, "");
-    return res || "/";
-}
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      const token = document.cookie.split('; ').find(row => row.startsWith('jwt_token='));
+      if (token) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    };
 
-  console.log(activekey())
+    checkLoginStatus();
 
-  if (activekey() === "/sign-in" || activekey() === "/sign-up" || activekey() === "/password-reset" || activekey() === "/2-step-authentication" || activekey() === "/page-404") {
-    return (
-      <div id="mytask-layout" className="theme-indigo">
-          <AuthIndex />
-      </div>
-    )
-  }
+    // Listen for route changes and re-check login status
+    const handlePathChange = () => {
+      checkLoginStatus();
+      setKey((prevKey) => prevKey + 1); // Force re-render
+    };
+
+    window.addEventListener('popstate', handlePathChange);
+    return () => window.removeEventListener('popstate', handlePathChange);
+  }, []);
+
   return (
     <div id="mytask-layout" className="theme-indigo">
-      <Sidebar activekey={activekey()} history={props.history} />
-        <RealIndex activekey={activekey()} />
-        {/* <EmptySidebar activekey={activekey()} history={props.history} /> */}
-
+      {isLoggedIn ? (
+        <>
+          <Sidebar key={key} activekey={window.location.pathname} history={props.history} />
+          <RealIndex key={key} activekey={window.location.pathname} />
+        </>
+      ) : (
+        <MainIndex setIsLoggedIn={setIsLoggedIn} />
+      )}
     </div>
   );
 }
-
 
 export default App;

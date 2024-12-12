@@ -4,7 +4,7 @@ import Cookies from "js-cookie"; // Import js-cookie library
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import APIClient from "./APIClient";
 
-function LoginForm() {
+function LoginForm({ setIsLoggedIn }) {
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -51,14 +51,13 @@ function LoginForm() {
           // JWT token and session_id are automatically stored as HttpOnly cookies from the backend.
 
           // But if you need to use employee_id in frontend, store it using js-cookie
-          // Cookies.set('employee_id', response.data.data.employee_id, { secure: false });
+          Cookies.set('role', response.data.data.role, { secure: false });
           Cookies.set('jwt_token', response.data.data.jwt_token, { secure: false });
-          // Cookies.set('session_id', response.data.data.session_id, { secure: false });
 
           setLoginMessage("Login successful!");
 
-          // Redirect to the target page after successful login
-          navigate("/dashboard");
+          setIsLoggedIn(true); // Update login status
+          navigate("/dashboard"); // Redirect after login
         } else {
           setLoginMessage(response.data.message || "Login failed. Invalid credentials.");
         }
