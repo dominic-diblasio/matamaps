@@ -54,26 +54,6 @@
             "isCategory": false,
             "isApp": false,
             "children": []
-        },{
-            "name": "Admin Clubs",
-            "routerLink": ["admin/clubs"],
-            "identifier": "ClubsAdmin",
-            "iconClass": "icofont-id-card",
-            "iconRef": "gear",
-            "breadcrumbMessage": "Manage clubs.",
-            "isCategory": false,
-            "isApp": false,
-            "children": []
-        },{
-            "name": "Manage Users",
-            "routerLink": ["users-manage"],
-            "identifier": "ManageUsers",
-            "iconClass": "icofont-id-card",
-            "iconRef": "gear",
-            "breadcrumbMessage": "Manage Users.",
-            "isCategory": false,
-            "isApp": false,
-            "children": []
         },
         {
             "name": "Messages",

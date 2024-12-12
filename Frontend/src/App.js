@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./components/common/Sidebar";
+import Sidebar2 from "./components/common/Sidebar2";
 import RealIndex from "./screens/RealIndex";
 import MainIndex from "./screens/MainIndex";
 
@@ -37,7 +38,10 @@ function App(props) {
           <RealIndex key={key} activekey={window.location.pathname} />
         </>
       ) : (
-        <MainIndex setIsLoggedIn={setIsLoggedIn} />
+        <>
+          <Sidebar2 key={key} activekey={window.location.pathname} history={props.history} />
+          <MainIndex key={key} setIsLoggedIn={setIsLoggedIn} />
+        </>
       )}
     </div>
   );
