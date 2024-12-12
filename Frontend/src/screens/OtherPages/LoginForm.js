@@ -62,6 +62,7 @@ function LoginForm() {
 // updateAuthState({ isLoggedIn: true, username: response.data.data.username, role: response.data.data.role });
           // Redirect to the target page after successful login
           navigate("/dashboard");
+          window.location.reload();
           localStorage.setItem("login_event", Date.now());
         } else {
           setLoginMessage(response.data.message || "Login failed. Invalid credentials.");

@@ -1,6 +1,6 @@
 
 {
-    "menu3": [
+    "menu": [
         {
             "name": "Already Registered? Login",
             "routerLink": ["login"],

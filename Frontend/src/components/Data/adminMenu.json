@@ -1,0 +1,60 @@
+{
+    "menu": [
+        {
+            "name": "Announcements Page",
+            "routerLink": ["st"],
+            "identifier": "Announcements",
+            "iconClass": "icofont-calendar",
+            "breadcrumbMessage": "View Announcements."
+        },
+        {
+            "name": "Events",
+            "routerLink": ["events"],
+            "identifier": "Events",
+            "iconClass": "icofont-calendar",
+            "breadcrumbMessage": "View events."
+        },
+        {
+            "name": "Clubs",
+            "routerLink": ["clubs"],
+            "identifier": "Clubs",
+            "iconClass": "icofont-group",
+            "breadcrumbMessage": "View clubs."
+        },
+        {
+            "name": "Event RSVPS",
+            "routerLink": ["my-rsvp"],
+            "identifier": "MyRSVPPS",
+            "iconClass": "icofont-id-card",
+            "breadcrumbMessage": "View your RSVPs."
+        },
+        {
+            "name": "Admin Clubs",
+            "routerLink": ["admin/clubs"],
+            "identifier": "ClubsAdmin",
+            "iconClass": "icofont-id-card",
+            "breadcrumbMessage": "Manage clubs."
+        },
+        {
+            "name": "Manage Users",
+            "routerLink": ["users-manage"],
+            "identifier": "ManageUsers",
+            "iconClass": "icofont-id-card",
+            "breadcrumbMessage": "Manage Users."
+        },
+        {
+            "name": "Messages",
+            "routerLink": ["messages"],
+            "identifier": "Messages",
+            "iconClass": "icofont-envelope",
+            "breadcrumbMessage": "View messages."
+        },
+        {
+            "name": "Personal Details",
+            "routerLink": ["personal-details"],
+            "identifier": "PersonalDetails",
+            "iconClass": "icofont-id-card",
+            "breadcrumbMessage": "View personal details."
+        }
+    ]
+}

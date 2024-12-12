@@ -1,55 +1,41 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import menu3 from "../Data/menu3.json";
 import LogoMain from "../../assets/images/matamaps-images/logo-design.svg";
+import defaultMenu from "../Data/menu4.json"; // Import menu4.json
 
-const SIDEBAR_URL = process.env.REACT_APP_SIDEBAR_API_BASE_URL;
+const SIDEBAR_URL = process.env.REACT_APP_SIDEBAR_API_BASE_URL || "http://localhost:3500"; //not sure why but REACT_APP_SIDEBAR_API_BASE_URL was returning null so added a fallback for testing
 
 function Sidebar(props) {
   const [isSidebarMini, setIsSidebarMini] = useState(false);
-  const [menuData, setMenuData] = useState([]);
+  const [menuData, setMenuData] = useState(defaultMenu.menu); // Initialize with default menu
   const [darkLightMode, setDarkLightMode] = useState("light");
   const [role, setRole] = useState(null);
   const [jwtToken, setJwtToken] = useState(Cookies.get("jwt_token"));
   const navigate = useNavigate();
 
-  const filterMenuByRole = (role) => {
-    if (role === "admin") {
-      return menu3.menu3.filter(
-        (item) =>
-          item.identifier !== "ClubsLeader" &&
-          item.identifier !== "Login" &&
-          item.identifier !== "Registration"
-      );
-    } else if (role === "club_leader") {
-      return menu3.menu3.filter(
-        (item) =>
-          item.identifier !== "ClubsAdmin" &&
-          item.identifier !== "ManageUsers" &&
-          item.identifier !== "Login" &&
-          item.identifier !== "Registration"
-      );
-    } else if (role === "user") {
-      return menu3.menu3.filter(
-        (item) =>
-          item.identifier !== "ClubsAdmin" &&
-          item.identifier !== "ManageUsers" &&
-          item.identifier !== "ClubsLeader" &&
-          item.identifier !== "Login" &&
-          item.identifier !== "Registration"
-      );
-    } else {
-      return menu3.menu3.filter(
-        (item) => item.identifier === "Login" || item.identifier === "Registration"
-      );
+  const loadMenuData = async (role) => {
+    try {
+      switch (role) {
+        case "admin":
+          return import("../Data/adminMenu.json").then((module) => module.default.menu || defaultMenu.menu);
+        case "club_leader":
+          return import("../Data/clubLeaderMenu.json").then((module) => module.default.menu || defaultMenu.menu);
+        case "user":
+          return import("../Data/userMenu.json").then((module) => module.default.menu || defaultMenu.menu);
+        default:
+          return defaultMenu.menu; // Default to log in menu
+      }
+    } catch (error) {
+      return defaultMenu.menu; // Return defaultMenu on error
     }
   };
 
   const fetchUserRole = async () => {
     const jwt_token = Cookies.get("jwt_token");
     if (!jwt_token) {
-      setMenuData(filterMenuByRole(null));
+      setMenuData(defaultMenu.menu);
+      setRole(null); // Clear role if no token
       return;
     }
 
@@ -58,54 +44,51 @@ function Sidebar(props) {
         headers: { Authorization: `Bearer ${jwt_token}` },
       });
 
+      console.log("API Response:", response); // used to see what side bar was routing to
+
       if (!response.ok) {
         throw new Error(`Error: ${response.status} - ${response.statusText}`);
       }
-
-      // 🛠️ Use text() to handle both text and JSON
+      
       const text = await response.text();
 
       if (!text) {
         console.warn("Response body is empty");
-        setMenuData(filterMenuByRole(null));
+        setMenuData(defaultMenu.menu);
+        setRole(null);
         return;
       }
+    try {
+      const result = JSON.parse(text); // Parse the text as JSON
+      if (result.success) {
+        const userRole = result.data.role;
+        setRole(userRole); // Update the role
 
-      try {
-        const result = JSON.parse(text); // Parse the text as JSON
-        if (result.success) {
-          setRole(result.data.role);
-          setMenuData(filterMenuByRole(result.data.role));
-        } else {
-          console.warn("API response returned success: false", result);
-          setMenuData(filterMenuByRole(null));
-        }
-      } catch (jsonError) {
-        console.error("Failed to parse JSON", text);
-        setMenuData(filterMenuByRole(null));
+        const roleMenu = await loadMenuData(userRole); //force refetching on reload
+        setMenuData(roleMenu);
+      } else {
+        console.warn("API response returned success: false", result);
+        setMenuData(defaultMenu.menu);
+        setRole(null);
       }
+    } catch (jsonError) {
+      console.error("Failed to parse JSON", text);
+      setMenuData(defaultMenu.menu);
+      setRole(null);
+    }
     } catch (err) {
       console.error("Error fetching user role:", err.message);
-      setMenuData(filterMenuByRole(null));
+      setMenuData(defaultMenu.menu);
+      setRole(null);
     }
   };
 
-  // 🔄 Detect JWT token change
-  useEffect(() => {
-    const checkTokenChange = setInterval(() => {
-      const currentToken = Cookies.get("jwt_token");
-      if (currentToken !== jwtToken) {
-        setJwtToken(currentToken); // Update the state and trigger useEffect
-      }
-    }, 1000);
-
-    return () => clearInterval(checkTokenChange);
-  }, [jwtToken]);
-
-  // Re-fetch the user role when JWT token changes
+  // Fetch user role when the component mounts or JWT token changes
   useEffect(() => {
     fetchUserRole();
   }, [jwtToken]);
+
+  
 
   const onChangeDarkMode = () => {
     if (window.document.children[0].getAttribute("data-theme") === "light") {
@@ -120,7 +103,7 @@ function Sidebar(props) {
   const handleLogout = () => {
     Cookies.remove("jwt_token");
     setRole(null);
-    setMenuData(filterMenuByRole(null));
+    setMenuData(defaultMenu.menu);
     navigate("/login");
   };
 
@@ -135,9 +118,14 @@ function Sidebar(props) {
         <ul className="menu-list flex-grow-1 mt-3">
           {menuData.map((d, i) => (
             <li key={`menu-item-${i}`} className="collapsed">
-              <Link to={`/${d.routerLink[0]}`} className={`m-link ${d.routerLink[0] === activekey ? "active" : ""}`}>
+              <Link
+                to={`/${d.routerLink[0]}`}
+                className={`m-link ${d.routerLink[0] === activekey ? "active" : ""}`}
+              >
                 <i className={d.iconClass}></i>
-                <span><b>{d.name}</b></span>
+                <span>
+                  <b>{d.name}</b>
+                </span>
               </Link>
             </li>
           ))}
@@ -165,8 +153,14 @@ function Sidebar(props) {
             </button>
           </div>
         )}
-        <button type="button" className="btn btn-link sidebar-mini-btn text-light" onClick={() => setIsSidebarMini(!isSidebarMini)}>
-          <span className="ms-2"><i className="icofont-bubble-right"></i></span>
+        <button
+          type="button"
+          className="btn btn-link sidebar-mini-btn text-light"
+          onClick={() => setIsSidebarMini(!isSidebarMini)}
+        >
+          <span className="ms-2">
+            <i className="icofont-bubble-right"></i>
+          </span>
         </button>
       </div>
     </div>
