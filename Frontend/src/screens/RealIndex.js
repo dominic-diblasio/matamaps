@@ -28,6 +28,7 @@ import AdminClubsPage from "./OtherPages/AdminClubsPage";
 import AdminClubDetails from "./OtherPages/AdminClubDetails";
 import UserManagementPage from "./OtherPages/UserManagementPage";
 import AddClubPage from "./OtherPages/AddClubPage";
+import MapPage from "./OtherPages/MapPage";
 import AddClubMemberPage from "./OtherPages/AddClubMemberPage";
 // import PageHeader1 from "../components/common/PageHeader1";
 // import Header from "../components/common/Header";
@@ -58,6 +59,7 @@ function EmptyPageIndex(props) {
                     <Route path="/club-leader/events/:club_id" element={<ManageClubEventsPage/>} />
                     <Route path="/club-leader/events/rsvps/:event_id" element={<ManageRSVPsPage/>} /> 
                     <Route path="/my-rsvp" element={<MyRSVPsPage/>} />   
+                    <Route path="/map" element={<MapPage/>} />
                     <Route path="/admin/clubs" element={<AdminClubsPage />} />
                     <Route path="/admin/club/details/:club_id" element={<AdminClubDetails/>} />
                     <Route path="/users-manage" element={<UserManagementPage/>} />
