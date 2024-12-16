@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { Dropdown } from "react-bootstrap";
-import Avatar1 from "../../assets/images/xs/avatar1.jpg";
-import Avatar2 from "../../assets/images/xs/avatar2.jpg";
-import Avatar3 from "../../assets/images/xs/avatar3.jpg";
-import Avatar4 from "../../assets/images/xs/avatar4.jpg";
-import Avatar5 from "../../assets/images/xs/avatar5.jpg";
-import Avatar6 from "../../assets/images/xs/avatar6.jpg";
-import Avatar7 from "../../assets/images/xs/avatar7.jpg";
-import Avatar8 from "../../assets/images/xs/avatar8.jpg";
-import ProfileImg from "../../assets/images/profile_av.png";
+// import Avatar1 from "../../assets/images/xs/avatar1.jpg";
+// import Avatar2 from "../../assets/images/xs/avatar2.jpg";
+// import Avatar3 from "../../assets/images/xs/avatar3.jpg";
+// import Avatar4 from "../../assets/images/xs/avatar4.jpg";
+// import Avatar5 from "../../assets/images/xs/avatar5.jpg";
+// import Avatar6 from "../../assets/images/xs/avatar6.jpg";
+// import Avatar7 from "../../assets/images/xs/avatar7.jpg";
+// import Avatar8 from "../../assets/images/xs/avatar8.jpg";
+// import ProfileImg from "../../assets/images/profile_av.png";
 import { Link } from "react-router-dom";
-import AddNewUserModal from "./AddNewUserModal";
+// import AddNewUserModal from "./AddNewUserModal";
 
 function Header() {
     const [isAddUserModa, setIsAddUserModa] = useState(false);
@@ -25,12 +25,12 @@ function Header() {
                                 <i className="icofont-info-square fs-5"></i>
                             </Link>
                             <div className="avatar-list avatar-list-stacked px-3 me-2">
-                                <img className="avatar rounded-circle" src={Avatar2} alt="" />
+                                {/* <img className="avatar rounded-circle" src={Avatar2} alt="" />
                                 <img className="avatar rounded-circle" src={Avatar1} alt="" />
                                 <img className="avatar rounded-circle" src={Avatar3} alt="" />
                                 <img className="avatar rounded-circle" src={Avatar4} alt="" />
                                 <img className="avatar rounded-circle" src={Avatar7} alt="" />
-                                <img className="avatar rounded-circle" src={Avatar8} alt="" />
+                                <img className="avatar rounded-circle" src={Avatar8} alt="" /> */}
                                 <span className="avatar rounded-circle text-center pointer" onClick={() => { setIsAddUserModa(true) }}><i className="icofont-ui-add"></i></span>
                             </div>
                         </div>
@@ -51,7 +51,7 @@ function Header() {
                                             <ul className="list-unstyled list mb-0">
                                                 <li className="py-2 mb-1 border-bottom">
                                                     <a href="#!" className="d-flex">
-                                                        <img className="avatar rounded-circle" src={Avatar1} alt="" />
+                                                        {/* <img className="avatar rounded-circle" src={Avatar1} alt="" /> */}
                                                         <div className="flex-fill ms-2">
                                                             <p className="d-flex justify-content-between mb-0 "><span className="font-weight-bold">Dylan Hunter</span> <small>2MIN</small></p>
                                                             <span className="">Added  2021-02-19 my-Task ui/ux Design <span className="badge bg-success">Review</span></span>
@@ -69,7 +69,7 @@ function Header() {
                                                 </li>
                                                 <li className="py-2 mb-1 border-bottom">
                                                     <a href="#!" className="d-flex">
-                                                        <img className="avatar rounded-circle" src={Avatar3} alt="" />
+                                                        {/* <img className="avatar rounded-circle" src={Avatar3} alt="" /> */}
                                                         <div className="flex-fill ms-2">
                                                             <p className="d-flex justify-content-between mb-0 "><span className="font-weight-bold">Andrea Gill</span> <small>1HR</small></p>
                                                             <span className="">Quality Assurance Task Completed</span>
@@ -78,7 +78,7 @@ function Header() {
                                                 </li>
                                                 <li className="py-2 mb-1 border-bottom">
                                                     <a href="#!" className="d-flex">
-                                                        <img className="avatar rounded-circle" src={Avatar5} alt="" />
+                                                        {/* <img className="avatar rounded-circle" src={Avatar5} alt="" /> */}
                                                         <div className="flex-fill ms-2">
                                                             <p className="d-flex justify-content-between mb-0 "><span className="font-weight-bold">Diane Fisher</span> <small>13MIN</small></p>
                                                             <span className="">Add New Project for App Developemnt</span>
@@ -87,7 +87,7 @@ function Header() {
                                                 </li>
                                                 <li className="py-2 mb-1 border-bottom">
                                                     <a href="#!" className="d-flex">
-                                                        <img className="avatar rounded-circle" src={Avatar6} alt="" />
+                                                        {/* <img className="avatar rounded-circle" src={Avatar6} alt="" /> */}
                                                         <div className="flex-fill ms-2">
                                                             <p className="d-flex justify-content-between mb-0 "><span className="font-weight-bold">Andrea Gill</span> <small>1HR</small></p>
                                                             <span className="">Add Timesheet For Rhinestone project</span>
@@ -96,7 +96,7 @@ function Header() {
                                                 </li>
                                                 <li className="py-2">
                                                     <a href="#!" className="d-flex">
-                                                        <img className="avatar rounded-circle" src={Avatar7} alt="" />
+                                                        {/* <img className="avatar rounded-circle" src={Avatar7} alt="" /> */}
                                                         <div className="flex-fill ms-2">
                                                             <p className="d-flex justify-content-between mb-0 "><span className="font-weight-bold">Zoe Wright</span> <small className="">1DAY</small></p>
                                                             <span className="">Add Calander Event</span>
@@ -117,13 +117,13 @@ function Header() {
                                 <small>Admin Profile</small>
                             </div>
                             <Dropdown.Toggle as="a" className="nav-link dropdown-toggle pulse p-0">
-                                <img className="avatar lg rounded-circle img-thumbnail" src={ProfileImg} alt="profile" />
+                                {/* <img className="avatar lg rounded-circle img-thumbnail" src={ProfileImg} alt="profile" /> */}
                             </Dropdown.Toggle>
                             <Dropdown.Menu className="rounded-lg shadow border-0 dropdown-animation dropdown-menu-end p-0 m-0">
                                 <div className="card border-0 w280">
                                     <div className="card-body pb-0">
                                         <div className="d-flex py-1">
-                                            <img className="avatar rounded-circle" src={ProfileImg} alt="profile" />
+                                            {/* <img className="avatar rounded-circle" src={ProfileImg} alt="profile" /> */}
                                             <div className="flex-fill ms-3">
                                                 <p className="mb-0"><span className="font-weight-bold">Dylan Hunter</span></p>
                                                 <small className="">Dylan.hunter@gmail.com</small>
@@ -171,7 +171,7 @@ function Header() {
 
                 </div>
             </nav>
-            <AddNewUserModal show={isAddUserModa} onClose={() => { setIsAddUserModa(false) }} />
+            {/* <AddNewUserModal show={isAddUserModa} onClose={() => { setIsAddUserModa(false) }} /> */}
         </div>
     )
 }

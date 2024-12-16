@@ -6,7 +6,9 @@ import PasswordReset from "../components/Auth/PasswordReset";
 import SignIn from "../components/Auth/SignIn";
 import Signup from "../components/Auth/Signup";
 import StepAuthentication from "../components/Auth/StepAuthentication";
-
+import RegisterationForm from "./OtherPages/RegistrationForm";
+import LoginPage from "./OtherPages/LoginPage";
+import ForgotPassword from "./OtherPages/ForgotPassword";
 const AuthIndex = () => {
     return(
         <div className="main p-2 py-3 p-xl-5 ">
@@ -20,6 +22,9 @@ const AuthIndex = () => {
                         <Route exact path={`${process.env.PUBLIC_URL}/password-reset`} element={<PasswordReset/>} />
                         <Route exact path={`${process.env.PUBLIC_URL}/2-step-authentication`} element={<StepAuthentication/>} />
                         <Route exact path={`${process.env.PUBLIC_URL}/page-404`} element={<Page404/>} />
+                        <Route exact path="/registration" element={<RegisterationForm />} />
+                    <Route exact path="/login" element={<LoginPage />} />
+                    <Route exact path="/forgot-password" element={<ForgotPassword />} />
                     </ReactRoutes>
                     </div>
                 </div>
