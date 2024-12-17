@@ -203,14 +203,14 @@ function Events() {
                     >
                       {isExpanded ? "See less" : "See more"}
                     </button>
-                    {showRegisterButton && (
+                    {/* {showRegisterButton && (
                       <button
                         className="btn btn-success"
                         onClick={() => handleRegisterClick(event)}
                       >
                         Register
                       </button>
-                    )}
+                    )} */}
                     </div>
                   </div>
                 </div>

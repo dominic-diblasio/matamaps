@@ -57,7 +57,7 @@ function LoginForm({ setIsLoggedIn }) {
           setLoginMessage("Login successful!");
 
           setIsLoggedIn(true); // Update login status
-          navigate("/dashboard"); // Redirect after login
+          navigate("/clubs"); // Redirect after login
         } else {
           setLoginMessage(response.data.message || "Login failed. Invalid credentials.");
         }
