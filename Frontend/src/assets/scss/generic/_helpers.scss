@@ -11,6 +11,24 @@
 .link-secondary         { color: var(--secondary-color) !important;}
 
 .btn-success            {background-color: $color-success; border-color: $color-success;}
+.btn-container {
+    display: flex;
+    gap: 10px; 
+    align-items: center; 
+  }
+  .btn-seemore {
+    background-color: #ddd8d8;
+    border: 2px solid #000000; 
+    color: #000000; 
+    border-radius: 8px;
+    padding: 6px 12px;
+  }
+  
+  .btn-seemore:hover {
+    background-color: #000000; /* Black background on hover */
+    color: #ffffff; /* White text on hover */
+  }
+  
 .btn-danger             {background-color: $color-danger; border-color: $color-danger;}
 .btn-warning            {background-color: $color-warning; border-color: $color-warning;}
 .btn-info               {background-color: $color-info; border-color: $color-info;}
