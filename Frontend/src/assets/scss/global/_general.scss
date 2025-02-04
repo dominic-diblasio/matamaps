@@ -1,8 +1,6 @@
 body {
     @include transition(ease .1s);
     background-color: var(--body-color);
-    background-image: url('../../images/matamaps-fullsize/csun-background-main.jpg');
-    background-size: cover;
     color: var(--text-color);
     font-weight: $font-weight-normal;
     font-family: $font-quicksand;
