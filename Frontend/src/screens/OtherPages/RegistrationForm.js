@@ -15,6 +15,7 @@ function RegistrationForm() {
     });
 
     const [errors, setErrors] = useState({});
+    const navigate = useNavigate(); // Initialize useNavigate
 
     const validateField = (name, value) => {
         let error = "";
@@ -93,6 +94,8 @@ function RegistrationForm() {
 
                 if (response.data.success) {
                     alert("User registration successfully!"); // Success alert
+                    navigate("/login"); // Redirect after login
+
                 } else {
                     alert(`Error: ${response.data.message}`); // Backend error message
                 }

@@ -14,6 +14,8 @@ function Events() {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [statusFilter, setStatusFilter] = useState("all"); // Default filter
+  const [expandedEventId, setExpandedEventId] = useState(null); // Track expanded event
+
 
   useEffect(() => {
     const fetchEventsAndRSVPs = async () => {
@@ -97,6 +99,10 @@ function Events() {
     }
   }, [statusFilter, events]);
 
+  const toggleSeeMore = (event_id) => {
+    setExpandedEventId(expandedEventId === event_id ? null : event_id);
+  };
+
   const handleRegisterClick = (event) => {
     if (!username) {
       alert("You need to log in to register for events.");
@@ -140,6 +146,7 @@ function Events() {
         {filteredEvents.length > 0 ? (
           filteredEvents.map((event) => {
             const rsvp = rsvpDetails[event.event_id];
+            const isExpanded = expandedEventId === event.event_id;
             const showRegisterButton =
               event.event_status !== "completed" && // Hide if event status is completed
               (!rsvp || (rsvp && rsvp.rsvp_status !== "accepted")); // Hide if RSVP is accepted
@@ -158,6 +165,8 @@ function Events() {
                   <div className="card-body">
                     <h5 className="card-title">{event.event_name}</h5>
                     <p className="card-text">{event.event_description}</p>
+                    {isExpanded && (
+                      <>
                     <p className="card-text">
                       <strong>Date:</strong>{" "}
                       {new Date(event.event_date).toLocaleDateString()}
@@ -185,14 +194,24 @@ function Events() {
                     ) : (
                       username && <p className="card-text">You have not RSVP'd.</p>
                     )}
-                    {showRegisterButton && (
+                    </>
+                    )}
+                    <div className="btn-container">
+                    <button
+                      className="btn btn-seemore"
+                      onClick={() => toggleSeeMore(event.event_id)}
+                    >
+                      {isExpanded ? "See less" : "See more"}
+                    </button>
+                    {/* {showRegisterButton && (
                       <button
                         className="btn btn-success"
                         onClick={() => handleRegisterClick(event)}
                       >
                         Register
                       </button>
-                    )}
+                    )} */}
+                    </div>
                   </div>
                 </div>
               </div>
