@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 require('dotenv').config();
 
-const serverUrl = 'http://localhost:3500'; // Update to your current server URL
+const serverUrl = 'http://0.0.0.0:10000'; // Update to your current server URL
 
 // Registration route
 router.post('/', async (req, res) => {
@@ -10,6 +10,8 @@ router.post('/', async (req, res) => {
 
   const {
     username,
+    first_name,
+    last_name,
     email,
     password,
     confirmPassword,
@@ -38,16 +40,16 @@ router.post('/', async (req, res) => {
     });
   }
 
-  // Validate password
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; // Minimum 8 characters, at least one letter and one number
-  if (!passwordRegex.test(password)) {
-    console.log('Validation failed: Password does not meet criteria');
-    return res.status(400).json({
-      success: false,
-      message: 'Password must be at least 8 characters long and contain at least one letter and one number',
-      data: null,
-    });
-  }
+  // // Validate password
+  // const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; // Minimum 8 characters, at least one letter and one number
+  // if (!passwordRegex.test(password)) {
+  //   console.log('Validation failed: Password does not meet criteria');
+  //   return res.status(400).json({
+  //     success: false,
+  //     message: 'Password must be at least 8 characters long and contain at least one letter and one number',
+  //     data: null,
+  //   });
+  // }
 
   // Check if passwords match
   if (password !== confirmPassword) {
@@ -82,6 +84,8 @@ router.post('/', async (req, res) => {
       const [insertedId] = await trx('Users').insert({
         username,
         email,
+        first_name,
+        last_name,
         password, // Storing plain text (not recommended for production)
         role: 'user', // Default role for all new users
       });

@@ -113,7 +113,7 @@ function ClubAnnouncements() {
             <Toast key={announcement.announcement_id} className="mb-3">
               <Toast.Header closeButton={false}>
                 <img src={Avatar} className="avatar sm rounded me-2" alt="avatar" />
-                <strong className="me-auto">{`Announcement`}</strong>
+                <strong className="me-auto .text-dark">{`Announcement`}</strong>
                 <small>{new Date(announcement.created_at).toLocaleString()}</small>
               </Toast.Header>
               <Toast.Body>
