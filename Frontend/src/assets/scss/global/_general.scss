@@ -651,7 +651,7 @@ code[class*="language-"], pre[class*="language-"]{
         width:100%;
     }
 }
-@media only screen and (max-width: calc(#{$break-xxsmall} +40)) {
+@media only screen and (max-width: calc(#{$break-xxsmall} + 40)) {
     .profile-teacher{
         margin: 0 auto;
         padding-right: 0px !important;
