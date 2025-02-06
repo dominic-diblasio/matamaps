@@ -1,11 +1,13 @@
 import React from "react";
 import { Route, Routes as ReactRoutes } from "react-router-dom";
-import HrDashboard from "./Dashboard/HrDashboard";
 // import RegisterationForm from "./OtherPages/RegistrationForm";
 // import LoginPage from "./OtherPages/LoginPage";
 // import ForgotPassword from "./OtherPages/ForgotPassword";
+
+// Replace Messages system
+import Messages from "./Templative/Messages";
+
 import Dashboard from "./OtherPages/Dashboard";
-import Messages from "./OtherPages/Messages";
 import Events from "./OtherPages/Events";
 import Clubs from "./OtherPages/Clubs";
 import ClubMembers from "./OtherPages/ClubMembers";
@@ -43,7 +45,7 @@ function EmptyPageIndex(props) {
             {/* {activekey !== "/dashboard" ? activekey === "/documentation" ? <PageHeader /> : <PageHeader1 /> : ""} */}
             <div className="body d-flex py-lg-3 py-md-2">
                 <ReactRoutes>
-                    <Route exact path="/" element={<HrDashboard />} />
+                    <Route exact path="/" element={<Dashboard />} />
                     {/* <Route exact path="/registration" element={<RegisterationForm />} />
                     <Route exact path="/login" element={<LoginPage />} />
                     <Route exact path="/forgot-password" element={<ForgotPassword />} /> */}
