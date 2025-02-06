@@ -1,9 +1,9 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "MataMaps",
+  "name": "MataMaps - Student Led Events on Campus",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "ico-128-title.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
@@ -18,8 +18,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
+  "start_url": "../matamaps",
   "theme_color": "#000000",
   "background_color": "#ffffff"
 }
