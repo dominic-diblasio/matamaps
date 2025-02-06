@@ -261,13 +261,13 @@
 }
 .header{
     .avatar-list-stacked {
-        @media only screen and (max-width: $break-xsmall - 150px) {
+        @media only screen and (calc(#{$break-xsmall} - 150px)) {
             display: none;
         }
     }
 }
 .add-member-top{
-    @media only screen and (min-width: $break-xsmall - 150px) {
+    @media only screen and (calc(#{$break-xsmall} - 150px)) {
         display: none;
     }
 }

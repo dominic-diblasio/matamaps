@@ -39,7 +39,7 @@
     order: 0;
     z-index: 9;
 
-    @media only screen and (max-width: $break-medium - 1px) {
+    @media only screen and (max-width: calc(#{$break-medium} - 1px)) {
         width: 100%;
         height: 60px;
         flex-direction: row;
@@ -88,7 +88,7 @@
     -ms-flex-order: 1;
     order: 1;
 
-    @media only screen and (max-width: $break-1280 - 1px) {
+    @media only screen and (max-width: calc(#{$break-1280} - 1px)) {
         position: fixed;
         left: -400px;
         height:100vh;
@@ -205,7 +205,7 @@
                 content: "\ea64";
             }
         }
-        @media only screen and (max-width:  $break-small - 1px) {
+        @media only screen and (max-width:  calc(#{$break-small} - 1px)) {
            display: none;
         }
     }
@@ -352,14 +352,14 @@
     
     &.open{
         left: 0px;
-        @media only screen and (max-width: $break-medium - 1px) {
+        @media only screen and (max-width: calc(#{$break-medium} - 1px)) {
             left: 0;
         }
     }
 
     .brand-icon{  
         .logo-icon{
-            @media only screen and (max-width: $break-small - 1px) {
+            @media only screen and (max-width: calc(#{$break-small} - 1px)) {
                 width: 40px;
                 height: 40px;
                 min-width: 40px;
@@ -367,13 +367,13 @@
                 line-height: 40px;
             }
             svg{
-                @media only screen and (max-width: $break-small - 1px) {
+                @media only screen and (max-width: calc(#{$break-small} - 1px)) {
                     width: 25px;
                 }
             }
         }
         .logo-text{
-            @media only screen and (max-width: $break-small - 1px) {
+            @media only screen and (calc(#{$break-small} - 1px)) {
                font-size: 17px;
             }
         }
