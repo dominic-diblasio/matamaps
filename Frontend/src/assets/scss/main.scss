@@ -10,26 +10,26 @@
 @import "../scss/global/variables";
 @import "../scss/global/mixins";
 @import "../scss/global/general";
-@import "../scss/global/rtl-mode";
+//@import "../scss/global/rtl-mode";
 
 
-// Custom Bootstrap Components
-@import "../scss/bootstrap/custom";
+// Custom Bootstrap Components (Mainly just redefines colors to fetch from _variables.scss)
+@import "../scss/global/_bootstrap";
 
 // Generic
 @import "../scss/generic/helpers";
 @import "../scss/generic/animate";
 
-// Skeleton
-@import "../scss/skeleton/mytask-layout";
+// Priority file (matamaps)
+@import "../scss/matamaps";
 
-// Plugin scss
-@import "../scss/plugin/calendar";
-@import "../scss/plugin/chat";
-@import "../scss/plugin/timeline";
-@import "../scss/plugin/taskbord";
+// Plugin scss (Now inactive)
+//@import "../scss/plugin/calendar";
+//@import "../scss/plugin/chat";
+//@import "../scss/plugin/timeline";
+//@import "../scss/plugin/taskbord";
 
 
-// Application widgets
-@import "../scss/widgets/card";
+// Application widgets (lays over the base matamaps file)
+@import "../scss/widgets/card"; // This directly changes the scss layout for cards
 
