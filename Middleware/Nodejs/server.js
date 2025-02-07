@@ -6,6 +6,9 @@ const cors = require('cors');
 const fs = require('fs');
 const cookieParser = require('cookie-parser');
 
+// Load environment variables from .env file
+dotenv.config();
+
 const app = express();
 const port = process.env.PORT || 10000;
 const corsOptions = {
@@ -14,15 +17,24 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-// Load environment variables from .env file
-dotenv.config();
-
 // Middleware for parsing JSON bodies and cookies
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());  // Required for parsing cookies
 
 // server.js
+
+// Create Knex instance FIRST
+const db = knex({
+  client: 'mysql2',
+  connection: {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT || 3306, // Default MySQL port
+  },
+});
 
 // Middleware to attach db to request
 app.use((req, res, next) => {
@@ -35,21 +47,6 @@ app.use((req, res, next) => {
     req.query.session_id = req.cookies.session_id;  // Inject session_id from cookie to query
   }
   next();
-});
-// Create a Knex database connection
-// knex - ssl
-const db = knex({
-  client: 'mysql2',  // Using mysql2 client
-  connection: {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT,
-    // ssl: process.env.DB_SSL === 'true' ? {
-    //   rejectUnauthorized: true // Ensures SSL certificate verification
-    // } : false,
-  },
 });
 
 // Check database connection (optional, to ensure Knex is set up correctly)
