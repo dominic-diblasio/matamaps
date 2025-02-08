@@ -45,6 +45,17 @@
             "children": []
         },
         {
+            "name": "Map",
+            "routerLink": ["nav-map"],
+            "identifier": "CSUNMap",
+            "iconClass": "icofont-map",
+            "iconRef": "map",
+            "breadcrumbMessage": "View CSUN map",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },
+        {
             "name": "Messages",
             "routerLink": ["messages"],
             "identifier": "Messages",
