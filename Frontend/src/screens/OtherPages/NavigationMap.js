@@ -3,12 +3,13 @@ import React, { useState } from "react";
 
 function CSUNMapSearch() {
   const [searchQuery, setSearchQuery] = useState("");
-  const BASE_MAP_URL = "https://3dmap.csun.edu/?id=1100#!s/";
+  const BASE_MAP_URL = "https://3dmap.csun.edu/?id=1100#!s/?sbc/";
+  const SEARCH_MAP_URL = "https://3dmap.csun.edu/?id=1100#!s/";
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      document.getElementById("csun-map").src = `${BASE_MAP_URL}${encodeURIComponent(searchQuery)}`;
+      document.getElementById("csun-map").src = `${SEARCH_MAP_URL}${encodeURIComponent(searchQuery)}`;
     }
   };
 
@@ -24,7 +25,7 @@ function CSUNMapSearch() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button type="submit" className="btn btn-primary ms-2">Search</button>
+        <button type="submit" className="btn ms-2 btn-seemore">Search</button>
       </form>
 
       <div className="map-container">

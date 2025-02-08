@@ -14,6 +14,17 @@
     flex-direction: row;
 }
 
+.mm-text-body {
+    color: var(--white-color);
+    align-items: center;
+    padding: 10px 0;
+    font-size: 17px;
+    @media only screen and (max-width: 767px){
+        font-size: 15px;
+        padding: 8px 0;
+    }
+}
+
 // left icon navigation bar 
 .navigation{
     background-color: var(--card-color);
