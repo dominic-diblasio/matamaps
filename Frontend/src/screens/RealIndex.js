@@ -31,6 +31,7 @@ import AdminClubDetails from "./OtherPages/AdminClubDetails";
 import UserManagementPage from "./OtherPages/UserManagementPage";
 import AddClubPage from "./OtherPages/AddClubPage";
 import MapPage from "./OtherPages/MapPage";
+import NavigationPage from "./OtherPages/NavigationMap"
 import AddClubMemberPage from "./OtherPages/AddClubMemberPage";
 // import PageHeader1 from "../components/common/PageHeader1";
 // import Header from "../components/common/Header";
@@ -74,6 +75,7 @@ function EmptyPageIndex(props) {
                     <Route exact path="/personal-details" element={<PersonalDetailsPage />} />
                     <Route exact path="/st" element={<StackingToaster />} />
                     <Route exact path="/club-announcements/:club_id" element={<ClubAnnouncementsPage />} />
+                    <Route path ="/nav-map" element={<NavigationPage/>} />
                 </ReactRoutes>
             </div>
         </div>
