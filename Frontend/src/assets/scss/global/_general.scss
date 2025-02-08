@@ -690,3 +690,17 @@ code[class*="language-"], pre[class*="language-"]{
         }
     }
 }
+
+@media only screen and (max-width: 768px) {
+    .event-card-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  
+      .col-lg-4,
+      .col-md-6 {
+        width: 100%;
+      }
+    }
+  }
+  
