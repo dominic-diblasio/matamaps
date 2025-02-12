@@ -1,3 +1,4 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4991f774-1bce-44f3-836b-7eac16893912/deploy-status)](https://app.netlify.com/sites/matamap/deploys)
 <div align="center">
   <img src="Frontend/src/assets/images/matamaps-images/logo-design.svg" style="width:200px"/>
   <h3 align="center">CSUN Senior Project 2024/25</h3>
