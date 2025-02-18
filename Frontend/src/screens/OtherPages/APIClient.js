@@ -5,7 +5,7 @@ import axios from 'axios';
 //dotenv.config();
 
 const APIClient = axios.create({
-  baseURL: `http://0.0.0.0:10000/`,
+  baseURL: `https://matamaps-middleware.onrender.com/`,
   //baseURL: `http://localhost:10000/`,
   headers: {
     'Content-Type': 'application/json',
