@@ -15,7 +15,7 @@ function CSUNMapSearch() {
 
   return (
     <div className="container">
-      <h2 className="text-center my-4">CSUN Map</h2>
+      <h2 className="text-center my-4"></h2>
 
       <form onSubmit={handleSearch} className="d-flex justify-content-center mb-3">
         <input

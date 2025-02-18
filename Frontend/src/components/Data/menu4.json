@@ -56,17 +56,6 @@
             "children": []
         },
         {
-            "name": "Messages",
-            "routerLink": ["messages"],
-            "identifier": "Messages",
-            "iconClass": "icofont-envelope",
-            "iconRef": "gear",
-            "breadcrumbMessage": "View messages.",
-            "isCategory": false,
-            "isApp": false,
-            "children": []
-        },
-        {
             "name": "Personal Details",
             "routerLink": ["personal-details"],
             "identifier": "PersonalDetails",

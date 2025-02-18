@@ -2,7 +2,7 @@
 {
     "menu": [
         {
-            "name": "Already Registered? Login",
+            "name": "Login",
             "routerLink": ["login"],
             "identifier": "Login",
             "iconClass": "icofont-login",

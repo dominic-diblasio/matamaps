@@ -14,6 +14,27 @@
     flex-direction: row;
 }
 
+.mm-background-transparent {
+    background: rgba(89, 9, 9, 0.92) /* #db1313 at 50% */
+}
+
+.absolute-ttb { /* absolute top to bottom */
+    position: absolute;
+    height: 100%;
+}
+
+.mm-background-solid {
+    background: rgba(89, 9, 9, 1) /* #db1313 at 50% */
+}
+
+.mm-dark-bg {
+    background-color: #590909;
+}
+
+.toast-body {
+    background: rgba(89, 9, 9, 0.92) /* #db1313 at 50% */
+}
+
 .mm-text-body {
     color: var(--white-color);
     align-items: center;

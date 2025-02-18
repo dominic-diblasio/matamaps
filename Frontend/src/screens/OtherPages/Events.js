@@ -141,7 +141,7 @@ function Events() {
   }
 
   return (
-    <div className="container">
+    <div className="container mm-background-transparent">
       <h2 className="text-center my-4">Upcoming Events</h2>
 
       {/* Filter Dropdown */}

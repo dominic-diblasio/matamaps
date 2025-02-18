@@ -64,7 +64,7 @@ function Clubs() {
   }
 
   return (
-    <div className="container my-4">
+    <div className="container my-4 mm-background-transparent absolute-ttb">
       <h2 className="text-center">Clubs</h2>
       <p className="text-center">Explore various clubs to join and participate in!</p>
       <div className="row">

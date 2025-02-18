@@ -122,7 +122,7 @@ function PersonalDetailsPage() {
     switch (activeTab) {
       case 'profile':
         return (
-          <div className="tab-content">
+          <div className="tab-content mm-background-solid">
             <div className="form-row">
               <label>Username:</label>
               <input
