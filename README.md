@@ -1,6 +1,7 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4991f774-1bce-44f3-836b-7eac16893912/deploy-status)](https://app.netlify.com/sites/matamap/deploys)
 <div align="center">
   <img src="Frontend/src/assets/images/matamaps-images/logo-design.svg" style="width:200px"/>
-  <h3 align="center">CSUN Senior Project 2024/25</h3>
+  <h3 align="center">CSUN Senior Project 2024/25 (Capstone)</h3>
   <h4>Dominic DiBlasio, Sam Mehta, Federico Bailaque, Vinicius Bosque, Srilaya Ponangi</h4>
   <p align="center">
     <b>The central communication platform for CSUN student life to help clubs thrive, for students to connect with personalized events, and to promote accessibility for all opportunities happening on campus!</b>

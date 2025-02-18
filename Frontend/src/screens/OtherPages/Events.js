@@ -16,7 +16,6 @@ function Events() {
   const [statusFilter, setStatusFilter] = useState("all"); // Default filter
   const [expandedEventId, setExpandedEventId] = useState(null); // Track expanded event
 
-
   useEffect(() => {
     const fetchEventsAndRSVPs = async () => {
       try {
@@ -38,13 +37,10 @@ function Events() {
         // Fetch user details and RSVP details if logged in
         if (jwt_token) {
           try {
-            const userResponse = await APIClient.get(
-              "users/account/details",
-              {
-                headers: { Authorization: `Bearer ${jwt_token}` },
-                withCredentials: true,
-              }
-            );
+            const userResponse = await APIClient.get("users/account/details", {
+              headers: { Authorization: `Bearer ${jwt_token}` },
+              withCredentials: true,
+            });
 
             if (userResponse.data.success) {
               setUsername(userResponse.data.data.username);
@@ -103,6 +99,30 @@ function Events() {
     setExpandedEventId(expandedEventId === event_id ? null : event_id);
   };
 
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center mt-5">
+        <h4 className="text-danger">Error: {error}</h4>
+        <button
+          className="btn btn-primary"
+          onClick={() => window.location.reload()} // Or replace with fetchEventsAndRSVPs()
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
+
   const handleRegisterClick = (event) => {
     if (!username) {
       alert("You need to log in to register for events.");
@@ -142,7 +162,7 @@ function Events() {
         </select>
       </div>
 
-      <div className="row">
+      <div className="">
         {filteredEvents.length > 0 ? (
           filteredEvents.map((event) => {
             const rsvp = rsvpDetails[event.event_id];
@@ -167,50 +187,51 @@ function Events() {
                     <p className="card-text">{event.event_description}</p>
                     {isExpanded && (
                       <>
-                    <p className="card-text">
-                      <strong>Date:</strong>{" "}
-                      {new Date(event.event_date).toLocaleDateString()}
-                    </p>
-                    <p className="card-text">
-                      <strong>Location:</strong> {event.location}
-                    </p>
-                    <p className="card-text">
-                      <strong>Status:</strong> {event.event_status || "N/A"}
-                    </p>
-                    {rsvp ? (
-                      <>
                         <p className="card-text">
-                          <strong>RSVP Status:</strong> {rsvp.rsvp_status || "N/A"}
+                          <strong>Date:</strong>{" "}
+                          {new Date(event.event_date).toLocaleDateString()}
                         </p>
                         <p className="card-text">
-                          <strong>RSVPd Date:</strong>{" "}
-                          {new Date(rsvp.created_at).toLocaleString()}
+                          <strong>Location:</strong> {event.location}
                         </p>
                         <p className="card-text">
-                          <strong>Updated Date:</strong>{" "}
-                          {new Date(rsvp.updated_at).toLocaleString()}
+                          <strong>Status:</strong> {event.event_status || "N/A"}
                         </p>
+                        {rsvp ? (
+                          <>
+                            <p className="card-text">
+                              <strong>RSVP Status:</strong> {rsvp.rsvp_status || "N/A"}
+                            </p>
+                            <p className="card-text">
+                              <strong>RSVPd Date:</strong>{" "}
+                              {new Date(rsvp.created_at).toLocaleString()}
+                            </p>
+                            <p className="card-text">
+                              <strong>Updated Date:</strong>{" "}
+                              {new Date(rsvp.updated_at).toLocaleString()}
+                            </p>
+                          </>
+                        ) : (
+                          username && <p className="card-text">You have not RSVP'd.</p>
+                        )}
                       </>
-                    ) : (
-                      username && <p className="card-text">You have not RSVP'd.</p>
                     )}
-                    </>
-                    )}
-                    <div className="btn-container">
-                    <button
-                      className="btn btn-seemore"
-                      onClick={() => toggleSeeMore(event.event_id)}
-                    >
-                      {isExpanded ? "See less" : "See more"}
-                    </button>
-                    {/* {showRegisterButton && (
-                      <button
-                        className="btn btn-success"
-                        onClick={() => handleRegisterClick(event)}
-                      >
-                        Register
-                      </button>
-                    )} */}
+                    <div className="btn-container d-flex gap-2">
+  <button
+    className="btn btn-seemore"
+    onClick={() => toggleSeeMore(event.event_id)}
+  >
+    {isExpanded ? "See less" : "See more"}
+  </button>
+  <button className="btn btn-success">Add!</button>
+                      {/* {showRegisterButton && (
+                        <button
+                          className="btn btn-success"
+                          onClick={() => handleRegisterClick(event)}
+                        >
+                          Register
+                        </button>
+                      )} */}
                     </div>
                   </div>
                 </div>
@@ -234,6 +255,7 @@ function Events() {
 }
 
 export default Events;
+
 
 
 

@@ -110,7 +110,7 @@
     &.btn-primary {
         background-color: var(--secondary-color);   
         border-color: var(--secondary-color);   
-        color: #cccccc;
+        color: #e0e0e0;
         &.active{
             background: var(--secondary-color);
             border-color: var(--secondary-color);
@@ -261,13 +261,13 @@
 }
 .header{
     .avatar-list-stacked {
-        @media only screen and (max-width: $break-xsmall - 150px) {
+        @media only screen and (calc(#{$break-xsmall} - 150px)) {
             display: none;
         }
     }
 }
 .add-member-top{
-    @media only screen and (min-width: $break-xsmall - 150px) {
+    @media only screen and (calc(#{$break-xsmall} - 150px)) {
         display: none;
     }
 }

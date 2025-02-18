@@ -1,11 +1,13 @@
 import React from "react";
 import { Route, Routes as ReactRoutes } from "react-router-dom";
-import HrDashboard from "./Dashboard/HrDashboard";
 // import RegisterationForm from "./OtherPages/RegistrationForm";
 // import LoginPage from "./OtherPages/LoginPage";
 // import ForgotPassword from "./OtherPages/ForgotPassword";
+
+// Replace Messages system
+import Messages from "./Templative/Messages";
+
 import Dashboard from "./OtherPages/Dashboard";
-import Messages from "./OtherPages/Messages";
 import Events from "./OtherPages/Events";
 import Clubs from "./OtherPages/Clubs";
 import ClubMembers from "./OtherPages/ClubMembers";
@@ -29,6 +31,7 @@ import AdminClubDetails from "./OtherPages/AdminClubDetails";
 import UserManagementPage from "./OtherPages/UserManagementPage";
 import AddClubPage from "./OtherPages/AddClubPage";
 import MapPage from "./OtherPages/MapPage";
+import NavigationPage from "./OtherPages/NavigationMap"
 import AddClubMemberPage from "./OtherPages/AddClubMemberPage";
 // import PageHeader1 from "../components/common/PageHeader1";
 // import Header from "../components/common/Header";
@@ -43,7 +46,7 @@ function EmptyPageIndex(props) {
             {/* {activekey !== "/dashboard" ? activekey === "/documentation" ? <PageHeader /> : <PageHeader1 /> : ""} */}
             <div className="body d-flex py-lg-3 py-md-2">
                 <ReactRoutes>
-                    <Route exact path="/" element={<HrDashboard />} />
+                    <Route exact path="/" element={<Dashboard />} />
                     {/* <Route exact path="/registration" element={<RegisterationForm />} />
                     <Route exact path="/login" element={<LoginPage />} />
                     <Route exact path="/forgot-password" element={<ForgotPassword />} /> */}
@@ -72,6 +75,7 @@ function EmptyPageIndex(props) {
                     <Route exact path="/personal-details" element={<PersonalDetailsPage />} />
                     <Route exact path="/st" element={<StackingToaster />} />
                     <Route exact path="/club-announcements/:club_id" element={<ClubAnnouncementsPage />} />
+                    <Route path ="/nav-map" element={<NavigationPage/>} />
                 </ReactRoutes>
             </div>
         </div>

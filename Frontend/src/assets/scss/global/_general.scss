@@ -67,13 +67,13 @@ table.dataTable>tbody>tr.child ul.dtr-details{
 #myProjectTable_length,#myProjectTable_filter,#myProjectTable_info,
 #myTransaction_length,#myTransaction_filter,#myTransaction_info,
 #patient-table_length,#patient-table_filter,#patient-table_info{
-    @media only screen and (max-width:  $break-small - 1px) {
+    @media only screen and (max-width:  calc(#{$break-small} - 1px)) {
         display: none;
     }
 }
 #myProjectTable_paginate,#myTransaction_paginate,#patient-table_paginate{
     ul.pagination {
-        @media only screen and (max-width:  $break-small - 1px) {
+        @media only screen and (max-width:  calc(#{$break-small} - 1px)) {
             justify-content: start!important;
         }
     }
@@ -339,7 +339,8 @@ a{
 .form-control#datepicker,.form-control#timepicker,.form-control#datepicker2,
 .form-control#datepicker3,.form-control#timepicker2,.form-control#timepicker3{
     -webkit-appearance: none;
-  -moz-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 // header notifications 
@@ -386,14 +387,14 @@ a{
     }
     .dropdown-menu{
 
-        @media only screen and (max-width:  $break-small - 1px) {
+        @media only screen and (max-width:  calc(#{$break-small} - 1px)) {
             width: 280px;
         }
         @media only screen and (max-width:  320px) {
           width: 220px;
         }
         .w380{
-            @media only screen and (max-width:  $break-small - 1px) {
+            @media only screen and (max-width:  calc(#{$break-small} - 1px)) {
                 width: 280px;
             }
             @media only screen and (max-width:  320px) {
@@ -512,7 +513,7 @@ code[class*="language-"], pre[class*="language-"]{
     box-shadow: none;
 }
 .set-md-img{
-    @media only screen and (max-width: $break-large - 1px) {
+    @media only screen and (max-width: calc(#{$break-large} - 1px)) {
        max-width: 225px;
     }
 }
@@ -651,7 +652,7 @@ code[class*="language-"], pre[class*="language-"]{
         width:100%;
     }
 }
-@media only screen and (max-width: $break-xxsmall + 40) {
+@media only screen and (max-width: calc(#{$break-xxsmall} + 40px)) {
     .profile-teacher{
         margin: 0 auto;
         padding-right: 0px !important;
@@ -690,3 +691,17 @@ code[class*="language-"], pre[class*="language-"]{
         }
     }
 }
+
+@media only screen and (max-width: 768px) {
+    .event-card-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  
+      .col-lg-4,
+      .col-md-6 {
+        width: 100%;
+      }
+    }
+  }
+  
