@@ -107,8 +107,8 @@
 .sidebar{
     @include transition(ease .1s);
     @include c_overflow(scroll); 
-    background: var(--primary-color);
-    z-index: 99999;
+    background: #590909;
+    z-index: 100;
     margin: 25px;
     height: calc(100vh - 50px);
     width: 260px;
@@ -122,8 +122,8 @@
 
     @media only screen and (max-width: calc(#{$break-1280} - 1px)) {
         position: fixed;
-        left: -400px;
-        height:100vh;
+        //left: -400px;
+        //height:100vh;
         margin: 0px;
         border-radius: 0px;
     }

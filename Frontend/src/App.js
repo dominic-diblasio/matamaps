@@ -31,7 +31,7 @@ function App(props) {
   }, []);
 
   return (
-    <div id="mytask-layout" className="theme-indigo">
+    <div id="mytask-layout">
       {isLoggedIn ? (
         <>
           <Sidebar key={key} activekey={window.location.pathname} history={props.history} />
