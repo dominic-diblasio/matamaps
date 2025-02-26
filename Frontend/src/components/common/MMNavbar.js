@@ -11,6 +11,7 @@ function MMNavbar(props) {
   const [isSidebarMini, setIsSidebarMini] = useState(false);
   const [menuData, setMenuData] = useState(menu?.menu || []); // 1️⃣ Use default menu.json
   const { activekey } = props;
+  const { isLoggedIn } = props; 
 
   // **1️⃣ Check if JWT token and role exist, otherwise load menu.json**
   useEffect(() => {
@@ -20,10 +21,20 @@ function MMNavbar(props) {
       console.log('JWT Token:', token);
       console.log('User role from cookies:', role);
 
-      if (!token && !role) {
+      if (role === 'club_leader') {
+        setMenuData(menu3?.menu3 || []); // If menu3 is not available, default to an empty array
+      } else if (role === 'user') {
+        setMenuData(menu4?.menu4 || []); // If menu4 is not available, default to an empty array
+      } else if (role === 'admin') {
+        setMenuData(menu2?.menu2 || []); // If menu2 is not available, default to an empty array
+      } else if (isLoggedIn) {
+        console.warn('No role found, defaulting to user menu');
+        setMenuData(menu4?.menu4 || []); // Default to user menu if no role is found
+      } else {
         console.log('No cookies found, using default menu.');
         setMenuData(menu?.menu || []); // Use default menu if no cookies are found
       }
+      
     } catch (error) {
       console.error('Error loading menu data:', error);
       setMenuData(menu?.menu || []); // If something goes wrong, ensure menuData is at least an empty array
@@ -72,6 +83,11 @@ function MMNavbar(props) {
         {/* Dynamic menu items */}
         <ul className="menu-list flex-grow-1 mt-3">
           {menuData.map((menuItem, index) => (
+            <NavLink to="/analytics" className="nav-link">
+              <FaChartBar size={ICON_SIZE} />
+              <span>Analytics </span>
+            </NavLink>
+            {/*
             <li 
               key={menuItem.identifier || `${menuItem.routerLink[0]}-${index}`} 
               className="collapsed"
@@ -84,17 +100,9 @@ function MMNavbar(props) {
                 <span><b>{menuItem.name}</b></span>
               </Link>
             </li>
+            */}
           ))}
         </ul>
-
-        {/* Mini Sidebar Toggle Button */}
-        <button 
-          type="button" 
-          className="btn btn-link sidebar-mini-btn text-light" 
-          onClick={() => setIsSidebarMini(!isSidebarMini)}
-        >
-          <span className="ms-2"><i className="icofont-bubble-right"></i></span>
-        </button>
       </div>
     </div>
   );

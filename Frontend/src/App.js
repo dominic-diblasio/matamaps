@@ -32,14 +32,15 @@ function App(props) {
 
   return (
     <div id="mytask-layout">
+      <Sidebar key={key} activekey={window.location.pathname} history={props.history} isLoggedIn={isLoggedIn} />
       {isLoggedIn ? (
         <>
-          <Sidebar key={key} activekey={window.location.pathname} history={props.history} />
+          {/*<Sidebar key={key} activekey={window.location.pathname} history={props.history} inAccount={isLoggedIn} />*/}
           <RealIndex key={key} activekey={window.location.pathname} />
         </>
       ) : (
         <>
-          <Sidebar2 key={key} activekey={window.location.pathname} history={props.history} />
+          {/*<Sidebar2 key={key} activekey={window.location.pathname} history={props.history} />*/}
           <MainIndex key={key} setIsLoggedIn={setIsLoggedIn} />
         </>
       )}
