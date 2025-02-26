@@ -25,6 +25,8 @@
 
 // Priority file (matamaps)
 @import "../scss/matamaps";
+// Load in mobile rescaling/dependencies to overlap the priority
+@import "../scss/matamaps-mobile";
 
 // Plugin scss (Now inactive)
 //@import "../scss/plugin/calendar";

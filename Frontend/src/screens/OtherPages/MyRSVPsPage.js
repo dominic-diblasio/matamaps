@@ -58,8 +58,9 @@ function MyRSVPsPage() {
   };
 
   return (
-    <div className="container my-4">
-      <h2 className="text-center">My RSVPs</h2>
+    <div className="container mm-background-transparent">
+      <h1 className="text-center mm-header">Schedule</h1>
+      <h4 className="text-center">View your upcoming registered events here!</h4>
       <div className="row">
         {rsvps.length > 0 ? (
           rsvps.map((rsvp) => (

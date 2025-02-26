@@ -22,9 +22,24 @@
     color: #000000; 
     border-radius: 8px;
     padding: 6px 12px;
+    font-weight: bold;
   }
   
   .btn-seemore:hover {
+    background-color: #000000; /* Black background on hover */
+    color: #ffffff; /* White text on hover */
+  }
+
+  .btn-addto {
+    background-color: #6ff55e;
+    border: 2px solid #000000; 
+    color: #000000; 
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-weight: bold;
+  }
+  
+  .btn-addto:hover {
     background-color: #000000; /* Black background on hover */
     color: #ffffff; /* White text on hover */
   }

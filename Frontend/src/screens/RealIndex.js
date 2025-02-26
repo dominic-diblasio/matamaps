@@ -44,7 +44,7 @@ function EmptyPageIndex(props) {
     return (
         <div className="main px-lg-4 px-md-4">
             {/* {activekey !== "/dashboard" ? activekey === "/documentation" ? <PageHeader /> : <PageHeader1 /> : ""} */}
-            <div className="body d-flex py-lg-3 py-md-2">
+            <div className="body d-flex mm-main">
                 <ReactRoutes>
                     <Route exact path="/" element={<Dashboard />} />
                     {/* <Route exact path="/registration" element={<RegisterationForm />} />

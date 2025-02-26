@@ -42,13 +42,13 @@ function Announcements() {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="container">
-      <h2 className="text-center my-4">Announcements</h2>
+    <div className="container mm-background-transparent">
+      <h1 className="text-center my-4 mm-header">Announcements</h1>
       <div>
         {announcements.map((announcement) => (
           <Toast key={announcement.announcement_id} className="mb-3">
             <Toast.Header closeButton={false}>
-              <img src={Avatar} className="avatar sm rounded me-2" alt="avatar" />
+              <img src={Avatar} className="avatar md rounded me-2" alt="avatar" />
               <strong className="me-auto">
                 Announcement: {announcement.announcement_name || "No Name"}
               </strong>

@@ -1,10 +1,21 @@
 {
     "menu3": [
-       {
-            "name": "Announcements Page",
+        {
+            "name": "Dashboard",
+            "routerLink": [""],
+            "identifier": "Matamaps",
+            "iconClass": "icofont-home",
+            "iconRef": "gear",
+            "breadcrumbMessage": "Homepage.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },
+        {
+            "name": "Announcements",
             "routerLink": ["st"],
             "identifier": "Announcements",
-            "iconClass": "icofont-calendar",
+            "iconClass": "icofont-megaphone-alt",
             "iconRef": "gear",
             "breadcrumbMessage": "View Announcements.",
             "isCategory": false,
@@ -15,7 +26,7 @@
             "name": "Events",
             "routerLink": ["events"],
             "identifier": "Events",
-            "iconClass": "icofont-calendar",
+            "iconClass": "icofont-newspaper",
             "iconRef": "gear",
             "breadcrumbMessage": "View events.",
             "isCategory": false,
@@ -34,10 +45,10 @@
             "children": []
         },
         {
-            "name": "Event RSVPS",
+            "name": "Schedule",
             "routerLink": ["my-rsvp"],
-            "identifier": "MyRSVPPS",
-            "iconClass": "icofont-id-card",
+            "identifier": "Schedule",
+            "iconClass": "icofont-calendar",
             "iconRef": "gear",
             "breadcrumbMessage": "View your rsvps.",
             "isCategory": false,
@@ -45,7 +56,7 @@
             "children": []
         },
         {
-            "name": "Your Clubs",
+            "name": "Club Management",
             "routerLink": ["clubs-leader"],
             "identifier": "ClubsLeader",
             "iconClass": "icofont-id-card",
@@ -67,10 +78,10 @@
             "children": []
         },
         {
-            "name": "Personal Details",
+            "name": "Account",
             "routerLink": ["personal-details"],
             "identifier": "PersonalDetails",
-            "iconClass": "icofont-id-card",
+            "iconClass": "icofont-user",
             "iconRef": "gear",
             "breadcrumbMessage": "View personal details.",
             "isCategory": false,

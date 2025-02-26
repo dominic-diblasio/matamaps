@@ -1,14 +1,18 @@
-// Can optimize by specifying what is imported from 'react'
-import React from 'react';
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 
 import './MMNavbar.css';
 import Cookies from "js-cookie"; // Import js-cookie
 import LogoMain from "../../assets/images/matamaps-images/logo-design.svg";
+
 import menu from "../Data/menu.json"; // Import single menu.json file
+import menu2 from "../Data/menu2.json";
+import menu3 from "../Data/menu3.json";
+import menu4 from "../Data/menu4.json";
 
 function MMNavbar(props) {
-  const [isSidebarMini, setIsSidebarMini] = useState(false);
+  const location = useLocation();
+  const [hidden, setHidden] = useState(true);
   const [menuData, setMenuData] = useState(menu?.menu || []); // 1️⃣ Use default menu.json
   const { activekey } = props;
   const { isLoggedIn } = props; 
@@ -39,7 +43,7 @@ function MMNavbar(props) {
       console.error('Error loading menu data:', error);
       setMenuData(menu?.menu || []); // If something goes wrong, ensure menuData is at least an empty array
     }
-  }, []);
+  }, [location.pathname]);
 
   // **3️⃣ Handle Logout Function**
   const handleLogout = () => {
@@ -54,56 +58,64 @@ function MMNavbar(props) {
   // **4️⃣ Render the sidebar component with dynamic menu**
   return (
     
-    <div id="mainSideMenu" className={`sidebar px-4 py-4 py-md-5 me-0 ${isSidebarMini ? "sidebar-mini" : ""}`}>
-
+    <div className="sidebar-spacing flex-shrink">
       <div className="mobile-nav">
 				<button
 					className="mobile-nav-btn"
-					onClick={() => show(!visible)}
+					onClick={() => setHidden(!hidden)}
 				>
-					<FaBars size={24}  />
+					<i class="icofont-listine-dots"></i>
 				</button>
 			</div>
-			<nav className={!visible ? 'navbar' : ''}>
+			<nav className={ !hidden ? 'hidden' : 'shown'}>
 				<button
 					type="button"
 					className="nav-btn"
-					onClick={() => show(!visible)}
+					onClick={() => setHidden(!hidden)}
 				>
-					{ !visible
-						? <FaAngleRight size={30} /> : <FaAngleLeft size={30} />}
+					{ !hidden
+						? <i class="icofont-double-right"></i> : <i class="icofont-double-left"></i> }
 				</button>
+        { hidden && <div>
+          {/* Logo */}
+          <a href="/matamaps" className="mb-0 brand-icon">
+            <img src={LogoMain} alt="MataMaps" className="logo-icon" />
+          </a>
 
-      <div className="d-flex flex-column h-100">
-        {/* Logo */}
-        <a href="/matamaps" className="mb-0 brand-icon">
-          <img src={LogoMain} alt="MataMaps" className="logo-icon" />
-        </a>
-
-        {/* Dynamic menu items */}
-        <ul className="menu-list flex-grow-1 mt-3">
-          {menuData.map((menuItem, index) => (
-            <NavLink to="/analytics" className="nav-link">
-              <FaChartBar size={ICON_SIZE} />
-              <span>Analytics </span>
-            </NavLink>
-            {/*
-            <li 
-              key={menuItem.identifier || `${menuItem.routerLink[0]}-${index}`} 
-              className="collapsed"
-            >
-              <Link 
-                to={`/${menuItem.routerLink[0]}`} 
-                className={`m-link ${menuItem.routerLink[0] === activekey ? "active" : ""}`}
+          {/* Dynamic menu items */}
+          <ul className="menu-list flex-grow-1 mt-3">
+            {menuData.map((menuItem, index) => (
+              <li 
+                key={menuItem.identifier || `${menuItem.routerLink[0]}-${index}`} 
+                className="collapsed"
               >
-                <i className={menuItem.iconClass}></i>
-                <span><b>{menuItem.name}</b></span>
-              </Link>
-            </li>
-            */}
-          ))}
+                <NavLink 
+                  to={`/${menuItem.routerLink[0]}`} 
+                  className={`nav-link ${menuItem.routerLink[0] === activekey ? "active" : ""}`}
+                >
+                  <i className={menuItem.iconClass}></i>
+                  <span><b>{menuItem.name}</b></span>
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+
+        {/* Logout Button */}
+        { isLoggedIn
+        && 
+        <ul className="list-unstyled mt-3">
+          <li className="d-flex align-items-center justify-content-center">
+            <button 
+              className="btn btn-danger btn-logout w-100" 
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </li>
         </ul>
-      </div>
+        }
+        </div>}
+      </nav>
     </div>
   );
 }

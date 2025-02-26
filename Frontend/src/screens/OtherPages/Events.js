@@ -16,6 +16,13 @@ function Events() {
   const [statusFilter, setStatusFilter] = useState("all"); // Default filter
   const [expandedEventId, setExpandedEventId] = useState(null); // Track expanded event
 
+  const EVENT_DESCRIPTION_LENGTH = 170;
+  const truncateText = (text, maxLength) => {
+    if(!text)
+      return;
+    return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+  };
+
   useEffect(() => {
     const fetchEventsAndRSVPs = async () => {
       try {
@@ -142,7 +149,7 @@ function Events() {
 
   return (
     <div className="container mm-background-transparent">
-      <h2 className="text-center my-4">Upcoming Events</h2>
+      <h1 className="text-center my-4 mm-header">Upcoming Events</h1>
 
       {/* Filter Dropdown */}
       <div className="mb-4 text-center">
@@ -162,7 +169,7 @@ function Events() {
         </select>
       </div>
 
-      <div className="">
+      <div className="flex flex-col justify-center items-center h-screen space-y-4">
         {filteredEvents.length > 0 ? (
           filteredEvents.map((event) => {
             const rsvp = rsvpDetails[event.event_id];
@@ -172,25 +179,24 @@ function Events() {
               (!rsvp || (rsvp && rsvp.rsvp_status !== "accepted")); // Hide if RSVP is accepted
 
             return (
-              <div key={event.event_id} className="col-lg-4 col-md-6 mb-4">
-                <div className="card shadow-sm">
+              <div key={event.event_id} className="col-lg-8 col-md-6 mb-4 flex items-center justify-center rounded-lg">
+                <div className="mm-card-container shadow-sm">
                   {event.event_image && (
                     <img
                       src={event.event_image}
                       alt={`${event.event_name} image`}
-                      className="card-img-top"
-                      style={{ height: "200px", objectFit: "cover" }}
+                      className="mm-card-image"
+                      style={{ objectFit: "cover" }}
                     />
                   )}
-                  <div className="card-body">
-                    <h5 className="card-title">{event.event_name}</h5>
-                    <p className="card-text">{event.event_description}</p>
+                  <div className="mm-card-text-content">
+                    <h3 className="card-title"><strong>{event.event_name}</strong></h3>
+                    <h5 className="card-text">
+                          <strong>{new Date(event.event_date).toLocaleDateString()}</strong>
+                    </h5>
+                    <p className="card-text"> {isExpanded ? event.event_description : truncateText(event.event_description, EVENT_DESCRIPTION_LENGTH)}</p>
                     {isExpanded && (
                       <>
-                        <p className="card-text">
-                          <strong>Date:</strong>{" "}
-                          {new Date(event.event_date).toLocaleDateString()}
-                        </p>
                         <p className="card-text">
                           <strong>Location:</strong> {event.location}
                         </p>
@@ -223,7 +229,7 @@ function Events() {
   >
     {isExpanded ? "See less" : "See more"}
   </button>
-  <button className="btn btn-success">Add!</button>
+  <button className="btn btn-addto">Add!</button>
                       {/* {showRegisterButton && (
                         <button
                           className="btn btn-success"

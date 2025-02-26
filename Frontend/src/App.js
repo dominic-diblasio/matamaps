@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "./components/common/Sidebar";
-import Sidebar2 from "./components/common/Sidebar2";
+import MMNavbar from "./components/common/MMNavbar";
+import MMWidget from "./components/common/MMWidget";
 import RealIndex from "./screens/RealIndex";
 import MainIndex from "./screens/MainIndex";
 
@@ -32,7 +32,13 @@ function App(props) {
 
   return (
     <div id="mytask-layout">
-      <Sidebar key={key} activekey={window.location.pathname} history={props.history} isLoggedIn={isLoggedIn} />
+      <MMNavbar
+        key= {key } 
+        activekey={ window.location.pathname } 
+        history={ props.history }
+        isLoggedIn={ isLoggedIn }
+      />
+
       {isLoggedIn ? (
         <>
           {/*<Sidebar key={key} activekey={window.location.pathname} history={props.history} inAccount={isLoggedIn} />*/}

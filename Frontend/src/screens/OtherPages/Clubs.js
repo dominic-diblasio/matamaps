@@ -64,9 +64,9 @@ function Clubs() {
   }
 
   return (
-    <div className="container my-4 mm-background-transparent absolute-ttb">
-      <h2 className="text-center">Clubs</h2>
-      <p className="text-center">Explore various clubs to join and participate in!</p>
+    <div className="container mm-background-transparent">
+      <h1 className="text-center mm-header">Clubs</h1>
+      <h3 className="text-center">Looking for something new? Explore various clubs to join and participate in!</h3>
       <div className="row">
         {clubs.length > 0 ? (
           clubs.map((club) => (

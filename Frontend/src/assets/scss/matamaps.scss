@@ -1,10 +1,20 @@
+// fonts
+body {
+    font-family: "Roboto Condensed", serif;
+    font-optical-sizing: auto;
+}
+
+.mm-header {
+    font-family: "Rammetto One", serif;
+    font-weight: 400;
+    font-style: normal;
+}
 
 // main layout scss
 #mytask-layout{
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    /* -webkit-box-orient: vertical; */
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
@@ -14,8 +24,51 @@
     flex-direction: row;
 }
 
+.mm-main {
+    width: 70%;
+    height: 100%;
+    left: 20%;
+    top: 0;
+}
+
+.mm-map-container {
+    justify-content: center;  /* Centers the iframe horizontally */
+    align-items: center;      /* Centers the iframe vertically */
+}
+
+#mm-iframe {
+    border: 5px solid black;  /* Adds a 2px solid black border */
+    background-color: #dddddd;
+}
+
 .mm-background-transparent {
-    background: rgba(89, 9, 9, 0.92) /* #db1313 at 50% */
+    background: rgba(89, 9, 9, 0.85); /* #db1313 at 50% */
+}
+
+.mm-center {
+    align-items: center;
+    justify-content: center;
+}
+
+.mm-card-container {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    width: 100%;
+    background-color: #fff;
+    color: #000;
+    border-radius: 25px;
+}
+  
+.mm-card-image {
+    width: 27%;
+    padding: 3%;
+    aspect-ratio: 1/1; /* Ensures the image stays square */
+    object-fit: cover; /* Ensures the image fills the space properly */
+}
+  
+.mm-card-text-content {
+    width: 70%;
+    padding: 10px;
 }
 
 .absolute-ttb { /* absolute top to bottom */
@@ -33,6 +86,10 @@
 
 .toast-body {
     background: rgba(89, 9, 9, 0.92) /* #db1313 at 50% */
+}
+
+.toast {
+    width: 100%;
 }
 
 .mm-text-body {
