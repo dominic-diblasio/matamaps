@@ -44,7 +44,13 @@ function ClubLeaderClubsPage() {
   }, []);
 
   if (loading) {
-    return <div>Loading clubs...</div>;
+    return (
+      <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
@@ -52,8 +58,8 @@ function ClubLeaderClubsPage() {
   }
 
   return (
-    <div className="container my-4">
-      <h2 className="text-center">Clubs You Manage</h2>
+    <div className="container mm-background-transparent">
+      <h2 className="text-center">Club Management</h2>
       <div className="row">
         {clubs.length > 0 ? (
           clubs.map((club) => (

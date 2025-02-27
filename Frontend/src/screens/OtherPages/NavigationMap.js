@@ -9,7 +9,7 @@ function CSUNMapSearch() {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      document.getElementById("csun-map").src = `${SEARCH_MAP_URL}${encodeURIComponent(searchQuery)}`;
+      document.getElementById("mm-iframe").src = `${SEARCH_MAP_URL}${encodeURIComponent(searchQuery)}`;
     }
   };
 
@@ -28,15 +28,13 @@ function CSUNMapSearch() {
         <button type="submit" className="btn ms-2 btn-seemore">Search</button>
       </form>
 
-      <div className="map-container">
+      <div className="mm-map-container">
         <iframe
-          id="csun-map"
+          id="mm-iframe"
           src={BASE_MAP_URL}
           title="CSUN 3D Map"
           width="100%"
-          height="600px"
-          style={{ border: "none" }}
-          
+          height="700px"
         ></iframe>
       </div>
     </div>

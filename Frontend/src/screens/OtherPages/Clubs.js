@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import APIClient from "./APIClient";
 
 function Clubs() {
@@ -9,6 +9,8 @@ function Clubs() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [role, setRole] = useState(null); // To store user role
+  // Rerouting to log-in page when disconnected
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchClubs = async () => {
@@ -47,6 +49,7 @@ function Clubs() {
       } catch (err) {
         console.error("Error fetching clubs:", err);
         setError("An error occurred while fetching clubs");
+        navigate("/login");
       } finally {
         setLoading(false);
       }
@@ -56,7 +59,13 @@ function Clubs() {
   }, [role]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
@@ -64,9 +73,9 @@ function Clubs() {
   }
 
   return (
-    <div className="container my-4 mm-background-transparent absolute-ttb">
-      <h2 className="text-center">Clubs</h2>
-      <p className="text-center">Explore various clubs to join and participate in!</p>
+    <div className="container mm-background-transparent">
+      <h1 className="text-center mm-header">Clubs</h1>
+      <h3 className="text-center">Looking for something new? Explore various clubs to join and participate in!</h3>
       <div className="row">
         {clubs.length > 0 ? (
           clubs.map((club) => (

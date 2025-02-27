@@ -36,6 +36,7 @@ function MyRSVPsPage() {
       } catch (err) {
         console.error("Error fetching user RSVPs:", err);
         setError(err.response?.data?.message || "An error occurred while fetching your RSVPs.");
+        navigate("/login");
       } finally {
         setLoading(false);
       }
@@ -45,7 +46,13 @@ function MyRSVPsPage() {
   }, []);
 
   if (loading) {
-    return <div>Loading your RSVPs...</div>;
+    return (
+      <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
@@ -58,8 +65,9 @@ function MyRSVPsPage() {
   };
 
   return (
-    <div className="container my-4">
-      <h2 className="text-center">My RSVPs</h2>
+    <div className="container mm-background-transparent">
+      <h1 className="text-center mm-header">Schedule</h1>
+      <h4 className="text-center">View your upcoming registered events here!</h4>
       <div className="row">
         {rsvps.length > 0 ? (
           rsvps.map((rsvp) => (
