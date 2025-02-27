@@ -120,4 +120,7 @@ nav{
 	.nav-btn{
 		display: none;
 	}
+	.sidebar-spacing {
+		width: 10%;
+	}
 }

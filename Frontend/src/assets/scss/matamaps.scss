@@ -39,6 +39,7 @@ body {
 #mm-iframe {
     border: 5px solid black;  /* Adds a 2px solid black border */
     background-color: #dddddd;
+    aspect-ratio: 16/10; /* Ensures the image stays square */
 }
 
 .mm-background-transparent {

@@ -36,6 +36,7 @@ function MyRSVPsPage() {
       } catch (err) {
         console.error("Error fetching user RSVPs:", err);
         setError(err.response?.data?.message || "An error occurred while fetching your RSVPs.");
+        navigate("/login");
       } finally {
         setLoading(false);
       }
@@ -45,7 +46,13 @@ function MyRSVPsPage() {
   }, []);
 
   if (loading) {
-    return <div>Loading your RSVPs...</div>;
+    return (
+      <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
