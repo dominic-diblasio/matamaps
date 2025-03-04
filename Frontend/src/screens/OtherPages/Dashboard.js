@@ -5,6 +5,11 @@ import { Link } from "react-router-dom";
 import './PersonalDetailsPage.css';
 import APIClient from "./APIClient";
 
+import mmEvent from '../../assets/images/matamaps-fullsize/mm-events.jpg';
+import mmClub from '../../assets/images/matamaps-fullsize/mm-clubs.jpg';
+//const mmEvent = require('../../assets/images/matamaps-fullsize/mm-events.jpg');
+//const mmClub = require('../../assets/images/matamaps-fullsize/mm-clubs.jpg');
+
 function DashboardLayout() {
     const [profile, setProfile] = useState({
         firstName: '',
@@ -54,6 +59,7 @@ function DashboardLayout() {
             <div className="col-lg-8 col-md-6 mb-4 flex items-center justify-center rounded-lg">
                 <div className="mm-card-container shadow-sm">
                     <img
+                        src={mmEvent} 
                         className="mm-card-image mm-events-img"
                         style={{ objectFit: "cover" }}
                     />
@@ -79,6 +85,7 @@ function DashboardLayout() {
             <div className="col-lg-8 col-md-6 mb-4 flex items-center justify-center rounded-lg">
                 <div className="mm-card-container shadow-sm">
                     <img
+                        src={mmClub} 
                         className="mm-card-image mm-events-img"
                         style={{ objectFit: "cover" }}
                     />

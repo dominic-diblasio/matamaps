@@ -33,7 +33,9 @@ function Announcements() {
       } catch (err) {
         console.error("Error fetching announcements:", err);
         setError("An error occurred while fetching announcements.");
-        navigate("/login");
+        Cookies.remove('jwt_token'); // Removes JWT token
+        Cookies.remove('role'); // Removes user role        
+        navigate("/login"); // Redirect back to login
       } finally {
         setLoading(false);
       }

@@ -34,11 +34,19 @@ body {
 }
 
 .mm-events-img {
-    src: url('../../images/matamaps-fullsize/mm-events.jpg');
+    /*
+    image: url('../../images/matamaps-fullsize/mm-events.jpg');
+    background-repeat: no-repeat;
+    background-size: auto;
+    */
 }
 
 .mm-clubs-img {
-    src: url('../../images/matamaps-fullsize/mm-clubs.jpg');
+    /*
+    background-image: url('../../images/matamaps-fullsize/mm-clubs.jpg');
+    background-repeat: no-repeat;
+    background-size: auto;
+    */
 }
 
 .text-success-local {
