@@ -49,7 +49,9 @@ function Clubs() {
       } catch (err) {
         console.error("Error fetching clubs:", err);
         setError("An error occurred while fetching clubs");
-        navigate("/login");
+        Cookies.remove('jwt_token'); // Removes JWT token
+        Cookies.remove('role'); // Removes user role        
+        navigate("/login"); // Redirect back to login
       } finally {
         setLoading(false);
       }

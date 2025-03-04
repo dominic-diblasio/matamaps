@@ -36,7 +36,9 @@ function MyRSVPsPage() {
       } catch (err) {
         console.error("Error fetching user RSVPs:", err);
         setError(err.response?.data?.message || "An error occurred while fetching your RSVPs.");
-        navigate("/login");
+        Cookies.remove('jwt_token'); // Removes JWT token
+        Cookies.remove('role'); // Removes user role        
+        navigate("/login"); // Redirect back to login
       } finally {
         setLoading(false);
       }
