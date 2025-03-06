@@ -33,7 +33,7 @@ function CSUNMapSearch() {
           id="mm-iframe"
           src={BASE_MAP_URL}
           title="CSUN 3D Map"
-          width="100%"
+          width="119%"
           height="700px"
         ></iframe>
       </div>
