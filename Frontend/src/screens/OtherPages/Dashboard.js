@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import './PersonalDetailsPage.css';
 import APIClient from "./APIClient";
+import MMFeed from "./MMFeed";
 
 import mmEvent from '../../assets/images/matamaps-fullsize/mm-events.jpg';
 import mmClub from '../../assets/images/matamaps-fullsize/mm-clubs.jpg';
@@ -105,6 +106,8 @@ function DashboardLayout() {
                 </div>
               </div>
 
+            {/* Feed Algorithm (See UseEffect()) */}
+            <MMFeed/>
         </div>
     );
 }
