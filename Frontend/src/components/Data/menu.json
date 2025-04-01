@@ -2,11 +2,11 @@
 {
     "menu": [
         {
-            "name": "Already Registered? Login",
+            "name": "Login",
             "routerLink": ["login"],
             "identifier": "Login",
             "iconClass": "icofont-login",
-            "breadcrumbMessage": "login account.",
+            "breadcrumbMessage": "Login to existing account.",
             "isCategory": false,
             "isApp": false,
             "children": []
@@ -16,7 +16,7 @@
             "routerLink": ["registration"],
             "identifier": "Registration",
             "iconClass": "icofont-users-alt-5",
-            "breadcrumbMessage": "Register a new employee.",
+            "breadcrumbMessage": "Register as a student.",
             "isCategory": false,
             "isApp": false,
             "children": []

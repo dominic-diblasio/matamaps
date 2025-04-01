@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie"; // Import js-cookie library
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { Link, useNavigate } from "react-router-dom";
 import APIClient from "./APIClient";
 
 function LoginForm({ setIsLoggedIn }) {
@@ -57,7 +57,7 @@ function LoginForm({ setIsLoggedIn }) {
           setLoginMessage("Login successful!");
 
           setIsLoggedIn(true); // Update login status
-          navigate("/clubs"); // Redirect after login
+          navigate("/"); // Redirect after login
         } else {
           setLoginMessage(response.data.message || "Login failed. Invalid credentials.");
         }
@@ -68,9 +68,9 @@ function LoginForm({ setIsLoggedIn }) {
   };
 
   return (
-    <div className="card mb-3">
+    <div className="card mb-3 mm-dark-bg">
       <div className="card-header py-3 d-flex justify-content-between bg-transparent border-bottom-0">
-        <h6 className="mb-0 fw-bold">Login</h6>
+        <h6 className="mb-0 mm-header">Login:</h6>
       </div>
       <div className="card-body">
         <form onSubmit={handleSubmit}>
@@ -84,6 +84,7 @@ function LoginForm({ setIsLoggedIn }) {
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
+                placeholder="Enter CSUN Email"
                 required
               />
               {errors.email && <div className="text-danger-local">{errors.email}</div>}
@@ -97,6 +98,7 @@ function LoginForm({ setIsLoggedIn }) {
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
+                placeholder="Enter Password"
                 required
               />
             </div>
@@ -109,6 +111,7 @@ function LoginForm({ setIsLoggedIn }) {
           <button type="submit" className="btn btn-primary mt-4">Login</button>
           <div className="mt-3">
             <a href="forgot-password">Forgot Password</a>
+            <p className="mt-3">Not Registered? <Link to={`/registration`} className="link">Sign Up Now</Link></p>
           </div>
         </form>
       </div>

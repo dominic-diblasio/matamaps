@@ -118,7 +118,7 @@ function ClubDetails() {
   }
 
   return (
-    <div className="container">
+    <div className="container my-4 mm-background-transparent">
       <h1 className="text-center my-4">{clubName} Details</h1>
 
       {username && isMember && (

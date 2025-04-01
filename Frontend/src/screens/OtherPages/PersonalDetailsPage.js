@@ -122,7 +122,7 @@ function PersonalDetailsPage() {
     switch (activeTab) {
       case 'profile':
         return (
-          <div className="tab-content">
+          <div className="tab-content mm-background-solid">
             <div className="form-row">
               <label>Username:</label>
               <input
@@ -185,17 +185,19 @@ function PersonalDetailsPage() {
   };
 
   return (
-    <div className="personal-details-page">
-      <div className="tabs">
-        <button className={activeTab === 'profile' ? 'active' : ''} onClick={() => setActiveTab('profile')}>
-          Profile
-        </button>
-        <button className={activeTab === 'contact' ? 'active' : ''} onClick={() => setActiveTab('contact')}>
-          Contact
-        </button>
+    <div className="container mm-background-transparent">
+      <div className="personal-details-page">
+        <div className="tabs">
+          <button className={activeTab === 'profile' ? 'active' : ''} onClick={() => setActiveTab('profile')}>
+            Profile
+          </button>
+          <button className={activeTab === 'contact' ? 'active' : ''} onClick={() => setActiveTab('contact')}>
+            Contact
+          </button>
+        </div>
+        <div className="last-updated">Last Updated At: 06-AUG-2024 09:30:24 PM PT</div>
+        {renderTabContent()}
       </div>
-      <div className="last-updated">Last Updated At: 06-AUG-2024 09:30:24 PM PT</div>
-      {renderTabContent()}
     </div>
   );
 }
