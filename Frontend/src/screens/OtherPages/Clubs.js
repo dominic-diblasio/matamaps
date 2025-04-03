@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import APIClient from "./APIClient";
 
 function Clubs() {
@@ -9,8 +9,6 @@ function Clubs() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [role, setRole] = useState(null); // To store user role
-  // Rerouting to log-in page when disconnected
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchClubs = async () => {
@@ -49,9 +47,6 @@ function Clubs() {
       } catch (err) {
         console.error("Error fetching clubs:", err);
         setError("An error occurred while fetching clubs");
-        Cookies.remove('jwt_token'); // Removes JWT token
-        Cookies.remove('role'); // Removes user role        
-        navigate("/login"); // Redirect back to login
       } finally {
         setLoading(false);
       }

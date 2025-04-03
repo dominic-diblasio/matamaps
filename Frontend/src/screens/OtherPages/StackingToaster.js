@@ -4,14 +4,11 @@ import { Toast } from "react-bootstrap";
 import Cookies from "js-cookie";
 import Avatar from "../../assets/images/matamaps-images/profile_av.jpg";
 import APIClient from "./APIClient";
-import { useNavigate } from "react-router-dom";
 
 function Announcements() {
   const [announcements, setAnnouncements] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // Rerouting to log-in page when disconnected
-  const navigate = useNavigate();
   
   // Fetch announcements from the backend
   useEffect(() => {
@@ -33,9 +30,6 @@ function Announcements() {
       } catch (err) {
         console.error("Error fetching announcements:", err);
         setError("An error occurred while fetching announcements.");
-        Cookies.remove('jwt_token'); // Removes JWT token
-        Cookies.remove('role'); // Removes user role        
-        navigate("/login"); // Redirect back to login
       } finally {
         setLoading(false);
       }
