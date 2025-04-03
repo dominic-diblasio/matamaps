@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import APIClient from "./APIClient";
@@ -14,6 +15,7 @@ function Events() {
   const [expandedEventId, setExpandedEventId] = useState(null); // Track expanded event
 
   const EVENT_DESCRIPTION_LENGTH = 170;
+  const navigate = useNavigate();
   const truncateText = (text, maxLength) => {
     if (!text) return;
     return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
@@ -97,6 +99,13 @@ function Events() {
   const toggleSeeMore = (event_id) => {
     setExpandedEventId(expandedEventId === event_id ? null : event_id);
   };
+  const locationSearch = (location) =>{
+
+    navigate("/nav-map", {state : location});
+
+
+
+  }
 
   const handleRegisterClick = async (event) => {
     if (!username) {
@@ -214,7 +223,12 @@ function Events() {
                       <>
                         <p className="card-text">
                           <strong>Location:</strong> {event.location}
+                          <button
+                          className="icofont-map btn-success mm-map-btn"
+                          onClick={() => locationSearch(event.location)}
+                          ></button>
                         </p>
+
                         <p className="card-text">
                           <strong>Status:</strong> {event.event_status || "N/A"}
                         </p>
