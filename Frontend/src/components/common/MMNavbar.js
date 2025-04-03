@@ -15,7 +15,8 @@ function MMNavbar(props) {
   const [hidden, setHidden] = useState(true);
   const [menuData, setMenuData] = useState(menu?.menu || []); // 1️⃣ Use default menu.json
   const { activekey } = props;
-  const { isLoggedIn } = props; 
+  const { isLoggedIn } = props;
+  const tokenFreeRoutes = ["/login", "/registration"];
 
   // **1️⃣ Check if JWT token and role exist, otherwise load menu.json**
   useEffect(() => {
@@ -25,7 +26,11 @@ function MMNavbar(props) {
       console.log('JWT Token:', token);
       console.log('User role from cookies:', role);
 
-      if (role === 'club_leader') {
+      // Check in the case that web-token expires, and if we are not in a state that considers the user 'not logged in'
+      if (token === undefined && !tokenFreeRoutes.includes(location.pathname)) {
+        // Logout here
+        handleLogout();
+      } else if (role === 'club_leader') {
         setMenuData(menu3?.menu3 || []); // If menu3 is not available, default to an empty array
       } else if (role === 'user') {
         setMenuData(menu4?.menu4 || []); // If menu4 is not available, default to an empty array
