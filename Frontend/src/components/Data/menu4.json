@@ -12,6 +12,17 @@
             "children": []
         },
         {
+            "name": "Recommendations",
+            "routerLink": ["recommended-clubs"],
+            "identifier": "Matamaps",
+            "iconClass": "icofont-user-friends",
+            "iconRef": "gear",
+            "breadcrumbMessage": "View Recommendations.",
+            "isCategory": false,
+            "isApp": false,
+            "children": []
+        },
+        {
             "name": "Announcements",
             "routerLink": ["st"],
             "identifier": "Announcements",

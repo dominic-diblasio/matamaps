@@ -39,14 +39,14 @@ router.post("/", async (req, res) => {
 
       // Send the JWT and role in HttpOnly cookies
       res.cookie("jwt_token", token, {
-        httpOnly: true,
+        httpOnly: process.env.NODE_ENV === "production" ? true : false, // disable httpOnly in development
         secure: process.env.NODE_ENV === "production",
         sameSite: "Lax",
         maxAge: 60 * 60 * 1000, // 1 hour
       });
 
       res.cookie("role", user.role || "", {
-        httpOnly: true,
+        httpOnly: process.env.NODE_ENV === "production" ? true : false, // disable httpOnly in development
         secure: process.env.NODE_ENV === "production",
         sameSite: "Lax",
         maxAge: 60 * 60 * 1000, // 1 hour

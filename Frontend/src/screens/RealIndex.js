@@ -36,7 +36,7 @@ import AddClubMemberPage from "./OtherPages/AddClubMemberPage";
 // import PageHeader1 from "../components/common/PageHeader1";
 // import Header from "../components/common/Header";
 // import PageHeader from "../components/common/PageHeader";
-
+import RecommendedClubs from "./OtherPages/RecommendedClubs";
 
 function EmptyPageIndex(props) {
     // const { activekey } = props;
@@ -75,6 +75,7 @@ function EmptyPageIndex(props) {
                     <Route exact path="/personal-details" element={<PersonalDetailsPage />} />
                     <Route exact path="/st" element={<StackingToaster />} />
                     <Route exact path="/club-announcements/:club_id" element={<ClubAnnouncementsPage />} />
+                    <Route exact path="/recommended-clubs" element={<RecommendedClubs />} />
                     <Route path ="/nav-map" element={<NavigationPage/>} />
                 </ReactRoutes>
             </div>
