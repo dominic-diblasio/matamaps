@@ -3,6 +3,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import './PersonalDetailsPage.css';
 import APIClient from "./APIClient";
+import MMKeywordForm from "./MMKeywordForm";
 
 function PersonalDetailsPage() {
   const [activeTab, setActiveTab] = useState('profile');
@@ -164,6 +165,7 @@ function PersonalDetailsPage() {
                 Save All Changes
               </button>
             )}
+            <MMKeywordForm/>
           </div>
         );
       case 'contact':
