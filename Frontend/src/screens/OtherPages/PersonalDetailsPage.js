@@ -1,441 +1,408 @@
+// src/PersonalDetailsPage.js
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Cookies from "js-cookie";
-import './PersonalDetailsPage.css';
 import APIClient from "./APIClient";
-import MMKeywordForm from "./MMKeywordForm";
+import InterestsPicker from "./InterestsPicker";
+import "./PersonalDetailsPage.css";
 
 function PersonalDetailsPage() {
-  const [activeTab, setActiveTab] = useState('profile');
-  const [errors, setErrors] = useState({});
+  const [activeTab, setActiveTab] = useState("profile");
   const [profile, setProfile] = useState({
-    lastName: '',
-    firstName: '',
-    username: '',
+    username: "",
+    firstName: "",
+    lastName: "",
   });
-
-  const [contact, setContact] = useState({
-    email: ''
-  });
-
+  const [contact, setContact] = useState({ email: "" });
   const [isEditable, setIsEditable] = useState({
     username: false,
-    lastName: false,
     firstName: false,
+    lastName: false,
   });
 
+  // Fetch only profile & contact here
   useEffect(() => {
-    const fetchData = async () => {
-      const jwt_token = Cookies.get("jwt_token");
-      const session_id = Cookies.get("session_id");
+    const jwt = Cookies.get("jwt_token");
+    if (!jwt) return;
 
-      if (jwt_token) {
-        try {
-          const response = await APIClient.get(`users/account/details`, {
-            headers: {
-              Authorization: `Bearer ${jwt_token}`,
-            },
-            withCredentials: true,
+    APIClient.get("users/account/details", {
+      headers: { Authorization: `Bearer ${jwt}` },
+      withCredentials: true,
+    })
+      .then((res) => {
+        if (res.data.success) {
+          const d = res.data.data;
+          setProfile({
+            username: d.username,
+            firstName: d.first_name,
+            lastName: d.last_name,
           });
-
-          if (response.data.success) {
-            const data = response.data.data;
-            setProfile({
-              lastName: data.last_name,
-              firstName: data.first_name,
-              username: data.username,
-            });
-
-            setContact({
-              email: data.email,
-            });
-          } else {
-            console.error("Error fetching details:", response.data.message);
-          }
-        } catch (error) {
-          console.error("Error fetching personal details:", error);
-          if (error.response && error.response.status === 403) {
-            alert("Your session has expired. Please log in again.");
-          } else {
-            alert("An error occurred while fetching details. Please try again.");
-          }
+          setContact({ email: d.email });
         }
-      }
-    };
-
-    fetchData();
+      })
+      .catch((err) => console.error("Error loading profile:", err));
   }, []);
 
-  const handleInputChange = (field, value) => {
-    setProfile((prevProfile) => ({
-      ...prevProfile,
-      [field]: value,
-    }));
-  };
+  const toggleEdit = (field) =>
+    setIsEditable((e) => ({ ...e, [field]: !e[field] }));
 
-  const toggleEdit = (field) => {
-    setIsEditable((prevEditable) => ({
-      ...prevEditable,
-      [field]: !prevEditable[field],
-    }));
-  };
+  const onChangeProfile = (field, value) =>
+    setProfile((p) => ({ ...p, [field]: value }));
 
-  const saveDetails = async () => {
-    const jwt_token = Cookies.get("jwt_token");
-    const session_id = Cookies.get("session_id");
-  
-    const payload = {
-      username: profile.username,
-      first_name: profile.firstName,
-      last_name: profile.lastName,
-      email: contact.email, // Email is read-only, still included to match the backend.
-    };
-  
-    console.log('Sending update request with payload:', payload);
-  
-    try {
-      const response = await APIClient.put(
-        `users/account/update`,
-        payload,
-        {
-          headers: {
-            Authorization: `Bearer ${jwt_token}`,
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
-  
-      if (response.data.success) {
-        alert("Details saved successfully.");
-      } else {
-        console.error("Error saving details:", response.data.message);
-        alert("Failed to save details. Please try again.");
+  const saveProfile = () => {
+    const jwt = Cookies.get("jwt_token");
+    APIClient.put(
+      "users/account/update",
+      {
+        username: profile.username,
+        first_name: profile.firstName,
+        last_name: profile.lastName,
+        email: contact.email,
+      },
+      {
+        headers: { Authorization: `Bearer ${jwt}` },
+        withCredentials: true,
       }
-    } catch (error) {
-      console.error("Error saving details:", error);
-      alert("An error occurred while saving details.");
-    }
+    )
+      .then((res) => {
+        if (res.data.success) alert("Details saved.");
+        else alert("Save failed.");
+      })
+      .catch((err) => {
+        console.error("Error saving profile:", err);
+        alert("Error saving details.");
+      });
   };
-  
 
-  const renderTabContent = () => {
-    switch (activeTab) {
-      case 'profile':
-        return (
-          <div className="tab-content mm-background-solid">
-            <div className="form-row">
-              <label>Username:</label>
-              <input
-                type="text"
-                value={profile.username}
-                onChange={(e) => handleInputChange('username', e.target.value)}
-                readOnly={!isEditable.username}
-              />
-              <button className="edit-btn" onClick={() => toggleEdit('username')}>
-                {isEditable.username ? 'Save' : '✏️'}
-              </button>
-            </div>
-            <div className="form-row">
-              <label>Last Name:</label>
-              <input
-                type="text"
-                value={profile.lastName}
-                onChange={(e) => handleInputChange('lastName', e.target.value)}
-                readOnly={!isEditable.lastName}
-              />
-              <button className="edit-btn" onClick={() => toggleEdit('lastName')}>
-                {isEditable.lastName ? 'Save' : '✏️'}
-              </button>
-            </div>
-            <div className="form-row">
-              <label>First Name:</label>
-              <input
-                type="text"
-                value={profile.firstName}
-                onChange={(e) => handleInputChange('firstName', e.target.value)}
-                readOnly={!isEditable.firstName}
-              />
-              <button className="edit-btn" onClick={() => toggleEdit('firstName')}>
-                {isEditable.firstName ? 'Save' : '✏️'}
-              </button>
-            </div>
-            {Object.values(isEditable).some((editable) => editable) && (
-              <button className="btn btn-primary" onClick={saveDetails}>
-                Save All Changes
-              </button>
-            )}
-            <MMKeywordForm/>
-          </div>
-        );
-      case 'contact':
-        return (
-          <div className="tab-content">
-            <div className="form-row">
-              <label>Email:</label>
-              <input
-                type="email"
-                value={contact.email}
-                readOnly
-              />
-            </div>
-          </div>
-        );
-      default:
-        return null;
-    }
-  };
+  const renderProfileTab = () => (
+    <div className="tab-content">
+      {["username", "firstName", "lastName"].map((f) => (
+        <div key={f} className="form-row">
+          <label>
+            {f === "firstName"
+              ? "First Name"
+              : f === "lastName"
+              ? "Last Name"
+              : "Username"}
+            :
+          </label>
+          <input
+            type="text"
+            value={profile[f]}
+            readOnly={!isEditable[f]}
+            onChange={(e) => onChangeProfile(f, e.target.value)}
+          />
+          <button className="edit-btn" onClick={() => toggleEdit(f)}>
+            {isEditable[f] ? "Save" : "✏️"}
+          </button>
+        </div>
+      ))}
+      {Object.values(isEditable).some(Boolean) && (
+        <button className="save-btn" onClick={saveProfile}>
+          Save All Changes
+        </button>
+      )}
+    </div>
+  );
+
+  const renderContactTab = () => (
+    <div className="tab-content">
+      <div className="form-row">
+        <label>Email:</label>
+        <input type="email" value={contact.email} readOnly />
+      </div>
+    </div>
+  );
 
   return (
     <div className="container mm-background-transparent">
       <div className="personal-details-page">
+        {/* Tabs */}
         <div className="tabs">
-          <button className={activeTab === 'profile' ? 'active' : ''} onClick={() => setActiveTab('profile')}>
+          <button
+            className={activeTab === "profile" ? "active" : ""}
+            onClick={() => setActiveTab("profile")}
+          >
             Profile
           </button>
-          <button className={activeTab === 'contact' ? 'active' : ''} onClick={() => setActiveTab('contact')}>
+          <button
+            className={activeTab === "contact" ? "active" : ""}
+            onClick={() => setActiveTab("contact")}
+          >
             Contact
           </button>
+          <button
+            className={activeTab === "interests" ? "active" : ""}
+            onClick={() => setActiveTab("interests")}
+          >
+            Interests
+          </button>
         </div>
-        <div className="last-updated">Last Updated At: 06-AUG-2024 09:30:24 PM PT</div>
-        {renderTabContent()}
+
+        <div className="last-updated">
+          Last Updated At: 06-AUG-2024 09:30 PM PT
+        </div>
+
+        {/* Conditionally render each tab’s content */}
+        {activeTab === "profile" && renderProfileTab()}
+        {activeTab === "contact" && renderContactTab()}
+        {activeTab === "interests" && <InterestsPicker />}
       </div>
     </div>
   );
 }
 
 export default PersonalDetailsPage;
-
-
+// // PersonalDetailsPage.js
 // import React, { useState, useEffect } from "react";
-// import axios from "axios";
 // import Cookies from "js-cookie";
-// import './PersonalDetailsPage.css';
+// import APIClient from "./APIClient";
+// import "./PersonalDetailsPage.css";
 
 // function PersonalDetailsPage() {
-//   const [activeTab, setActiveTab] = useState('profile');
-//   const [errors, setErrors] = useState({});
-//   const [profile, setProfile] = useState({
-//     lastName: '',
-//     firstName: '',
-//   });
+//   const [activeTab, setActiveTab] = useState("profile");
+//   const [profile, setProfile] = useState({ username: "", firstName: "", lastName: "" });
+//   const [contact, setContact] = useState({ email: "" });
+//   const [isEditable, setIsEditable] = useState({ username: false, firstName: false, lastName: false });
 
-//   const [contact, setContact] = useState({
-//     email: ''
-//   });
-//   const [isEditable, setIsEditable] = useState({
-//     lastName: false,
-//     firstName: false,
-//     email: false,
-//   });
+//   // — Interests state
+//   const [allKeywords, setAllKeywords] = useState({});    // { category: [ {keyword_id, keyword} ] }
+//   const [userKeywords, setUserKeywords] = useState([]);  // [ { keyword_id, keyword, category } ]
+//   const [selectedCategory, setSelectedCategory] = useState("");
 
+//   // Fetch profile/contact + interests + all keywords
 //   useEffect(() => {
-//     const fetchData = async () => {
-//       const jwt_token = Cookies.get("jwt_token");
-//       const session_id = Cookies.get("session_id");
+//     const jwt = Cookies.get("jwt_token");
+//     if (!jwt) return;
 
-//       if (jwt_token) {
-//         try {
-//           const response = await APIClient.get(`employee/personal/details/display/${session_id}`, {
-//             headers: {
-//               Authorization: `Bearer ${jwt_token}`,
-//             },
-//             withCredentials: true,
-//           });
+//     const p1 = APIClient.get("users/account/details", {
+//       headers: { Authorization: `Bearer ${jwt}` },
+//       withCredentials: true,
+//     });
+//     const p2 = APIClient.get("users/interests/user", {
+//       headers: { Authorization: `Bearer ${jwt}` },
+//       withCredentials: true,
+//     });
+//     const p3 = APIClient.get("users/interests/all", {
+//       headers: { Authorization: `Bearer ${jwt}` },
+//       withCredentials: true,
+//     });
 
-//           if (response.data.success) {
-//             const data = response.data.data;
-//             setProfile({
-//               lastName: data.lastName,
-//               firstName: data.firstName,
-//             });
-
-//             setContact({
-//               email: data.email,
-//             });
-//           } else {
-//             console.error("Error fetching details:", response.data.message);
-//           }
-//         } catch (error) {
-//           console.error("Error fetching personal details:", error);
-//           if (error.response && error.response.status === 403) {
-//             alert("Your session has expired. Please log in again.");
-//           } else {
-//             alert("An error occurred while fetching details. Please try again.");
-//           }
+//     Promise.all([p1, p2, p3])
+//       .then(([profRes, userRes, allRes]) => {
+//         // Profile
+//         if (profRes.data.success) {
+//           const d = profRes.data.data;
+//           setProfile({ username: d.username, firstName: d.first_name, lastName: d.last_name });
+//           setContact({ email: d.email });
 //         }
-//       }
-//     };
-
-//     fetchData();
+//         // User’s interests
+//         if (userRes.data.success) {
+//           setUserKeywords(userRes.data.data);
+//         }
+//         // All keywords by category
+//         if (allRes.data.success) {
+//           setAllKeywords(allRes.data.data);
+//           // default to first category
+//           const cats = Object.keys(allRes.data.data);
+//           if (cats.length) setSelectedCategory(cats[0]);
+//         }
+//       })
+//       .catch((err) => {
+//         console.error("Error fetching profile or keywords:", err);
+//       });
 //   }, []);
 
-//   const handleInputChange = (section, field, value) => {
-//     if (section === 'profile') {
-//       setProfile((prevProfile) => ({
-//         ...prevProfile,
-//         [field]: value
-//       }));
-//     }  else if (section === 'contact') {
-//       setContact((prevContact) => ({
-//         ...prevContact,
-//         [field]: value
-//       }));
-//     }
-//   };
-
-//   const saveDetails = async () => {
-//     const jwt_token = Cookies.get("jwt_token");
-//     const session_id = Cookies.get("session_id");
-  
-//     try {
-//       const response = await APIClient.post(
-//         `employee/personal/details/edit/save/${session_id}`,
-//         {
-//           profile: {
-//             firstName: profile.firstName,
-//             lastName: profile.lastName,
-//           },
-//           contact: {
-//             email: contact.email,
-//           },
-//         },
-//         {
-//           headers: {
-//             Authorization: `Bearer ${jwt_token}`,
-//             "Content-Type": "application/json",
-//           },
-//           withCredentials: true,
-//         }
-//       );
-  
-//       if (response.data.success) {
-//         alert("Details saved successfully.");
-//       } else {
-//         console.error("Error saving details:", response.data.message);
-//         alert("Failed to save details. Please try again.");
-//       }
-//     } catch (error) {
-//       console.error("Error saving details:", error);
-//       alert("An error occurred while saving details.");
-//     }
-//   };
-  
-
+//   // Toggle edit mode (profile)
 //   const toggleEdit = (field) => {
-//     if (isEditable[field]) {
-//       // If toggling off edit mode, save the changes
-//       if (validateFields()) {
-//         saveDetails();
+//     setIsEditable((prev) => ({ ...prev, [field]: !prev[field] }));
+//   };
+//   const onChangeProfile = (fld, val) => {
+//     setProfile((p) => ({ ...p, [fld]: val }));
+//   };
+//   const saveProfile = () => {
+//     const jwt = Cookies.get("jwt_token");
+//     APIClient.put(
+//       "users/account/update",
+//       {
+//         username: profile.username,
+//         first_name: profile.firstName,
+//         last_name: profile.lastName,
+//         email: contact.email,
+//       },
+//       {
+//         headers: { Authorization: `Bearer ${jwt}` },
+//         withCredentials: true,
+//       }
+//     )
+//       .then((res) => {
+//         if (res.data.success) alert("Details saved");
+//         else alert("Save failed");
+//       })
+//       .catch((err) => {
+//         console.error(err);
+//         alert("Save error");
+//       });
+//   };
+
+//   // Add or remove an interest
+//   const toggleKeyword = async (kwId) => {
+//     const jwt = Cookies.get("jwt_token");
+//     const already = userKeywords.some((k) => k.keyword_id === kwId);
+//     try {
+//       if (already) {
+//         await APIClient.delete(
+//           "users/interests/remove",
+//           {
+//             headers: { Authorization: `Bearer ${jwt}` },
+//             withCredentials: true,
+//             data: { keyword_id: kwId },
+//           }
+//         );
 //       } else {
-//         return; // Don't toggle if validation fails
+//         await APIClient.post(
+//           "users/interests/add",
+//           { keyword_id: kwId },
+//           {
+//             headers: { Authorization: `Bearer ${jwt}` },
+//             withCredentials: true,
+//           }
+//         );
 //       }
+//       // refresh interests
+//       const r = await APIClient.get("users/interests/user", {
+//         headers: { Authorization: `Bearer ${jwt}` },
+//         withCredentials: true,
+//       });
+//       if (r.data.success) setUserKeywords(r.data.data);
+//     } catch (err) {
+//       console.error("Error toggling interest:", err);
 //     }
-
-//     setIsEditable((prev) => ({
-//       ...prev,
-//       [field]: !prev[field]
-//     }));
 //   };
 
-//   const validateFields = () => {
-//     const newErrors = {};
-//     const namePattern = /^[A-Za-z\s]+$/;
+//   // --- Renderers ---
+//   const renderProfileTab = () => (
+//     <div className="tab-content">
+//       {["username", "firstName", "lastName"].map((f) => (
+//         <div key={f} className="form-row">
+//           <label>
+//             {f === "firstName" ? "First Name" : f === "lastName" ? "Last Name" : "Username"}:
+//           </label>
+//           <input
+//             type="text"
+//             value={profile[f]}
+//             readOnly={!isEditable[f]}
+//             onChange={(e) => onChangeProfile(f, e.target.value)}
+//           />
+//           <button className="edit-btn" onClick={() => toggleEdit(f)}>
+//             {isEditable[f] ? "Save" : "✏️"}
+//           </button>
+//         </div>
+//       ))}
+//       {Object.values(isEditable).some(Boolean) && (
+//         <button className="save-btn" onClick={saveProfile}>
+//           Save All Changes
+//         </button>
+//       )}
+//     </div>
+//   );
 
-//     if (!profile.lastName) {
-//       newErrors.lastName = 'Last name is required';
-//     } else if (!namePattern.test(profile.lastName)) {
-//       newErrors.lastName = 'Last name cannot contain numbers or special characters';
-//     }
+//   const renderContactTab = () => (
+//     <div className="tab-content">
+//       <div className="form-row">
+//         <label>Email:</label>
+//         <input type="email" value={contact.email} readOnly />
+//       </div>
+//     </div>
+//   );
 
-//     if (!profile.firstName) {
-//       newErrors.firstName = 'First name is required';
-//     } else if (!namePattern.test(profile.firstName)) {
-//       newErrors.firstName = 'First name cannot contain numbers or special characters';
-//     }
+//   const renderInterestsTab = () => {
+//     // keywords in selected category not already added
+//     const available = allKeywords[selectedCategory]?.filter(
+//       (kw) => !userKeywords.some((u) => u.keyword_id === kw.keyword_id)
+//     ) || [];
 
-//     if (!contact.email) {
-//       newErrors.email = 'Email is required';
-//     } else {
-//       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-//       if (!emailPattern.test(contact.email)) {
-//         newErrors.email = 'Please enter a valid email address';
-//       }
-//     }
-
-//     setErrors(newErrors);
-//     return Object.keys(newErrors).length === 0;
-//   };
-
-//   const renderTabContent = () => {
-//     switch (activeTab) {
-//       case 'profile':
-//         return (
-//           <div className="tab-content">
-//             <div className="form-row">
-//               <label>Last Name:</label>
-//               <input
-//                 type="text"
-//                 value={profile.lastName}
-//                 onChange={(e) => handleInputChange('profile', 'lastName', e.target.value)}
-//                 readOnly={!isEditable.lastName}
-//               />
-//               {errors.lastName && <span className="error">{errors.lastName}</span>}
-//               <button className="edit-btn" onClick={() => toggleEdit('lastName')}>
-//                 {isEditable.lastName ? 'Save' : '✏️'}
-//               </button>
-//             </div>
-//             <div className="form-row">
-//               <label>First Name:</label>
-//               <input
-//                 type="text"
-//                 value={profile.firstName}
-//                 onChange={(e) => handleInputChange('profile', 'firstName', e.target.value)}
-//                 readOnly={!isEditable.firstName}
-//               />
-//               {errors.firstName && <span className="error">{errors.firstName}</span>}
-//               <button className="edit-btn" onClick={() => toggleEdit('firstName')}>
-//                 {isEditable.firstName ? 'Save' : '✏️'}
-//               </button>
-//             </div>
+//     return (
+//       <div className="tab-content">
+//         {/* 1) User’s current interests */}
+//         <div className="keyword-category">
+//           <h5>Your Interests</h5>
+//           <div className="keyword-list">
+//             {userKeywords.map((kw) => (
+//               <span key={kw.keyword_id} className="keyword-pill">
+//                 {kw.keyword}
+//                 <button onClick={() => toggleKeyword(kw.keyword_id)}>×</button>
+//               </span>
+//             ))}
+//             {userKeywords.length === 0 && <em>No interests yet.</em>}
 //           </div>
-//         );
-//       case 'contact':
-//         return (
-//           <div className="tab-content">
-//             <div className="form-row">
-//               <label>Email:</label>
-//               <input
-//                 type="email"
-//                 value={contact.email}
-//                 onChange={(e) => handleInputChange('contact', 'email', e.target.value)}
-//                 readOnly={!isEditable.email}
-//               />
-//               {errors.email && <span className="error">{errors.email}</span>}
-//               <button className="edit-btn" onClick={() => toggleEdit('email')}>
-//                 {isEditable.email ? 'Save' : '✏️'}
+//         </div>
+
+//         {/* 2) Category dropdown */}
+//         <div className="form-row">
+//           <label>Category:</label>
+//           <select
+//             value={selectedCategory}
+//             onChange={(e) => setSelectedCategory(e.target.value)}
+//           >
+//             {Object.keys(allKeywords).map((cat) => (
+//               <option key={cat} value={cat}>
+//                 {cat}
+//               </option>
+//             ))}
+//           </select>
+//         </div>
+
+//         {/* 3) Available keywords in that category */}
+//         <div className="keyword-category">
+//           <h5>Available Keywords</h5>
+//           <div className="keyword-list">
+//             {available.map((kw) => (
+//               <button
+//                 key={kw.keyword_id}
+//                 className="keyword-btn"
+//                 onClick={() => toggleKeyword(kw.keyword_id)}
+//               >
+//                 + {kw.keyword}
 //               </button>
-//             </div>
+//             ))}
+//             {available.length === 0 && <em>All done in this category!</em>}
 //           </div>
-//         );
-//       default:
-//         return null;
-//     }
+//         </div>
+//       </div>
+//     );
 //   };
 
 //   return (
-//     <div className="personal-details-page">
-//     <div className="tabs">
-//       <button className={activeTab === 'profile' ? 'active' : ''} onClick={() => setActiveTab('profile')}>
-//         Profile
-//       </button>
-//       <button className={activeTab === 'contact' ? 'active' : ''} onClick={() => setActiveTab('contact')}>
-//         Contact
-//       </button>
+//     <div className="container mm-background-transparent">
+//       <div className="personal-details-page">
+//         <div className="tabs">
+//           <button
+//             className={activeTab === "profile" ? "active" : ""}
+//             onClick={() => setActiveTab("profile")}
+//           >
+//             Profile
+//           </button>
+//           <button
+//             className={activeTab === "contact" ? "active" : ""}
+//             onClick={() => setActiveTab("contact")}
+//           >
+//             Contact
+//           </button>
+//           <button
+//             className={activeTab === "interests" ? "active" : ""}
+//             onClick={() => setActiveTab("interests")}
+//           >
+//             Interests
+//           </button>
+//         </div>
+
+//         <div className="last-updated">Last Updated At: 06-AUG-2024 09:30 PM PT</div>
+
+//         {activeTab === "profile" && renderProfileTab()}
+//         {activeTab === "contact" && renderContactTab()}
+//         {activeTab === "interests" && renderInterestsTab()}
+//       </div>
 //     </div>
-//     <div className="last-updated">Last Updated At: 06-AUG-2024 09:30:24 PM PT</div>
-//     {renderTabContent()}
-//   </div>
 //   );
 // }
 
