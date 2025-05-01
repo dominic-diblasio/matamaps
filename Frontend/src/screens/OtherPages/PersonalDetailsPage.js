@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import APIClient from "./APIClient";
-import InterestsPicker from "./InterestsPicker";
+import MMKeywordForm from "./MMKeywordForm";
 import "./PersonalDetailsPage.css";
 
 function PersonalDetailsPage() {
@@ -145,7 +145,7 @@ function PersonalDetailsPage() {
         {/* Conditionally render each tab’s content */}
         {activeTab === "profile" && renderProfileTab()}
         {activeTab === "contact" && renderContactTab()}
-        {activeTab === "interests" && <InterestsPicker />}
+        {activeTab === "interests" && <MMKeywordForm />}
       </div>
     </div>
   );

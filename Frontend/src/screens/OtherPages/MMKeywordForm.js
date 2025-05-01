@@ -3,98 +3,120 @@ import { Form, Button, Badge, InputGroup } from 'react-bootstrap';
 import Select from 'react-select';
 import APIClient from './APIClient'; // Adjust your API client import
 import Cookies from "js-cookie";
+import makeAnimated from 'react-select/animated';
 
-function MMKeywordForm() {
-    const [inputValue, setInputValue] = useState('');
-    const [keywordOptions, setKeywordOptions] = useState([]);
-    const [selectedKeywords, setSelectedKeywords] = useState([]);
 
-    useEffect(() => {
-        const fetchKeywords = async () => {
-            
-            const jwt_token = Cookies.get("jwt_token");
+export default function MMKeywordForm() {
+  const [allKeywords, setAllKeywords] = useState({});    // { category: [ {keyword_id, keyword} ] }
+  const [userKeywords, setUserKeywords] = useState([]);  // [ { keyword_id, keyword, category } ]
+  const [selectedCategory, setSelectedCategory] = useState("");
 
-            try {
-                if (!jwt_token) {
-                    setError("Unauthorized access. Please log in.");
-                    setLoading(false);
-                    return;
-                }
-                const response = await APIClient.get("keywords/names", {
-                    headers: { Authorization: `Bearer ${jwt_token}` },
-                    withCredentials: true,
-                });
-                const options = response.data.map(name => ({ label: name, value: name }));
-                setKeywordOptions(options);
-            } catch (error) {
-                console.error("Error fetching keywords:", error);
-            }
-        };
-        fetchKeywords();
-    }, []);
+  // Fetch user interests + all keywords
+  useEffect(() => {
+    const jwt = Cookies.get("jwt_token");
+    if (!jwt) return;
 
-    const addKeyword = (keyword) => {
-        if (!keyword || selectedKeywords.find(k => k === keyword)) return;
-        setSelectedKeywords([...selectedKeywords, keyword]);
-        setInputValue('');
-    };
+    const u = APIClient.get("users/interests/user", {
+      headers: { Authorization: `Bearer ${jwt}` },
+      withCredentials: true,
+    });
+    const a = APIClient.get("users/interests/all", {
+      headers: { Authorization: `Bearer ${jwt}` },
+      withCredentials: true,
+    });
 
-    const handleSelectChange = (selectedOption) => {
-        if (selectedOption) addKeyword(selectedOption.value);
-    };
-
-    const handleInputKeyDown = (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            addKeyword(inputValue.trim());
+    Promise.all([u, a])
+      .then(([userRes, allRes]) => {
+        if (userRes.data.success) setUserKeywords(userRes.data.data);
+        if (allRes.data.success) {
+          setAllKeywords(allRes.data.data);
+          const cats = Object.keys(allRes.data.data);
+          if (cats.length) setSelectedCategory(cats[0]);
         }
-    };
+      })
+      .catch(console.error);
+  }, []);
 
-    const removeKeyword = (keyword) => {
-        setSelectedKeywords(selectedKeywords.filter(k => k !== keyword));
-    };
+  // Toggle add/remove interest
+  const toggleKeyword = async (kwId) => {
+    const jwt = Cookies.get("jwt_token");
+    const already = userKeywords.some((k) => k.keyword_id === kwId);
+    try {
+      if (already) {
+        await APIClient.delete(
+          "users/interests/remove",
+          {
+            headers: { Authorization: `Bearer ${jwt}` },
+            withCredentials: true,
+            data: { keyword_id: kwId },
+          }
+        );
+      } else {
+        await APIClient.post(
+          "users/interests/add",
+          { keyword_id: kwId },
+          { headers: { Authorization: `Bearer ${jwt}` }, withCredentials: true }
+        );
+      }
+      // Refresh
+      const r = await APIClient.get("users/interests/user", {
+        headers: { Authorization: `Bearer ${jwt}` }, withCredentials: true
+      });
+      if (r.data.success) setUserKeywords(r.data.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-    return (
-        <Form>
-            <Form.Group controlId="keywordInput">
-                <Form.Label>Add Keywords</Form.Label>
-                <InputGroup className="mb-3">
-                    <Form.Control
-                        type="text"
-                        placeholder="Type a keyword"
-                        value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}
-                        onKeyDown={handleInputKeyDown}
-                    />
-                    <Button variant="primary" onClick={() => addKeyword(inputValue.trim())}>
-                        Add
-                    </Button>
-                </InputGroup>
+  // Compute available
+  const available = allKeywords[selectedCategory]
+    ? allKeywords[selectedCategory].filter(
+        (kw) => !userKeywords.some((u) => u.keyword_id === kw.keyword_id)
+      )
+    : [];
 
-                <Select
-                    options={keywordOptions}
-                    onChange={handleSelectChange}
-                    placeholder="Or select from list"
-                    isClearable
-                />
-            </Form.Group>
+  return (
+    <div className="interests-picker">
+      <div className="keyword-category">
+        <h5>Your Interests</h5>
+        <div className="keyword-list">
+          {userKeywords.map((kw) => (
+            <span key={kw.keyword_id} className="keyword-pill">
+              {kw.keyword}
+              <button onClick={() => toggleKeyword(kw.keyword_id)}>×</button>
+            </span>
+          ))}
+          {userKeywords.length === 0 && <em>No interests yet.</em>}
+        </div>
+      </div>
 
-            <div className="mt-3">
-                {selectedKeywords.map((keyword, index) => (
-                    <Badge
-                        key={index}
-                        pill
-                        bg="secondary"
-                        className="me-2 mb-2"
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => removeKeyword(keyword)}
-                    >
-                        {keyword} &times;
-                    </Badge>
-                ))}
-            </div>
-        </Form>
-    );
-};
+      <div className="form-row">
+        <label>Category:</label>
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+        >
+          {Object.keys(allKeywords).map((cat) => (
+            <option key={cat} value={cat}>{cat}</option>
+          ))}
+        </select>
+      </div>
 
-export default MMKeywordForm;
+      <div className="keyword-category">
+        <h5>Available Keywords</h5>
+        <div className="keyword-list">
+          {available.map((kw) => (
+            <button
+              key={kw.keyword_id}
+              className="keyword-btn"
+              onClick={() => toggleKeyword(kw.keyword_id)}
+            >
+              + {kw.keyword}
+            </button>
+          ))}
+          {available.length === 0 && <em>All done in this category!</em>}
+        </div>
+      </div>
+    </div>
+  );
+}
