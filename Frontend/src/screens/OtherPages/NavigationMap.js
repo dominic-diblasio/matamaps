@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-
+import { isMobile } from "react-device-detect";
 
 function CSUNMapSearch() {
   const { state: locationData } = useLocation();
@@ -14,6 +14,14 @@ function CSUNMapSearch() {
     setSearchQuery(locationData)
     }
 }, [locationData])
+
+  useEffect(() =>{
+ if(isMobile){
+  window.open("https://3dmap.csun.edu","_blank");
+ }
+
+
+}, []);
 
 const handleSearch = (e) => {
     e.preventDefault();
