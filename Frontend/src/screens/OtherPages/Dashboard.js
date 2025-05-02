@@ -8,6 +8,7 @@ import MMFeed from "./MMFeed";
 
 import mmEvent from '../../assets/images/matamaps-fullsize/mm-events.jpg';
 import mmClub from '../../assets/images/matamaps-fullsize/mm-clubs.jpg';
+import mmExplore from '../../assets/images/matamaps-fullsize/mm-explore.jpg';
 //const mmEvent = require('../../assets/images/matamaps-fullsize/mm-events.jpg');
 //const mmClub = require('../../assets/images/matamaps-fullsize/mm-clubs.jpg');
 
@@ -53,7 +54,7 @@ function DashboardLayout() {
         }, []);
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', padding: '20px' }}>
+        <div className="container mm-background-transparent" style={{ display: 'flex', flexDirection: 'column', gap: '20px', padding: '20px' }}>
             <h1 className="mm-header">Welcome, { profile.firstName }!</h1>
 
             {/* Events Redirect */}
@@ -101,6 +102,30 @@ function DashboardLayout() {
                         </p>
                     <div className="btn-container d-flex gap-2">
                         <button className="btn btn-addto"><Link to={`/clubs`} className="link">View Clubs</Link></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            {/* Explore Redirect */}
+            <div className="col-lg-8 col-md-6 mb-4 flex items-center justify-center rounded-lg">
+                <div className="mm-card-container shadow-sm">
+                    <img
+                        src={mmExplore} 
+                        className="mm-card-image mm-events-img"
+                        style={{ objectFit: "cover" }}
+                    />
+                    <div className="mm-card-text-content">
+                        <h3 className="card-title"><strong>Recommendations</strong></h3>
+                        <h5 className="card-text">
+                            <strong>Ready to explore?</strong>
+                        </h5>
+                        <p>
+                            <em>MataMaps</em> offers a clear way for clubs to stay in contact and plan their gathering and events
+                            using the site. To view more about Clubs and how to access them, click the link below.
+                        </p>
+                    <div className="btn-container d-flex gap-2">
+                        <button className="btn btn-addto"><Link to={`/add-interests`} className="link">Update Preferences</Link></button>
                     </div>
                   </div>
                 </div>

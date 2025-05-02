@@ -1,7 +1,7 @@
 import React, { useEffect, useState, setError, setLoading } from 'react';
 import { Form, Button, Badge, InputGroup } from 'react-bootstrap';
 import Select from 'react-select';
-import APIClient from './APIClient'; // Adjust your API client import
+import APIClient from '../APIClient'; // Adjust your API client import
 import Cookies from "js-cookie";
 import makeAnimated from 'react-select/animated';
 

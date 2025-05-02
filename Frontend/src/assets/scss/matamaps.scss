@@ -29,11 +29,19 @@ body {
     height: 100%;
     left: 20%;
     top: 0;
+    background: rgba(89, 9, 9, 1); /* #db1313 at 50% */
 }
 
 .mm-map-container {
     justify-content: center;  /* Centers the iframe horizontally */
     align-items: center;      /* Centers the iframe vertically */
+}
+
+.mm-map-background {
+    width: 125%;
+    background: rgba(89, 9, 9, 1); /* #db1313 at 50% */
+    height: 100%;
+    top: 0;
 }
 
 #mm-iframe {
@@ -43,7 +51,7 @@ body {
 }
 
 .mm-background-transparent {
-    background: rgba(89, 9, 9, 0.85); /* #db1313 at 50% */
+    background: rgba(89, 9, 9, 1); /* #db1313 at 50% */
 }
 
 .mm-center {
